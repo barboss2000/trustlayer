@@ -1,5 +1,3 @@
-import { JSONRpcProvider, OP20Contract, OP_NET } from "opnet"
-
 export default async function handler(req, res) {
   try {
     const { address } = req.query
@@ -8,27 +6,39 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Address is required" })
     }
 
-    const network = OP_NET.Testnet
+    const response = await fetch("https://regtest.opnet.org/api/v1/json-rpc", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        jsonrpc: "2.0",
+        method: "getbalance",
+        params: {
+          address: address
+        },
+        id: 1
+      })
+    })
 
-    const provider = new JSONRpcProvider(
-      "https://regtest.opnet.org",
-      network
-    )
+    const data = await response.json()
 
-    // rBTC balance
-    const rbtc = await provider.getBalance(address)
+    if (data.error) {
+      return res.status(500).json({
+        error: "RPC error",
+        details: data.error
+      })
+    }
 
     return res.status(200).json({
       network: "OP_NET Testnet",
       address,
-      balances: {
-        rBTC: rbtc
-      }
+      balance: data.result
     })
 
   } catch (error) {
     return res.status(500).json({
-      error: "Failed to fetch balances",
+      error: "Internal server error",
       details: error.message
     })
   }
