@@ -1,3 +1,6 @@
+![Status](https://img.shields.io/badge/status-live-brightgreen)
+![Network](https://img.shields.io/badge/network-bitcoin-orange)
+![Stage](https://img.shields.io/badge/stage-mvp-blue)
 # TrustLayer
 
 On-chain Reputation & Risk Scoring Protocol for Bitcoin L1
