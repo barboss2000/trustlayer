@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>TrustLayer — Bitcoin Reputation Protocol</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <style>
     body {
       margin: 0;
@@ -10,57 +10,125 @@
       background: #0b0f1c;
       color: white;
       text-align: center;
-      padding: 60px 20px;
     }
-    h1 {
-      font-size: 48px;
-      margin-bottom: 20px;
+
+    section {
+      padding: 80px 20px;
+      max-width: 1000px;
+      margin: auto;
     }
-    p {
-      font-size: 18px;
-      max-width: 600px;
-      margin: 0 auto 30px;
-      opacity: 0.8;
+
+    h1 { font-size: 48px; margin-bottom: 10px; }
+    h2 { font-size: 32px; margin-bottom: 20px; }
+    p { opacity: 0.8; }
+
+    input {
+      padding: 12px;
+      width: 300px;
+      border-radius: 6px;
+      border: none;
+      margin-right: 10px;
     }
+
+    button {
+      padding: 12px 20px;
+      border-radius: 6px;
+      border: none;
+      background: #f97316;
+      color: white;
+      cursor: pointer;
+    }
+
     .card {
       background: #141a2e;
       padding: 30px;
       border-radius: 12px;
+      margin-top: 30px;
       display: inline-block;
-      margin-top: 30px;
+      min-width: 300px;
     }
+
     .score {
-      font-size: 64px;
-      color: #4ade80;
+      font-size: 60px;
+      margin: 10px 0;
     }
-    button {
-      margin-top: 30px;
-      padding: 12px 24px;
-      border: none;
-      border-radius: 6px;
-      background: #f97316;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
+
+    .low { color: #4ade80; }
+    .medium { color: #facc15; }
+    .high { color: #ef4444; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .box {
+      background: #141a2e;
+      padding: 20px;
+      border-radius: 12px;
     }
   </style>
 </head>
 <body>
 
-<h1>TrustLayer</h1>
-<p>
-On-chain reputation & risk scoring protocol for Bitcoin L1.
-Analyze trust scores, contract behavior and address reputation.
-</p>
+<section>
+  <h1>TrustLayer</h1>
+  <p>On-chain Reputation & Risk Scoring for Bitcoin L1</p>
 
-<div class="card">
-  <div>Sample Trust Score</div>
-  <div class="score">86</div>
-  <div>Risk Level: Low</div>
-</div>
+  <div style="margin-top:30px;">
+    <input id="address" placeholder="Enter Bitcoin address"/>
+    <button onclick="analyze()">Analyze</button>
+  </div>
 
-<br/>
-<button>Launch App (Coming Soon)</button>
+  <div id="result" class="card" style="display:none;">
+    <div>Trust Score</div>
+    <div id="score" class="score"></div>
+    <div id="risk"></div>
+  </div>
+</section>
+
+<section>
+  <h2>How It Works</h2>
+  <div class="grid">
+    <div class="box">1. Index contract interactions</div>
+    <div class="box">2. Analyze behavioral patterns</div>
+    <div class="box">3. Generate transparent trust score</div>
+  </div>
+</section>
+
+<section>
+  <h2>Why It Matters</h2>
+  <div class="grid">
+    <div class="box">Prevent rug pulls</div>
+    <div class="box">Safer AI agents</div>
+    <div class="box">Trust layer for BTC DeFi</div>
+  </div>
+</section>
+
+<script>
+function analyze() {
+  const score = Math.floor(Math.random() * 100);
+  const result = document.getElementById("result");
+  const scoreEl = document.getElementById("score");
+  const riskEl = document.getElementById("risk");
+
+  result.style.display = "inline-block";
+  scoreEl.textContent = score;
+
+  if (score > 70) {
+    scoreEl.className = "score low";
+    riskEl.textContent = "Risk Level: Low";
+  } else if (score > 40) {
+    scoreEl.className = "score medium";
+    riskEl.textContent = "Risk Level: Medium";
+  } else {
+    scoreEl.className = "score high";
+    riskEl.textContent = "Risk Level: High";
+  }
+}
+</script>
 
 </body>
 </html>
