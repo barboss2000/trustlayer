@@ -1,231 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>TrustLayer — OP_NET Reputation Protocol</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #0b0f1c, #111827);
-      color: white;
-      text-align: center;
-    }
-
-    .container {
-      max-width: 800px;
-      margin: auto;
-      padding: 80px 20px;
-    }
-
-    h1 {
-      font-size: 48px;
-      margin-bottom: 10px;
-    }
-
-    .subtitle {
-      opacity: 0.7;
-      margin-bottom: 40px;
-    }
-
-    .network-selector {
-      margin-bottom: 30px;
-    }
-
-    .network-btn {
-      padding: 12px 22px;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-      margin: 5px;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-
-    .active {
-      background: #2563eb;
-      color: white;
-    }
-
-    .inactive {
-      background: #2a2f3f;
-      color: #aaa;
-    }
-
-    input {
-      padding: 15px;
-      width: 60%;
-      border-radius: 8px;
-      border: none;
-      margin-right: 10px;
-      font-size: 16px;
-    }
-
-    button.analyze {
-      padding: 15px 25px;
-      border-radius: 8px;
-      border: none;
-      background: #f97316;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .result {
-      margin-top: 40px;
-      padding: 30px;
-      border-radius: 12px;
-      background: #1f2937;
-      display: none;
-    }
-
-    .score {
-      font-size: 60px;
-      font-weight: bold;
-      margin: 20px 0;
-    }
-
-    .risk-low { color: #22c55e; }
-    .risk-medium { color: #eab308; }
-    .risk-high { color: #ef4444; }
-
-    .loading {
-      margin-top: 30px;
-      display: none;
-      opacity: 0.7;
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 6px 12px;
-      background: #111827;
-      border-radius: 20px;
-      font-size: 14px;
-      margin-bottom: 15px;
-      border: 1px solid #374151;
-    }
-
-    .footer {
-      margin-top: 80px;
-      opacity: 0.4;
-      font-size: 14px;
-    }
-  </style>
+  <title>TrustLayer Balance</title>
 </head>
+<body style="background:#0b0f1a;color:white;font-family:sans-serif;padding:40px">
 
-<body>
+  <h2>OP_NET Balance Checker</h2>
 
-  <div class="container">
+  <input id="address" placeholder="Enter OP_NET address" style="width:400px;padding:10px">
+  <button onclick="checkBalance()" style="padding:10px 20px">Check</button>
 
-    <h1>TrustLayer</h1>
-    <div class="subtitle">
-      OP_NET Reputation & Risk Scoring Protocol
-    </div>
+  <pre id="result" style="margin-top:20px"></pre>
 
-    <div class="badge" id="networkBadge">
-      Scanning: OP_NET Testnet
-    </div>
+  <script type="module">
+    import { JSONRpcProvider, OP_NET } from "https://esm.sh/opnet"
 
-    <div class="network-selector">
-      <button id="testnetBtn" class="network-btn active" onclick="setNetwork('testnet')">
-        OP_NET Testnet
-      </button>
+    async function checkBalance() {
+      const address = document.getElementById("address").value
+      const resultEl = document.getElementById("result")
 
-      <button id="mainnetBtn" class="network-btn inactive" onclick="setNetwork('mainnet')">
-        OP_NET Mainnet (Soon)
-      </button>
-    </div>
-
-    <div>
-      <input id="addressInput" placeholder="Enter OP_NET contract or address" />
-      <button class="analyze" onclick="analyze()">Analyze</button>
-    </div>
-
-    <div class="loading" id="loading">
-      Scanning OP_NET network...
-    </div>
-
-    <div class="result" id="resultBox">
-      <div id="riskLabel"></div>
-      <div class="score" id="scoreValue"></div>
-      <div id="details"></div>
-    </div>
-
-    <div class="footer">
-      TrustLayer — Building the Trust Oracle for OP_NET
-    </div>
-
-  </div>
-
-  <script>
-    let currentNetwork = "testnet";
-
-    function setNetwork(network) {
-      currentNetwork = network;
-
-      const testBtn = document.getElementById("testnetBtn");
-      const mainBtn = document.getElementById("mainnetBtn");
-      const badge = document.getElementById("networkBadge");
-
-      if (network === "testnet") {
-        testBtn.classList.add("active");
-        testBtn.classList.remove("inactive");
-        mainBtn.classList.add("inactive");
-        mainBtn.classList.remove("active");
-        badge.innerText = "Scanning: OP_NET Testnet";
-      } else {
-        testBtn.classList.add("inactive");
-        testBtn.classList.remove("active");
-        mainBtn.classList.add("active");
-        mainBtn.classList.remove("inactive");
-        badge.innerText = "OP_NET Mainnet — Coming Soon";
-      }
-    }
-
-    function analyze() {
-      if (currentNetwork === "mainnet") {
-        alert("OP_NET Mainnet support is coming soon.");
-        return;
-      }
-
-      const address = document.getElementById("addressInput").value;
       if (!address) {
-        alert("Please enter an address or contract.");
-        return;
+        resultEl.innerText = "Enter address"
+        return
       }
 
-      document.getElementById("loading").style.display = "block";
-      document.getElementById("resultBox").style.display = "none";
+      try {
+        const provider = new JSONRpcProvider(
+          "https://regtest.opnet.org",
+          OP_NET.Testnet
+        )
 
-      setTimeout(() => {
-        document.getElementById("loading").style.display = "none";
+        const balance = await provider.getBalance(address)
 
-        const score = Math.floor(Math.random() * 100);
-        let riskLevel = "";
-        let riskClass = "";
+        resultEl.innerText = JSON.stringify({
+          network: "OP_NET Testnet",
+          address,
+          rBTC: balance
+        }, null, 2)
 
-        if (score > 70) {
-          riskLevel = "Low Risk";
-          riskClass = "risk-low";
-        } else if (score > 40) {
-          riskLevel = "Medium Risk";
-          riskClass = "risk-medium";
-        } else {
-          riskLevel = "High Risk";
-          riskClass = "risk-high";
-        }
-
-        document.getElementById("scoreValue").innerText = score;
-        document.getElementById("scoreValue").className = "score " + riskClass;
-        document.getElementById("riskLabel").innerHTML = "<h2>" + riskLevel + "</h2>";
-        document.getElementById("details").innerHTML =
-          "Analyzed contract behavior, transaction frequency, and execution patterns on OP_NET Testnet.";
-
-        document.getElementById("resultBox").style.display = "block";
-
-      }, 1500);
+      } catch (err) {
+        resultEl.innerText = "Error: " + err.message
+      }
     }
+
+    window.checkBalance = checkBalance
   </script>
 
 </body>
