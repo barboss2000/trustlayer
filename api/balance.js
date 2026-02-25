@@ -6,7 +6,7 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Address is required" })
     }
 
-    const RPC_URL = "https://regtest.opnet.org/api/v1/json-rpc"
+    const RPC_URL = "https://api.opnet.org/v1/json-rpc"
 
     async function rpcCall(method, params = []) {
       const response = await fetch(RPC_URL, {
