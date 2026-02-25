@@ -1,28 +1,13 @@
 ![Status](https://img.shields.io/badge/status-live-brightgreen)
-![Network](https://img.shields.io/badge/network-bitcoin-orange)
+![Network](https://img.shields.io/badge/network-bitcoin--l1-orange)
 ![Stage](https://img.shields.io/badge/stage-mvp-blue)
+
 # TrustLayer
 
 On-chain Reputation & Risk Scoring Protocol for Bitcoin L1
 
 TrustLayer is a reputation infrastructure layer designed to increase trust, transparency, and safety across Bitcoin Layer 1 applications.
 
----
-
-## 🌐 Network
-
-TrustLayer is designed for the Bitcoin Layer 1 ecosystem.
-
-### Current Network
-- **Bitcoin L1**
-- Indexing via OPNet-compatible infrastructure (planned)
-
-### Future Expansion
-- Public Reputation API
-- Cross-protocol integrations
-- AI agent trust validation layer
-
-TrustLayer aims to become the reputation backbone of Bitcoin-native applications.
 ---
 
 ## 🚀 Vision
@@ -37,6 +22,23 @@ TrustLayer introduces a transparent scoring system that:
 - Enables safer DeFi and AI agents
 
 Our goal is to become the **Trust Oracle for Bitcoin L1**.
+
+---
+
+## 🌐 Network
+
+TrustLayer is designed specifically for:
+
+### Current Network
+- **Bitcoin Layer 1**
+- Reputation modeling for BTC-native applications
+
+### Infrastructure Direction
+- OPNet-compatible contract integration (planned)
+- On-chain indexing layer
+- Public Trust API
+
+TrustLayer aims to become the reputation backbone of Bitcoin-native protocols.
 
 ---
 
@@ -64,4 +66,4 @@ TrustLayer provides:
 
 ---
 
-## 🧠 How It Works
+## 🏗 Architecture
