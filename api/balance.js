@@ -1,3 +1,5 @@
+import { JSONRpcProvider, OP20Contract, OP_NET } from "opnet"
+
 export default async function handler(req, res) {
   try {
     const { address } = req.query
@@ -6,32 +8,15 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Address is required" })
     }
 
-    const RPC_URL = "https://api.opnet.org/v1/json-rpc"
+    const network = OP_NET.Testnet
 
-    async function rpcCall(method, params = []) {
-      const response = await fetch(RPC_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          jsonrpc: "2.0",
-          method,
-          params,
-          id: 1
-        })
-      })
-
-      if (!response.ok) {
-        throw new Error(`RPC error: ${response.status}`)
-      }
-
-      const data = await response.json()
-      return data.result
-    }
+    const provider = new JSONRpcProvider(
+      "https://regtest.opnet.org",
+      network
+    )
 
     // rBTC balance
-    const rbtc = await rpcCall("getBalance", [address])
+    const rbtc = await provider.getBalance(address)
 
     return res.status(200).json({
       network: "OP_NET Testnet",
