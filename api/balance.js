@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   }
 
   // MOCK balance for demo
-  const fakeBalance = Math.floor(Math.random() * 100000) / 100
+  const fakeBalance = Math.floor(Math.random() * 100000) / 10000
 
   return res.status(200).json({
     network: "OP_NET Testnet",
