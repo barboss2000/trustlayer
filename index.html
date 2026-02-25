@@ -7,17 +7,25 @@
 
 <h2>OP_NET Balance Checker</h2>
 
-<input id="address" placeholder="Enter OP_NET address"
+<input id="address"
+       placeholder="Enter OP_NET address"
        style="width:400px;padding:10px" />
 
-<button onclick="checkBalance()"
+<button id="checkBtn"
         style="padding:10px 20px;margin-left:10px">
   Check
 </button>
 
 <pre id="result" style="margin-top:20px"></pre>
 
-<script>
+<script type="module">
+import { JSONRpcProvider, OP_NET } from "https://esm.sh/opnet"
+
+const provider = new JSONRpcProvider(
+  "https://regtest.opnet.org",
+  OP_NET.Testnet
+)
+
 async function checkBalance() {
   const address = document.getElementById("address").value.trim()
   const resultEl = document.getElementById("result")
@@ -30,25 +38,23 @@ async function checkBalance() {
   resultEl.innerText = "Loading..."
 
   try {
-    const response = await fetch("https://regtest.opnet.org/api/v1/json-rpc", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        jsonrpc: "2.0",
-        method: "getBalance",
-        params: [address],
-        id: 1
-      })
-    })
+    const balance = await provider.getBalance(address)
 
-    const data = await response.json()
-
-    resultEl.innerText = JSON.stringify(data, null, 2)
+    resultEl.innerText = JSON.stringify({
+      network: "OP_NET Testnet",
+      address,
+      balance
+    }, null, 2)
 
   } catch (err) {
     resultEl.innerText = "Error: " + err.message
   }
 }
+
+document
+  .getElementById("checkBtn")
+  .addEventListener("click", checkBalance)
+
 </script>
 
 </body>
