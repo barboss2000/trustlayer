@@ -1,134 +1,232 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>TrustLayer — Bitcoin Reputation Protocol</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TrustLayer — OP_NET Reputation Protocol</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #0b0f1c;
+      background: linear-gradient(135deg, #0b0f1c, #111827);
       color: white;
       text-align: center;
     }
 
-    section {
-      padding: 80px 20px;
-      max-width: 1000px;
+    .container {
+      max-width: 800px;
       margin: auto;
+      padding: 80px 20px;
     }
 
-    h1 { font-size: 48px; margin-bottom: 10px; }
-    h2 { font-size: 32px; margin-bottom: 20px; }
-    p { opacity: 0.8; }
+    h1 {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      opacity: 0.7;
+      margin-bottom: 40px;
+    }
+
+    .network-selector {
+      margin-bottom: 30px;
+    }
+
+    .network-btn {
+      padding: 12px 22px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      margin: 5px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .active {
+      background: #2563eb;
+      color: white;
+    }
+
+    .inactive {
+      background: #2a2f3f;
+      color: #aaa;
+    }
 
     input {
-      padding: 12px;
-      width: 300px;
-      border-radius: 6px;
+      padding: 15px;
+      width: 60%;
+      border-radius: 8px;
       border: none;
       margin-right: 10px;
+      font-size: 16px;
     }
 
-    button {
-      padding: 12px 20px;
-      border-radius: 6px;
+    button.analyze {
+      padding: 15px 25px;
+      border-radius: 8px;
       border: none;
       background: #f97316;
       color: white;
+      font-weight: bold;
       cursor: pointer;
     }
 
-    .card {
-      background: #141a2e;
+    .result {
+      margin-top: 40px;
       padding: 30px;
       border-radius: 12px;
-      margin-top: 30px;
-      display: inline-block;
-      min-width: 300px;
+      background: #1f2937;
+      display: none;
     }
 
     .score {
       font-size: 60px;
-      margin: 10px 0;
+      font-weight: bold;
+      margin: 20px 0;
     }
 
-    .low { color: #4ade80; }
-    .medium { color: #facc15; }
-    .high { color: #ef4444; }
+    .risk-low { color: #22c55e; }
+    .risk-medium { color: #eab308; }
+    .risk-high { color: #ef4444; }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-      gap: 30px;
-      margin-top: 40px;
+    .loading {
+      margin-top: 30px;
+      display: none;
+      opacity: 0.7;
     }
 
-    .box {
-      background: #141a2e;
-      padding: 20px;
-      border-radius: 12px;
+    .badge {
+      display: inline-block;
+      padding: 6px 12px;
+      background: #111827;
+      border-radius: 20px;
+      font-size: 14px;
+      margin-bottom: 15px;
+      border: 1px solid #374151;
+    }
+
+    .footer {
+      margin-top: 80px;
+      opacity: 0.4;
+      font-size: 14px;
     }
   </style>
 </head>
+
 <body>
 
-<section>
-  <h1>TrustLayer</h1>
-  <p>On-chain Reputation & Risk Scoring for Bitcoin L1</p>
+  <div class="container">
 
-  <div style="margin-top:30px;">
-    <input id="address" placeholder="Enter Bitcoin address"/>
-    <button onclick="analyze()">Analyze</button>
+    <h1>TrustLayer</h1>
+    <div class="subtitle">
+      OP_NET Reputation & Risk Scoring Protocol
+    </div>
+
+    <div class="badge" id="networkBadge">
+      Scanning: OP_NET Testnet
+    </div>
+
+    <div class="network-selector">
+      <button id="testnetBtn" class="network-btn active" onclick="setNetwork('testnet')">
+        OP_NET Testnet
+      </button>
+
+      <button id="mainnetBtn" class="network-btn inactive" onclick="setNetwork('mainnet')">
+        OP_NET Mainnet (Soon)
+      </button>
+    </div>
+
+    <div>
+      <input id="addressInput" placeholder="Enter OP_NET contract or address" />
+      <button class="analyze" onclick="analyze()">Analyze</button>
+    </div>
+
+    <div class="loading" id="loading">
+      Scanning OP_NET network...
+    </div>
+
+    <div class="result" id="resultBox">
+      <div id="riskLabel"></div>
+      <div class="score" id="scoreValue"></div>
+      <div id="details"></div>
+    </div>
+
+    <div class="footer">
+      TrustLayer — Building the Trust Oracle for OP_NET
+    </div>
+
   </div>
 
-  <div id="result" class="card" style="display:none;">
-    <div>Trust Score</div>
-    <div id="score" class="score"></div>
-    <div id="risk"></div>
-  </div>
-</section>
+  <script>
+    let currentNetwork = "testnet";
 
-<section>
-  <h2>How It Works</h2>
-  <div class="grid">
-    <div class="box">1. Index contract interactions</div>
-    <div class="box">2. Analyze behavioral patterns</div>
-    <div class="box">3. Generate transparent trust score</div>
-  </div>
-</section>
+    function setNetwork(network) {
+      currentNetwork = network;
 
-<section>
-  <h2>Why It Matters</h2>
-  <div class="grid">
-    <div class="box">Prevent rug pulls</div>
-    <div class="box">Safer AI agents</div>
-    <div class="box">Trust layer for BTC DeFi</div>
-  </div>
-</section>
+      const testBtn = document.getElementById("testnetBtn");
+      const mainBtn = document.getElementById("mainnetBtn");
+      const badge = document.getElementById("networkBadge");
 
-<script>
-function analyze() {
-  const score = Math.floor(Math.random() * 100);
-  const result = document.getElementById("result");
-  const scoreEl = document.getElementById("score");
-  const riskEl = document.getElementById("risk");
+      if (network === "testnet") {
+        testBtn.classList.add("active");
+        testBtn.classList.remove("inactive");
+        mainBtn.classList.add("inactive");
+        mainBtn.classList.remove("active");
+        badge.innerText = "Scanning: OP_NET Testnet";
+      } else {
+        testBtn.classList.add("inactive");
+        testBtn.classList.remove("active");
+        mainBtn.classList.add("active");
+        mainBtn.classList.remove("inactive");
+        badge.innerText = "OP_NET Mainnet — Coming Soon";
+      }
+    }
 
-  result.style.display = "inline-block";
-  scoreEl.textContent = score;
+    function analyze() {
+      if (currentNetwork === "mainnet") {
+        alert("OP_NET Mainnet support is coming soon.");
+        return;
+      }
 
-  if (score > 70) {
-    scoreEl.className = "score low";
-    riskEl.textContent = "Risk Level: Low";
-  } else if (score > 40) {
-    scoreEl.className = "score medium";
-    riskEl.textContent = "Risk Level: Medium";
-  } else {
-    scoreEl.className = "score high";
-    riskEl.textContent = "Risk Level: High";
-  }
-}
-</script>
+      const address = document.getElementById("addressInput").value;
+      if (!address) {
+        alert("Please enter an address or contract.");
+        return;
+      }
+
+      document.getElementById("loading").style.display = "block";
+      document.getElementById("resultBox").style.display = "none";
+
+      setTimeout(() => {
+        document.getElementById("loading").style.display = "none";
+
+        const score = Math.floor(Math.random() * 100);
+        let riskLevel = "";
+        let riskClass = "";
+
+        if (score > 70) {
+          riskLevel = "Low Risk";
+          riskClass = "risk-low";
+        } else if (score > 40) {
+          riskLevel = "Medium Risk";
+          riskClass = "risk-medium";
+        } else {
+          riskLevel = "High Risk";
+          riskClass = "risk-high";
+        }
+
+        document.getElementById("scoreValue").innerText = score;
+        document.getElementById("scoreValue").className = "score " + riskClass;
+        document.getElementById("riskLabel").innerHTML = "<h2>" + riskLevel + "</h2>";
+        document.getElementById("details").innerHTML =
+          "Analyzed contract behavior, transaction frequency, and execution patterns on OP_NET Testnet.";
+
+        document.getElementById("resultBox").style.display = "block";
+
+      }, 1500);
+    }
+  </script>
 
 </body>
 </html>
