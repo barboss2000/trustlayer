@@ -9,6 +9,22 @@ TrustLayer is a reputation infrastructure layer designed to increase trust, tran
 
 ---
 
+## 🌐 Network
+
+TrustLayer is designed for the Bitcoin Layer 1 ecosystem.
+
+### Current Network
+- **Bitcoin L1**
+- Indexing via OPNet-compatible infrastructure (planned)
+
+### Future Expansion
+- Public Reputation API
+- Cross-protocol integrations
+- AI agent trust validation layer
+
+TrustLayer aims to become the reputation backbone of Bitcoin-native applications.
+---
+
 ## 🚀 Vision
 
 Bitcoin L1 lacks a native trust and reputation framework.
