@@ -1,10 +1,3 @@
-import {
-  JSONRpcProvider,
-  getContract,
-  OP_20_ABI,
-  Configs
-} from "opnet";
-
 export default async function handler(req, res) {
   const { address } = req.query;
 
@@ -13,62 +6,55 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Подключаемся к OP_NET Regtest
-    const network = Configs.NETWORK.REGTEST;
-    const provider = new JSONRpcProvider(
-      "https://regtest.opnet.org",
-      network
-    );
+    const RPC_URL = "https://regtest.opnet.org";
+
+    const rpcCall = async (method, params = []) => {
+      const response = await fetch(RPC_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          jsonrpc: "2.0",
+          method,
+          params,
+          id: 1
+        })
+      });
+
+      const data = await response.json();
+      return data.result;
+    };
 
     // rBTC баланс
-    const nativeBalance = await provider.getBalance(address);
+    const rbtcBalance = await rpcCall("getBalance", [address]);
 
-    // Контракты
+    // Контракты (если метод balanceOf поддерживается через RPC)
     const MOTO = "0x0a6732489a31e6de07917a28ff7df311fc5f98f6e1664943ac1c3fe7893bdab5";
     const PILL = "0xfb7df2f08d8042d4df0506c0d4cee3cfa5f2d7b02ef01ec76dd699551393a438";
     const ODIS = "0xc573930e4c67f47246589ce6fa2dbd1b91b58c8fdd7ace336ce79e65120f79eb";
 
-    const motoContract = getContract(
-      MOTO,
-      OP_20_ABI,
-      provider,
-      network,
-      address
-    );
+    // Пример contract call (может отличаться — зависит от RPC методов)
+    const motoBalance = await rpcCall("call", [MOTO, "balanceOf", address]);
+    const pillBalance = await rpcCall("call", [PILL, "balanceOf", address]);
+    const odisBalance = await rpcCall("call", [ODIS, "balanceOf", address]);
 
-    const pillContract = getContract(
-      PILL,
-      OP_20_ABI,
-      provider,
-      network,
-      address
-    );
-
-    const odisContract = getContract(
-      ODIS,
-      OP_20_ABI,
-      provider,
-      network,
-      address
-    );
-
-    const motoBalance = await motoContract.balanceOf(address);
-    const pillBalance = await pillContract.balanceOf(address);
-    const odisBalance = await odisContract.balanceOf(address);
-
-    res.status(200).json({
+    return res.status(200).json({
       network: "OP_NET Regtest",
       address,
-      rBTC: nativeBalance.properties.balance,
+      rBTC: rbtcBalance,
       tokens: {
-        MOTO: motoBalance.properties.balance,
-        PILL: pillBalance.properties.balance,
-        ODIS: odisBalance.properties.balance
+        MOTO: motoBalance,
+        PILL: pillBalance,
+        ODIS: odisBalance
       }
     });
 
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Failed to fetch balances" });
+    return res.status(500).json({
+      error: "RPC connection failed",
+      details: error.message
+    });
   }
 }
