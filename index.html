@@ -18,14 +18,7 @@
 
 <pre id="result" style="margin-top:20px"></pre>
 
-<script type="module">
-import { JSONRpcProvider, OP_NET } from "https://esm.sh/opnet"
-
-const provider = new JSONRpcProvider(
-  "https://regtest.opnet.org",
-  OP_NET.Testnet
-)
-
+<script>
 async function checkBalance() {
   const address = document.getElementById("address").value.trim()
   const resultEl = document.getElementById("result")
@@ -38,13 +31,10 @@ async function checkBalance() {
   resultEl.innerText = "Loading..."
 
   try {
-    const balance = await provider.getBalance(address)
+    const response = await fetch(`/api/balance?address=${address}`)
+    const data = await response.json()
 
-    resultEl.innerText = JSON.stringify({
-      network: "OP_NET Testnet",
-      address,
-      balance
-    }, null, 2)
+    resultEl.innerText = JSON.stringify(data, null, 2)
 
   } catch (err) {
     resultEl.innerText = "Error: " + err.message
@@ -54,7 +44,6 @@ async function checkBalance() {
 document
   .getElementById("checkBtn")
   .addEventListener("click", checkBalance)
-
 </script>
 
 </body>
