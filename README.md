@@ -67,3 +67,12 @@ TrustLayer provides:
 ---
 
 ## 🏗 Architecture
+User
+   ↓
+Frontend UI
+   ↓
+Risk Engine
+   ↓
+Reputation Oracle
+   ↓
+Bitcoin L1 / Smart Contract Layer
