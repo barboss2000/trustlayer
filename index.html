@@ -1,50 +1,162 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>TrustLayer OP_NET Checker</title>
-</head>
-<body style="background:#0b0f1a;color:white;font-family:sans-serif;padding:40px">
+  <title>TrustLayer OP-NET Balance Checker</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-<h2>OP_NET Balance Checker</h2>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #f8fafc;
+      min-height: 100vh;
+      padding: 2rem;
+    }
 
-<input id="address"
-       placeholder="Enter OP_NET address"
-       style="width:400px;padding:10px" />
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: rgba(30, 41, 59, 0.95);
+      border-radius: 20px;
+      padding: 3rem;
+      box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 80px rgba(59, 130, 246, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      position: relative;
+    }
 
-<button id="checkBtn"
-        style="padding:10px 20px;margin-left:10px">
-  Check
-</button>
+    .container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6, #10b981);
+      border-radius: 20px 20px 0 0;
+      z-index: 2;
+    }
 
-<pre id="result" style="margin-top:20px"></pre>
+    h1 {
+      text-align: center;
+      margin-bottom: 0.5rem;
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, #60a5fa 0%, #34d399 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 4px 20px rgba(96, 165, 250, 0.3);
+    }
 
-<script>
-async function checkBalance() {
-  const address = document.getElementById("address").value.trim()
-  const resultEl = document.getElementById("result")
+    .subtitle {
+      text-align: center;
+      color: #94a3b8;
+      margin-bottom: 2.5rem;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
 
-  if (!address) {
-    resultEl.innerText = "Enter address"
-    return
-  }
+    .network-selector {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
 
-  resultEl.innerText = "Loading..."
+    .network-btn {
+      padding: 0.75rem 1.5rem;
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      border-radius: 12px;
+      color: #cbd5e1;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      backdrop-filter: blur(10px);
+    }
 
-  try {
-    const response = await fetch(`/api/balance?address=${address}`)
-    const data = await response.json()
+    .network-btn:hover {
+      background: rgba(59, 130, 246, 0.15);
+      border-color: #3b82f6;
+      transform: translateY(-2px);
+    }
 
-    resultEl.innerText = JSON.stringify(data, null, 2)
+    .network-btn.active {
+      background: rgba(59, 130, 246, 0.25);
+      border-color: #3b82f6;
+      color: #60a5fa;
+      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+    }
 
-  } catch (err) {
-    resultEl.innerText = "Error: " + err.message
-  }
-}
+    input {
+      width: 100%;
+      padding: 1.25rem;
+      font-size: 1.1rem;
+      background: rgba(15, 23, 42, 0.8);
+      border: 2px solid rgba(59, 130, 246, 0.3);
+      border-radius: 12px;
+      color: #f8fafc;
+      margin-bottom: 2rem;
+      transition: all 0.3s ease;
+      font-family: 'Monaco', 'Consolas', monospace;
+      letter-spacing: 0.5px;
+    }
 
-document
-  .getElementById("checkBtn")
-  .addEventListener("click", checkBalance)
-</script>
+    input:focus {
+      outline: none;
+      border-color: #60a5fa;
+      box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+      background: rgba(15, 23, 42, 0.95);
+    }
 
-</body>
-</html>
+    input::placeholder {
+      color: #64748b;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .check-btn {
+      flex: 1;
+      min-width: 200px;
+      padding: 1.25rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      border: none;
+      border-radius: 12px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .check-btn:hover {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+    }
+
+    .check-btn:active {
+      transform: translateY(0);
+    }
+
+    .demo-btn {
+      padding: 1.25rem 2rem;
+      background: rgba(139, 92, 246, 0.2);
+      border: 1px solid rgba(139, 92, 246, 0.5);
+      border-radius: 
