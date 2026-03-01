@@ -1,162 +1,1084 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>TrustLayer OP-NET Balance Checker</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>BlockOracle — Robinhood Chain</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+<script src="https://s3.tradingview.com/tv.js"></script>
+<style>
+:root {
+  --neon:#d5fd51; --neon-dim:rgba(213,253,81,0.12); --neon-dim2:rgba(213,253,81,0.06);
+  --black:#0a0a0a; --surface:#111111; --surface2:#181818; --border:#2a2a2a; --border-light:#333;
+  --text:#ffffff; --text-muted:#666; --text-dim:#444;
+  --up:#4ade80; --down:#f87171; --up-dim:rgba(74,222,128,0.10); --down-dim:rgba(248,113,113,0.10);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0d1a0a;color:var(--text);font-family:'DM Mono',monospace;min-height:100vh;overflow-x:hidden;}
+#graffiti-bg{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;}
+.page{position:relative;z-index:1;display:flex;flex-direction:column;height:100vh;}
+
+/* Header */
+.header{display:flex;align-items:center;justify-content:space-between;padding:12px 24px;border-bottom:1px solid var(--border);background:rgba(10,10,10,0.96);backdrop-filter:blur(12px);z-index:100;flex-shrink:0;}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo-icon{width:26px;height:26px;background:var(--neon);clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);animation:pulse-logo 3s ease-in-out infinite;}
+@keyframes pulse-logo{0%,100%{filter:brightness(1);}50%{filter:brightness(1.3) drop-shadow(0 0 8px #d5fd51);}}
+.logo-text{font-family:'Syne',sans-serif;font-weight:800;font-size:15px;letter-spacing:-0.5px;}
+.logo-text span{color:var(--neon);}
+.header-right{display:flex;align-items:center;gap:8px;}
+.chain-badge{font-size:10px;color:var(--text-muted);border:1px solid var(--border);padding:4px 10px;border-radius:4px;letter-spacing:1px;text-transform:uppercase;}
+.btn-faucet{background:transparent;color:var(--neon);border:1px solid rgba(213,253,81,0.35);padding:7px 14px;border-radius:6px;font-family:'DM Mono',monospace;font-size:11px;cursor:pointer;letter-spacing:0.5px;text-decoration:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:5px;}
+.btn-faucet:hover{background:var(--neon-dim);border-color:var(--neon);}
+.btn-connect{background:var(--neon);color:var(--black);border:none;padding:7px 16px;border-radius:6px;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;cursor:pointer;transition:all 0.2s;}
+.btn-connect:hover{background:#c5ed41;}
+.btn-connect.connected{background:var(--surface2);color:var(--neon);border:1px solid var(--border);cursor:default;}
+.btn-disconnect{background:transparent;color:var(--text-muted);border:1px solid var(--border);padding:7px 10px;border-radius:6px;font-family:'DM Mono',monospace;font-size:11px;cursor:pointer;transition:all 0.2s;display:none;}
+.btn-disconnect:hover{border-color:var(--down);color:var(--down);}
+
+/* Coin tabs */
+.coin-tabs{display:flex;gap:6px;padding:10px 24px;background:rgba(10,10,10,0.85);border-bottom:1px solid var(--border);flex-shrink:0;overflow-x:auto;}
+.coin-tab{display:flex;align-items:center;gap:7px;padding:7px 16px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);cursor:pointer;transition:all 0.18s;white-space:nowrap;}
+.coin-tab:hover{border-color:var(--neon);}
+.coin-tab.active{background:var(--neon-dim);border-color:var(--neon);}
+.coin-icon{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
+.coin-name{font-size:13px;font-weight:500;color:var(--text);}
+.coin-sym{font-size:10px;color:var(--text-muted);}
+.coin-price-small{font-size:11px;color:var(--neon);margin-left:4px;}
+
+/* Layout */
+.body-layout{display:grid;grid-template-columns:1fr 420px;flex:1;overflow:hidden;min-height:0;}
+.chart-col{display:flex;flex-direction:column;border-right:1px solid var(--border);overflow:hidden;}
+.chart-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:rgba(10,10,10,0.7);border-bottom:1px solid var(--border);flex-shrink:0;}
+.chart-coin-name{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;display:flex;align-items:center;gap:8px;}
+.chart-price{font-size:22px;font-family:'Syne',sans-serif;font-weight:800;color:var(--neon);}
+.chart-change{font-size:12px;padding:2px 8px;border-radius:4px;}
+.chart-change.pos{background:var(--up-dim);color:var(--up);}
+.chart-change.neg{background:var(--down-dim);color:var(--down);}
+#tv_chart{flex:1;min-height:0;}
+
+/* Right column */
+.bet-col{display:flex;flex-direction:column;overflow-y:auto;background:rgba(10,10,10,0.6);backdrop-filter:blur(8px);}
+
+/* Stats panel */
+.stats-panel{background:rgba(17,17,17,0.9);border-bottom:1px solid var(--border);padding:14px 16px;flex-shrink:0;}
+.round-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.round-label{font-size:9px;color:var(--text-muted);letter-spacing:1.5px;text-transform:uppercase;}
+.round-num{font-size:13px;color:var(--text);margin-top:2px;}
+.status-pill{font-size:9px;font-weight:500;padding:3px 9px;border-radius:20px;letter-spacing:1px;text-transform:uppercase;}
+.status-active{background:rgba(74,222,128,0.15);color:var(--up);border:1px solid rgba(74,222,128,0.3);}
+.status-ended{background:rgba(248,113,113,0.12);color:var(--down);border:1px solid rgba(248,113,113,0.3);}
+.status-waiting{background:var(--neon-dim);color:var(--neon);border:1px solid rgba(213,253,81,0.3);}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;}
+.stat-item{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px 10px;}
+.stat-label{font-size:9px;color:var(--text-muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3px;}
+.stat-value{font-size:13px;color:var(--text);}
+.stat-value.neon{color:var(--neon);}
+.result-banner{display:none;padding:10px 14px;border-radius:6px;margin-top:10px;text-align:center;font-family:'Syne',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.5px;}
+.result-banner.up-won{background:var(--up-dim);border:1px solid rgba(74,222,128,0.3);color:var(--up);}
+.result-banner.down-won{background:var(--down-dim);border:1px solid rgba(248,113,113,0.3);color:var(--down);}
+.result-banner.show{display:block;}
+
+/* Bet form */
+.bet-form{padding:14px 16px;border-bottom:1px solid var(--border);flex-shrink:0;}
+.section-title{font-size:9px;color:var(--text-muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;}
+.amount-input-wrap{position:relative;margin-bottom:12px;}
+.amount-input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 44px 12px 14px;font-family:'DM Mono',monospace;font-size:18px;color:var(--text);outline:none;transition:border-color 0.2s;}
+.amount-input:focus{border-color:var(--neon);}
+.amount-input::placeholder{color:var(--text-dim);}
+.amount-suffix{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:11px;color:var(--text-muted);}
+.dur-label{font-size:9px;color:var(--text-muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:7px;}
+.dur-group{display:flex;gap:5px;margin-bottom:14px;}
+.dur-btn{flex:1;padding:7px 4px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text-muted);font-family:'DM Mono',monospace;font-size:11px;cursor:pointer;transition:all 0.15s;text-align:center;}
+.dur-btn:hover{border-color:var(--neon);color:var(--text);}
+.dur-btn.active{background:var(--neon-dim);border-color:var(--neon);color:var(--neon);}
+.bet-buttons{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;}
+.btn-up,.btn-down{padding:14px;border:none;border-radius:8px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:6px;}
+.btn-up{background:var(--up-dim);color:var(--up);border:1px solid rgba(74,222,128,0.3);}
+.btn-up:hover:not(:disabled){background:var(--up);color:var(--black);transform:translateY(-2px);box-shadow:0 6px 20px rgba(74,222,128,0.25);}
+.btn-up:disabled{opacity:0.3;cursor:not-allowed;}
+.btn-down{background:var(--down-dim);color:var(--down);border:1px solid rgba(248,113,113,0.3);}
+.btn-down:hover:not(:disabled){background:var(--down);color:var(--black);transform:translateY(-2px);box-shadow:0 6px 20px rgba(248,113,113,0.25);}
+.btn-down:disabled{opacity:0.3;cursor:not-allowed;}
+#betHint{text-align:center;font-size:10px;min-height:16px;margin-bottom:8px;}
+.btn-settle{width:100%;padding:11px;background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.3);border-radius:8px;color:#fbbf24;font-family:'DM Mono',monospace;font-size:12px;cursor:pointer;transition:all 0.2s;margin-bottom:8px;display:none;}
+.btn-settle:hover:not(:disabled){background:#fbbf24;color:var(--black);}
+.btn-settle:disabled{opacity:0.4;cursor:not-allowed;}
+
+/* Active bets history */
+.bets-section{padding:14px 16px;border-bottom:1px solid var(--border);}
+.bets-title{font-size:9px;color:var(--text-muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;}
+.bet-item{display:flex;align-items:center;gap:10px;padding:9px 11px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;margin-bottom:5px;}
+.bet-dir-badge{font-size:9px;font-weight:600;padding:2px 7px;border-radius:4px;letter-spacing:1px;min-width:40px;text-align:center;}
+.bet-dir-badge.up{background:var(--up-dim);color:var(--up);border:1px solid rgba(74,222,128,0.2);}
+.bet-dir-badge.down{background:var(--down-dim);color:var(--down);border:1px solid rgba(248,113,113,0.2);}
+.bet-info{flex:1;}
+.bet-amount{font-size:12px;color:var(--text);}
+.bet-meta{font-size:9px;color:var(--text-muted);margin-top:1px;}
+.bet-timer{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--neon);min-width:46px;text-align:right;}
+.bet-timer.expired{font-family:'DM Mono',monospace;font-size:9px;font-weight:400;color:var(--down);letter-spacing:1px;}
+
+/* Owner panel */
+.owner-panel{padding:14px 16px;border-bottom:1px solid rgba(213,253,81,0.15);background:rgba(213,253,81,0.03);}
+.owner-panel-title{font-size:9px;color:var(--neon);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;}
+.owner-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px;}
+.owner-stat{background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:7px 8px;text-align:center;}
+.owner-stat-label{font-size:8px;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:2px;}
+.owner-stat-val{font-size:11px;color:var(--neon);}
+.owner-row{display:flex;align-items:center;gap:6px;margin-bottom:7px;}
+.owner-input{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:8px 10px;font-family:'DM Mono',monospace;font-size:12px;color:var(--text);outline:none;}
+.owner-input:focus{border-color:var(--neon);}
+.btn-owner{padding:8px 11px;border:none;border-radius:5px;font-family:'DM Mono',monospace;font-size:11px;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+.btn-deposit{background:var(--neon-dim);color:var(--neon);border:1px solid rgba(213,253,81,0.3);}
+.btn-deposit:hover{background:var(--neon);color:var(--black);}
+.btn-withdraw{background:var(--up-dim);color:var(--up);border:1px solid rgba(74,222,128,0.3);}
+.btn-withdraw:hover{background:var(--up);color:var(--black);}
+.btn-withdraw-all{background:var(--down-dim);color:var(--down);border:1px solid rgba(248,113,113,0.3);}
+.btn-withdraw-all:hover{background:var(--down);color:var(--black);}
+
+@media(max-width:900px){
+  .body-layout{grid-template-columns:1fr;grid-template-rows:300px 1fr;}
+  .chart-col{border-right:none;border-bottom:1px solid var(--border);}
+}
+</style>
+</head>
+<body>
+<canvas id="graffiti-bg"></canvas>
+<div class="page">
+
+  <header class="header">
+    <div class="logo">
+      <div class="logo-icon"></div>
+      <div class="logo-text">BLOCK<span>ORACLE</span></div>
+    </div>
+    <div class="header-right">
+      <a href="https://faucet.testnet.chain.robinhood.com/?error=undefined&address=0x6d4D522f22681b76483BF327ff7Bb6748a68Da5c&step=auth" target="_blank" class="btn-faucet">💧 Faucet</a>
+      <div class="chain-badge">Robinhood Chain · 46630</div>
+      <button class="btn-connect" id="btnConnect" onclick="connect()">Connect Wallet</button>
+      <button class="btn-disconnect" id="btnDisconnect" onclick="disconnect()" title="Disconnect wallet">✕</button>
+    </div>
+  </header>
+
+  <div class="coin-tabs">
+    <div class="coin-tab active" onclick="selectCoin('BTC',this)">
+      <div class="coin-icon" style="background:#f7931a22;color:#f7931a;">₿</div>
+      <div><div class="coin-name">Bitcoin</div><div class="coin-sym">BTC</div></div>
+      <span class="coin-price-small" id="price-BTC">—</span>
+    </div>
+    <div class="coin-tab" onclick="selectCoin('ETH',this)">
+      <div class="coin-icon" style="background:#627eea22;color:#627eea;">Ξ</div>
+      <div><div class="coin-name">Ethereum</div><div class="coin-sym">ETH</div></div>
+      <span class="coin-price-small" id="price-ETH">—</span>
+    </div>
+    <div class="coin-tab" onclick="selectCoin('BNB',this)">
+      <div class="coin-icon" style="background:#f0b90b22;color:#f0b90b;">B</div>
+      <div><div class="coin-name">BNB</div><div class="coin-sym">BNB</div></div>
+      <span class="coin-price-small" id="price-BNB">—</span>
+    </div>
+    <div class="coin-tab" onclick="selectCoin('SOL',this)">
+      <div class="coin-icon" style="background:#9945ff22;color:#9945ff;">◎</div>
+      <div><div class="coin-name">Solana</div><div class="coin-sym">SOL</div></div>
+      <span class="coin-price-small" id="price-SOL">—</span>
+    </div>
+    <div class="coin-tab" onclick="selectCoin('XRP',this)">
+      <div class="coin-icon" style="background:#00aae422;color:#00aae4;">✕</div>
+      <div><div class="coin-name">Ripple</div><div class="coin-sym">XRP</div></div>
+      <span class="coin-price-small" id="price-XRP">—</span>
+    </div>
+  </div>
+
+  <div class="body-layout">
+    <div class="chart-col">
+      <div class="chart-header">
+        <div class="chart-coin-name" id="chartCoinName">
+          <span style="color:#f7931a">₿</span> BTC/USDT
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div class="chart-price" id="chartPrice">—</div>
+          <div class="chart-change pos" id="chartChange">—</div>
+        </div>
+      </div>
+      <div id="tv_chart"></div>
+    </div>
+
+    <div class="bet-col">
+      <div class="stats-panel">
+        <div class="round-row">
+          <div>
+            <div class="round-label">My Round</div>
+            <div class="round-num" id="round">—</div>
+          </div>
+          <div style="text-align:center;">
+            <div class="round-label">Lock Price</div>
+            <div class="round-num" id="lockPrice">—</div>
+          </div>
+          <span id="roundStatus" class="status-pill status-waiting">—</span>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-label">Wallet</div>
+            <div class="stat-value" id="wallet" style="font-size:11px;">Not connected</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Round ends in</div>
+            <div class="stat-value neon" id="timeLeftSmall">—</div>
+          </div>
+        </div>
+        <div class="result-banner" id="resultBanner"></div>
+      </div>
+
+      <div class="bet-form">
+        <div class="section-title">Place your bet · <span id="tradingAsset" style="color:var(--neon)">BTC</span></div>
+        <div class="amount-input-wrap">
+          <input class="amount-input" id="amount" type="number" placeholder="0.0001" step="0.0001" min="0.0001"/>
+          <span class="amount-suffix">ETH</span>
+        </div>
+        <div class="dur-label">Duration</div>
+        <div class="dur-group">
+          <button class="dur-btn active" onclick="selectDuration(1,this)">1m</button>
+          <button class="dur-btn" onclick="selectDuration(2,this)">2m</button>
+          <button class="dur-btn" onclick="selectDuration(3,this)">3m</button>
+          <button class="dur-btn" onclick="selectDuration(4,this)">4m</button>
+          <button class="dur-btn" onclick="selectDuration(5,this)">5m</button>
+        </div>
+        <div class="bet-buttons">
+          <button class="btn-up"   id="btnUp"   onclick="betUp()"   disabled>▲ &nbsp;UP</button>
+          <button class="btn-down" id="btnDown" onclick="betDown()" disabled>▼ &nbsp;DOWN</button>
+        </div>
+        <div id="betHint"></div>
+        <button class="btn-settle" id="btnSettle" onclick="settle()">⏱ Settle Round</button>
+      </div>
+
+      <div class="bets-section" id="betsSection" style="display:none;">
+        <div class="bets-title">My Active Bets</div>
+        <div id="betsList"></div>
+      </div>
+
+      <div class="owner-panel" id="ownerPanel" style="display:none;">
+        <div class="owner-panel-title">⬡ &nbsp;Owner Controls</div>
+        <div class="owner-stats">
+          <div class="owner-stat"><div class="owner-stat-label">Contract</div><div class="owner-stat-val" id="ownerBalContract">—</div></div>
+          <div class="owner-stat"><div class="owner-stat-label">My Profit</div><div class="owner-stat-val" id="ownerBalProfit">—</div></div>
+          <div class="owner-stat"><div class="owner-stat-label">Liquidity</div><div class="owner-stat-val" id="ownerBalLiquidity">—</div></div>
+        </div>
+        <div class="owner-row">
+          <input class="owner-input" id="depositAmount" type="number" placeholder="ETH amount" step="0.001"/>
+          <button class="btn-owner btn-deposit" onclick="ownerDeposit()">⬆ Deposit</button>
+        </div>
+        <div class="owner-row">
+          <input class="owner-input" id="withdrawAmount" type="number" placeholder="ETH (0=all)"/>
+          <button class="btn-owner btn-withdraw" onclick="ownerWithdraw()">⬇ Withdraw</button>
+          <button class="btn-owner btn-withdraw-all" onclick="ownerWithdrawAll()">All</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+const CONTRACT_ADDRESS = "0xE1D77C412785eD34B991f871fFc51f6458deB997";
+const CHAIN_ID = 46630;
+const CHAIN_CONFIG = {
+  chainId: '0x' + CHAIN_ID.toString(16),
+  chainName: 'Robinhood Chain Testnet',
+  nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
+  rpcUrls: ['https://testnet.chain.robinhood.com'],
+  blockExplorerUrls: ['https://testnet-explorer.chain.robinhood.com']
+};
+
+const abi = [
+  "function startRound(uint256,uint256,string)",
+  "function betUp() payable",
+  "function betDown() payable",
+  "function settleRound(uint256)",
+  "function voidRound()",
+  "function getPlayerRound(address) view returns(uint256,string,uint256,uint256,uint256,uint256,uint256,uint8,uint8,bool,bool)",
+  "function owner() view returns(address)",
+  "function balanceInfo() view returns(uint256,uint256,uint256)",
+  "function depositLiquidity() payable",
+  "function withdrawProfit(uint256)",
+  "function withdrawLiquidity(uint256)",
+  "function playerRoundCount(address) view returns(uint256)"
+];
+
+// Status enum: 0=EMPTY, 1=ACTIVE, 2=ENDED, 3=SETTLED
+// Direction enum: 0=NONE, 1=UP, 2=DOWN
+
+let provider, signer, contract, user, contractOwner;
+let roundTimerInterval = null;
+let selectedDuration = 1;
+let selectedCoin = 'BTC';
+let activeBets = [];
+let betsRenderInterval = null;
+let playerRoundStatus = 0; // current player round status
+let hasBetThisRound = false;
+let tvWidget = null;
+const priceCache = {};
+
+const COINS = {
+  BTC: { symbol:'BINANCE:BTCUSDT', binance:'BTCUSDT', name:'₿ BTC/USDT', color:'#f7931a', label:'₿' },
+  ETH: { symbol:'BINANCE:ETHUSDT', binance:'ETHUSDT', name:'Ξ ETH/USDT', color:'#627eea', label:'Ξ' },
+  BNB: { symbol:'BINANCE:BNBUSDT', binance:'BNBUSDT', name:'B BNB/USDT', color:'#f0b90b', label:'B' },
+  SOL: { symbol:'BINANCE:SOLUSDT', binance:'SOLUSDT', name:'◎ SOL/USDT', color:'#9945ff', label:'◎' },
+  XRP: { symbol:'BINANCE:XRPUSDT', binance:'XRPUSDT', name:'✕ XRP/USDT', color:'#00aae4', label:'✕' },
+};
+
+// ── Coin selection ──────────────────────────────────────────────────────────
+function selectCoin(coin, el) {
+  selectedCoin = coin;
+  document.querySelectorAll('.coin-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  const cfg = COINS[coin];
+  document.getElementById('chartCoinName').innerHTML =
+    `<span style="color:${cfg.color}">${cfg.label}</span> ${coin}/USDT`;
+  document.getElementById('tradingAsset').innerText = coin;
+  if (priceCache[coin]) {
+    document.getElementById('chartPrice').innerText = priceCache[coin].price;
+    const changeEl = document.getElementById('chartChange');
+    changeEl.innerText = priceCache[coin].change;
+    changeEl.className = 'chart-change ' + priceCache[coin].dir;
+  } else {
+    document.getElementById('chartPrice').innerText = '—';
+  }
+  document.getElementById('tv_chart').innerHTML = '';
+  tvWidget = new TradingView.widget({
+    container_id:'tv_chart', symbol:cfg.symbol, interval:'1',
+    theme:'dark', width:'100%', height:'100%', autosize:true,
+    hide_side_toolbar:true, allow_symbol_change:false,
+  });
+}
+
+// ── Connect wallet ──────────────────────────────────────────────────────────
+async function connect() {
+  if (!window.ethereum) { alert("MetaMask not found!"); return; }
+  try {
+    provider = new ethers.providers.Web3Provider(window.ethereum);
+    await provider.send("eth_requestAccounts", []);
+    const network = await provider.getNetwork();
+    if (network.chainId !== CHAIN_ID) {
+      try {
+        await window.ethereum.request({ method:'wallet_switchEthereumChain', params:[{chainId:CHAIN_CONFIG.chainId}] });
+      } catch(e) {
+        if (e.code === 4902) {
+          // Chain not in wallet — add it automatically
+          await window.ethereum.request({ method:'wallet_addEthereumChain', params:[CHAIN_CONFIG] });
+        } else { alert("Could not switch chain"); return; }
+      }
+      provider = new ethers.providers.Web3Provider(window.ethereum);
+    }
+    signer = provider.getSigner();
+    user = await signer.getAddress();
+    contract = new ethers.Contract(CONTRACT_ADDRESS, abi, signer);
+    contractOwner = await contract.owner();
+
+    // Update UI
+    document.getElementById('wallet').innerText = user.slice(0,6)+'...'+user.slice(-4);
+    const btn = document.getElementById('btnConnect');
+    btn.innerText = user.slice(0,6)+'...'+user.slice(-4);
+    btn.classList.add('connected');
+    btn.onclick = null;
+    document.getElementById('btnDisconnect').style.display = 'block';
+
+    if (user.toLowerCase() === contractOwner.toLowerCase()) {
+      document.getElementById('ownerPanel').style.display = 'block';
+      await loadOwnerStats();
     }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-      color: #f8fafc;
-      min-height: 100vh;
-      padding: 2rem;
+    await loadPlayerRound();
+    setInterval(loadPlayerRound, 8000);
+
+    // Listen for account changes
+    window.ethereum.on('accountsChanged', () => disconnect());
+    window.ethereum.on('chainChanged', () => location.reload());
+
+  } catch(e) { alert("Connection error: " + e.message); }
+}
+
+// ── Disconnect wallet ───────────────────────────────────────────────────────
+function disconnect() {
+  provider = null; signer = null; contract = null;
+  user = null; contractOwner = null;
+  playerRoundStatus = 0; hasBetThisRound = false;
+  if (roundTimerInterval) { clearInterval(roundTimerInterval); roundTimerInterval = null; }
+
+  document.getElementById('btnConnect').innerText = 'Connect Wallet';
+  document.getElementById('btnConnect').classList.remove('connected');
+  document.getElementById('btnConnect').onclick = connect;
+  document.getElementById('btnDisconnect').style.display = 'none';
+  document.getElementById('wallet').innerText = 'Not connected';
+  document.getElementById('round').innerText = '—';
+  document.getElementById('lockPrice').innerText = '—';
+  document.getElementById('timeLeftSmall').innerText = '—';
+  document.getElementById('resultBanner').className = 'result-banner';
+  document.getElementById('ownerPanel').style.display = 'none';
+  document.getElementById('betsSection').style.display = 'none';
+  setStatus('—', 'waiting');
+  updateBetButtons();
+}
+
+// ── Load current player's round ─────────────────────────────────────────────
+async function loadPlayerRound() {
+  if (!contract || !user) return;
+  try {
+    const r = await contract.getPlayerRound(user);
+    // r: [roundId, asset, startTime, endTime, lockPrice, closePrice, betAmount, direction, status, claimed, upWon]
+    const roundId    = r[0].toNumber();
+    const asset      = r[1];
+    const endTime    = r[3].toNumber();
+    const lockPrice  = r[4].toNumber();
+    const closePrice = r[5].toNumber();
+    const betAmount  = r[6];
+    const direction  = r[7]; // 0=NONE,1=UP,2=DOWN
+    const status     = r[8]; // 0=EMPTY,1=ACTIVE,2=ENDED,3=SETTLED
+    const upWon      = r[10];
+
+    playerRoundStatus = status;
+    hasBetThisRound   = direction !== 0;
+
+    document.getElementById('round').innerText    = roundId > 0 ? '#' + roundId : '—';
+    document.getElementById('lockPrice').innerText = lockPrice > 0 ? '$' + lockPrice.toLocaleString() : '—';
+
+    const banner = document.getElementById('resultBanner');
+    const now = Math.floor(Date.now() / 1000);
+
+    if (status === 0) {
+      // EMPTY — no round yet
+      setStatus('Ready', 'waiting');
+      document.getElementById('timeLeftSmall').innerText = '—';
+      banner.className = 'result-banner';
+
+    } else if (status === 1) {
+      // ACTIVE
+      setStatus('Active', 'active');
+      startRoundTimer(endTime);
+      banner.className = 'result-banner';
+
+    } else if (status === 3) {
+      // SETTLED
+      setStatus('Settled', 'waiting');
+      document.getElementById('timeLeftSmall').innerText = '—';
+      if (roundTimerInterval) { clearInterval(roundTimerInterval); roundTimerInterval = null; }
+      if (closePrice > 0) {
+        const won = (upWon && direction === 1) || (!upWon && direction === 2);
+        banner.className = 'result-banner show ' + (upWon ? 'up-won' : 'down-won');
+        banner.innerHTML = upWon
+          ? `▲ UP WON · Close $${closePrice.toLocaleString()}`
+          : `▼ DOWN WON · Close $${closePrice.toLocaleString()}`;
+      }
     }
 
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      background: rgba(30, 41, 59, 0.95);
-      border-radius: 20px;
-      padding: 3rem;
-      box-shadow: 
-        0 20px 40px rgba(0, 0, 0, 0.4),
-        0 0 80px rgba(59, 130, 246, 0.15),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(59, 130, 246, 0.3);
-      position: relative;
+    // Show settle button if round ended but not settled
+    const settleBtn = document.getElementById('btnSettle');
+    if (status === 1 && now >= endTime && direction !== 0) {
+      settleBtn.style.display = 'block';
+      settleBtn.disabled = false;
+    } else {
+      settleBtn.style.display = 'none';
     }
 
-    .container::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, #3b82f6, #8b5cf6, #10b981);
-      border-radius: 20px 20px 0 0;
-      z-index: 2;
+    updateBetButtons();
+    if (contractOwner && user.toLowerCase() === contractOwner.toLowerCase()) {
+      await loadOwnerStats();
+    }
+  } catch(e) { console.error('loadPlayerRound error:', e); }
+}
+
+// ── Timer ───────────────────────────────────────────────────────────────────
+function startRoundTimer(endTime) {
+  if (roundTimerInterval) clearInterval(roundTimerInterval);
+  roundTimerInterval = setInterval(async () => {
+    const left = endTime - Math.floor(Date.now() / 1000);
+    if (left > 0) {
+      document.getElementById('timeLeftSmall').innerText = formatTime(left);
+    } else {
+      document.getElementById('timeLeftSmall').innerText = '—';
+      clearInterval(roundTimerInterval); roundTimerInterval = null;
+      setStatus('Ended', 'ended');
+      // Show settle button
+      if (hasBetThisRound) {
+        const settleBtn = document.getElementById('btnSettle');
+        settleBtn.style.display = 'block';
+        settleBtn.disabled = false;
+      }
+      updateBetButtons();
+      // Auto-settle if owner
+      if (user && contractOwner && user.toLowerCase() === contractOwner.toLowerCase()) {
+        await autoSettle();
+      }
+    }
+  }, 1000);
+}
+
+// ── Bet buttons state ───────────────────────────────────────────────────────
+function updateBetButtons() {
+  const connected = !!user && !!contract;
+  // Can bet: connected + round is ACTIVE + no bet placed yet
+  const canBet = connected && playerRoundStatus === 1 && !hasBetThisRound;
+  // Can also bet when EMPTY or SETTLED (will auto-start round)
+  const canStart = connected && (playerRoundStatus === 0 || playerRoundStatus === 3);
+  document.getElementById('btnUp').disabled   = !(canBet || canStart);
+  document.getElementById('btnDown').disabled = !(canBet || canStart);
+  const hint = document.getElementById('betHint');
+  if (connected && hasBetThisRound && playerRoundStatus === 1) {
+    hint.innerText = '✓ Bet placed — waiting for round to end';
+    hint.style.color = 'var(--up)';
+  } else if (connected && playerRoundStatus === 0) {
+    hint.innerText = 'Bet to start your round automatically';
+    hint.style.color = 'var(--text-muted)';
+  } else {
+    hint.innerText = '';
+  }
+}
+
+// ── Betting ─────────────────────────────────────────────────────────────────
+async function betUp()   { await _bet('UP'); }
+async function betDown() { await _bet('DOWN'); }
+
+async function _bet(direction) {
+  if (!checkConnected()) return;
+  const amount = document.getElementById('amount').value;
+  if (!amount || parseFloat(amount) <= 0) { alert('Enter a valid ETH amount'); return; }
+
+  document.getElementById('btnUp').disabled   = true;
+  document.getElementById('btnDown').disabled = true;
+
+  try {
+    // Start round if needed
+    if (playerRoundStatus === 0 || playerRoundStatus === 3) {
+      const lockPrice = await fetchCoinPrice(selectedCoin);
+      const tx = await contract.startRound(selectedDuration, lockPrice, selectedCoin);
+      await tx.wait();
+      playerRoundStatus = 1;
     }
 
-    h1 {
-      text-align: center;
-      margin-bottom: 0.5rem;
-      font-size: 2.5rem;
-      background: linear-gradient(135deg, #60a5fa 0%, #34d399 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-shadow: 0 4px 20px rgba(96, 165, 250, 0.3);
+    // Place bet
+    const tx = direction === 'UP'
+      ? await contract.betUp({ value: ethers.utils.parseEther(amount) })
+      : await contract.betDown({ value: ethers.utils.parseEther(amount) });
+    await tx.wait();
+
+    hasBetThisRound = true;
+    addActiveBet(direction, amount);
+    await loadPlayerRound();
+
+  } catch(e) {
+    alert('Bet failed: ' + (e.reason || e.message));
+  } finally {
+    updateBetButtons();
+  }
+}
+
+// ── Settle ───────────────────────────────────────────────────────────────────
+async function settle() {
+  if (!checkConnected()) return;
+  document.getElementById('btnSettle').disabled = true;
+  try {
+    const closePrice = await fetchCoinPrice(selectedCoin);
+    const tx = await contract.settleRound(closePrice);
+    await tx.wait();
+    document.getElementById('btnSettle').style.display = 'none';
+    await loadPlayerRound();
+  } catch(e) {
+    alert('Settle failed: ' + (e.reason || e.message));
+    document.getElementById('btnSettle').disabled = false;
+  }
+}
+
+async function autoSettle() {
+  try {
+    const closePrice = await fetchCoinPrice(selectedCoin);
+    const tx = await contract.settleRound(closePrice);
+    await tx.wait();
+    document.getElementById('btnSettle').style.display = 'none';
+    await loadPlayerRound();
+  } catch(e) { console.error('Auto-settle failed:', e.reason || e.message); }
+}
+
+// ── Price fetching ───────────────────────────────────────────────────────────
+async function fetchCoinPrice(coin) {
+  const cfg = COINS[coin];
+  // Try cache first (from WS)
+  if (priceCache[coin] && priceCache[coin].raw > 0) return Math.round(priceCache[coin].raw);
+  // Fallback REST
+  const sources = [
+    async () => {
+      const r = await fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${cfg.binance}`);
+      const d = await r.json(); return Math.round(parseFloat(d.price));
+    },
+    async () => {
+      const r = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${cfg.binance.replace('USDT','').toLowerCase()}&vs_currencies=usd`);
+      const d = await r.json();
+      const key = Object.keys(d)[0];
+      return Math.round(d[key].usd);
+    }
+  ];
+  for (const src of sources) {
+    try { const p = await src(); if (p > 0) return p; } catch(e) {}
+  }
+  throw new Error('All price sources failed');
+}
+
+// ── WebSocket prices ─────────────────────────────────────────────────────────
+function startPriceWebSocket() {
+  const ws = new WebSocket('wss://stream.binance.com:9443/stream?streams=btcusdt@ticker/ethusdt@ticker/bnbusdt@ticker/solusdt@ticker/xrpusdt@ticker');
+  ws.onmessage = (event) => {
+    const msg = JSON.parse(event.data);
+    const t = msg.data;
+    if (!t) return;
+    const coinKey = Object.keys(COINS).find(k => COINS[k].binance === t.s);
+    if (!coinKey) return;
+    const price  = parseFloat(t.c);
+    const change = parseFloat(t.P);
+    const fmt = price < 10 ? price.toFixed(4) : price < 1000 ? price.toFixed(2) : Math.round(price).toLocaleString();
+    const changeStr = (change >= 0 ? '+' : '') + change.toFixed(2) + '%';
+    const dir = change >= 0 ? 'pos' : 'neg';
+    priceCache[coinKey] = { price: '$'+fmt, change: changeStr, dir, raw: price };
+    const el = document.getElementById('price-'+coinKey);
+    if (el) el.innerText = '$'+fmt;
+    if (coinKey === selectedCoin) {
+      document.getElementById('chartPrice').innerText = '$'+fmt;
+      const changeEl = document.getElementById('chartChange');
+      changeEl.innerText = changeStr;
+      changeEl.className = 'chart-change '+dir;
+    }
+  };
+  ws.onclose = () => setTimeout(startPriceWebSocket, 3000);
+  ws.onerror = () => ws.close();
+}
+
+// ── Active bets display ──────────────────────────────────────────────────────
+function addActiveBet(direction, amount) {
+  const endTime = Math.floor(Date.now() / 1000) + selectedDuration * 60;
+  activeBets.push({ direction, amount, endTime, coin: selectedCoin, durationMin: selectedDuration });
+  renderBets();
+  if (!betsRenderInterval) betsRenderInterval = setInterval(renderBets, 1000);
+}
+
+function renderBets() {
+  const list = document.getElementById('betsList');
+  const section = document.getElementById('betsSection');
+  if (!activeBets.length) { section.style.display='none'; return; }
+  section.style.display = 'block';
+  const now = Math.floor(Date.now() / 1000);
+  list.innerHTML = activeBets.map(bet => {
+    const left = bet.endTime - now;
+    const timer = left > 0
+      ? `<div class="bet-timer">${formatTime(left)}</div>`
+      : `<div class="bet-timer expired">SETTLE</div>`;
+    const dc = bet.direction === 'UP' ? 'up' : 'down';
+    return `<div class="bet-item">
+      <span class="bet-dir-badge ${dc}">${bet.direction}</span>
+      <div class="bet-info">
+        <div class="bet-amount">${parseFloat(bet.amount).toFixed(4)} ETH</div>
+        <div class="bet-meta">${bet.coin} · ${bet.durationMin}m</div>
+      </div>${timer}</div>`;
+  }).join('');
+}
+
+function formatTime(s) {
+  const m = Math.floor(s/60);
+  return m > 0 ? `${m}:${(s%60).toString().padStart(2,'0')}` : `${s}s`;
+}
+
+// ── Owner ────────────────────────────────────────────────────────────────────
+async function loadOwnerStats() {
+  if (!contract || !user) return;
+  try {
+    const info = await contract.balanceInfo();
+    const fmt = v => parseFloat(ethers.utils.formatEther(v)).toFixed(4) + ' ETH';
+    document.getElementById('ownerBalContract').innerText  = fmt(info[0]);
+    document.getElementById('ownerBalProfit').innerText    = fmt(info[1]);
+    document.getElementById('ownerBalLiquidity').innerText = fmt(info[2]);
+  } catch(e) {}
+}
+
+async function ownerDeposit() {
+  const amount = document.getElementById('depositAmount').value;
+  if (!amount) { alert('Enter amount'); return; }
+  try {
+    const tx = await contract.depositLiquidity({ value: ethers.utils.parseEther(amount) });
+    await tx.wait(); document.getElementById('depositAmount').value = '';
+    await loadOwnerStats(); alert('Deposited ✓');
+  } catch(e) { alert('Deposit failed: ' + (e.reason||e.message)); }
+}
+
+async function ownerWithdraw() {
+  const input = document.getElementById('withdrawAmount').value;
+  const amount = (!input || parseFloat(input) === 0) ? 0 : ethers.utils.parseEther(input);
+  try {
+    const tx = await contract.withdrawProfit(amount);
+    await tx.wait(); document.getElementById('withdrawAmount').value = '';
+    await loadOwnerStats(); alert('Withdrawn ✓');
+  } catch(e) { alert('Withdraw failed: ' + (e.reason||e.message)); }
+}
+
+async function ownerWithdrawAll() {
+  try {
+    await (await contract.withdrawProfit(0)).wait();
+    await loadOwnerStats(); alert('All withdrawn ✓');
+  } catch(e) { alert('Error: ' + (e.reason||e.message)); }
+}
+
+// ── Helpers ──────────────────────────────────────────────────────────────────
+function setStatus(text, type) {
+  const el = document.getElementById('roundStatus');
+  el.innerText = text; el.className = 'status-pill status-' + type;
+}
+
+function selectDuration(min, btn) {
+  selectedDuration = min;
+  document.querySelectorAll('.dur-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function checkConnected() {
+  if (!user || !contract) { alert('Please connect your wallet first'); return false; }
+  return true;
+}
+
+// ── Init ─────────────────────────────────────────────────────────────────────
+tvWidget = new TradingView.widget({
+  container_id:'tv_chart', symbol:'BINANCE:BTCUSDT', interval:'1',
+  theme:'dark', width:'100%', height:'100%', autosize:true,
+  hide_side_toolbar:true, allow_symbol_change:false,
+});
+
+startPriceWebSocket();
+
+// ─── Graffiti background ──────────────────────────────────────────────────────
+(function() {
+  const canvas = document.getElementById('graffiti-bg');
+  const ctx = canvas.getContext('2d');
+  const NEON = '#d5fd51';
+  const NEON2 = '#b8e530';
+  const WHITE = 'rgba(255,255,255,0.07)';
+  const DIM = 'rgba(213,253,81,0.08)';
+
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+    draw();
+  }
+
+  function randInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+  function rand(min, max) { return Math.random() * (max - min) + min; }
+
+  // Seeded random so it's consistent per session
+  let seed = 42;
+  function srnd() {
+    seed = (seed * 16807 + 0) % 2147483647;
+    return (seed - 1) / 2147483646;
+  }
+  function srandInt(min, max) { return Math.floor(srnd() * (max - min + 1)) + min; }
+  function srand(min, max) { return srnd() * (max - min) + min; }
+
+  function drawSprayPaint(ctx, x, y, radius, color, density = 60) {
+    ctx.save();
+    for (let i = 0; i < density; i++) {
+      const angle = srnd() * Math.PI * 2;
+      const r = Math.pow(srnd(), 0.5) * radius;
+      const px = x + Math.cos(angle) * r;
+      const py = y + Math.sin(angle) * r;
+      const alpha = srand(0.02, 0.18);
+      ctx.globalAlpha = alpha;
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.arc(px, py, srand(0.5, 2.5), 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function drawGraffitiLetter(ctx, x, y, letter, size, color, angle = 0) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(angle);
+
+    // Outline / drip effect
+    ctx.font = `900 ${size}px 'Syne', sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    // Spray halo
+    drawSprayPaint(ctx, 0, 0, size * 0.7, color, 80);
+
+    // Shadow layers for depth
+    ctx.shadowColor = color;
+    ctx.shadowBlur = size * 0.3;
+    ctx.globalAlpha = 0.06;
+    ctx.fillStyle = color;
+    ctx.fillText(letter, 3, 6);
+
+    // Outline stroke
+    ctx.globalAlpha = 0.18;
+    ctx.strokeStyle = color;
+    ctx.lineWidth = size * 0.08;
+    ctx.lineJoin = 'round';
+    ctx.strokeText(letter, 0, 0);
+
+    // Fill
+    ctx.globalAlpha = 0.09;
+    ctx.fillStyle = color;
+    ctx.fillText(letter, 0, 0);
+
+    // Drip
+    const dripCount = srandInt(1, 3);
+    for (let d = 0; d < dripCount; d++) {
+      const dx = srand(-size * 0.3, size * 0.3);
+      const dripLen = srand(size * 0.2, size * 0.9);
+      const dripW = srand(2, 6);
+      ctx.globalAlpha = 0.12;
+      ctx.strokeStyle = color;
+      ctx.lineWidth = dripW;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(dx, size * 0.4);
+      ctx.bezierCurveTo(
+        dx + srand(-8, 8), size * 0.5 + dripLen * 0.3,
+        dx + srand(-8, 8), size * 0.5 + dripLen * 0.7,
+        dx + srand(-4, 4), size * 0.4 + dripLen
+      );
+      ctx.stroke();
+      // Drip end blob
+      ctx.globalAlpha = 0.1;
+      ctx.beginPath();
+      ctx.arc(dx + srand(-4,4), size * 0.4 + dripLen, dripW * 1.5, 0, Math.PI * 2);
+      ctx.fillStyle = color;
+      ctx.fill();
     }
 
-    .subtitle {
-      text-align: center;
-      color: #94a3b8;
-      margin-bottom: 2.5rem;
-      font-size: 1.1rem;
-      line-height: 1.6;
+    ctx.restore();
+  }
+
+  function drawTag(ctx, x, y, text, size, color, skew = 0) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.transform(1, 0, skew, 1, 0, 0);
+
+    const letters = text.split('');
+    let ox = 0;
+    for (const l of letters) {
+      const angle = srand(-0.15, 0.15);
+      const vertJitter = srand(-size * 0.15, size * 0.15);
+      drawGraffitiLetter(ctx, ox, vertJitter, l, size, color, angle);
+      ox += size * srand(0.55, 0.72);
+    }
+    ctx.restore();
+  }
+
+  function drawLine(ctx, x1, y1, x2, y2, color, width, alpha) {
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.strokeStyle = color;
+    ctx.lineWidth = width;
+    ctx.lineCap = 'round';
+    ctx.shadowColor = color;
+    ctx.shadowBlur = width * 3;
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawArrow(ctx, x, y, size, color) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(srand(-0.3, 0.3));
+    ctx.globalAlpha = 0.12;
+    ctx.strokeStyle = color;
+    ctx.lineWidth = size * 0.08;
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    ctx.shadowColor = color;
+    ctx.shadowBlur = 10;
+    ctx.beginPath();
+    // Arrow up
+    ctx.moveTo(0, size * 0.5);
+    ctx.lineTo(0, -size * 0.5);
+    ctx.moveTo(-size * 0.3, -size * 0.2);
+    ctx.lineTo(0, -size * 0.5);
+    ctx.lineTo(size * 0.3, -size * 0.2);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawHexagon(ctx, x, y, r, color) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(srand(0, Math.PI));
+    ctx.globalAlpha = srand(0.04, 0.1);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = srand(1, 4);
+    ctx.shadowColor = color;
+    ctx.shadowBlur = 8;
+    ctx.beginPath();
+    for (let i = 0; i < 6; i++) {
+      const angle = (Math.PI / 3) * i;
+      const px = Math.cos(angle) * r;
+      const py = Math.sin(angle) * r;
+      i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+    }
+    ctx.closePath();
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function draw() {
+    const W = canvas.width;
+    const H = canvas.height;
+    seed = 42; // reset seed for consistent render
+
+    ctx.clearRect(0, 0, W, H);
+
+    // ── Base: deep dark gradient (not pure black) ──
+    const bgGrad = ctx.createLinearGradient(0, 0, W, H);
+    bgGrad.addColorStop(0,   '#0d1a0a');
+    bgGrad.addColorStop(0.3, '#0a0f1a');
+    bgGrad.addColorStop(0.6, '#130d1f');
+    bgGrad.addColorStop(1,   '#0a1410');
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, W, H);
+
+    // ── Ink splat blobs — big color explosions ──
+    const blobs = [
+      { x: W*0.08,  y: H*0.15, r: W*0.22, c: 'rgba(213,253,81,',  a: 0.13 },
+      { x: W*0.85,  y: H*0.75, r: W*0.28, c: 'rgba(213,253,81,',  a: 0.10 },
+      { x: W*0.5,   y: H*0.5,  r: W*0.35, c: 'rgba(74,222,128,',  a: 0.07 },
+      { x: W*0.9,   y: H*0.1,  r: W*0.18, c: 'rgba(248,113,113,', a: 0.10 },
+      { x: W*0.1,   y: H*0.85, r: W*0.20, c: 'rgba(248,113,113,', a: 0.08 },
+      { x: W*0.55,  y: H*0.2,  r: W*0.15, c: 'rgba(184,229,48,',  a: 0.09 },
+      { x: W*0.25,  y: H*0.55, r: W*0.12, c: 'rgba(213,253,81,',  a: 0.08 },
+      { x: W*0.75,  y: H*0.45, r: W*0.16, c: 'rgba(74,222,128,',  a: 0.08 },
+    ];
+
+    for (const b of blobs) {
+      // Radial splat
+      const g = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
+      g.addColorStop(0,   b.c + (b.a * 2.5) + ')');
+      g.addColorStop(0.4, b.c + b.a + ')');
+      g.addColorStop(0.75, b.c + (b.a * 0.3) + ')');
+      g.addColorStop(1,   b.c + '0)');
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Splatter droplets around blob
+      const color = b.c + (b.a * 3) + ')';
+      for (let s = 0; s < 18; s++) {
+        const angle = srnd() * Math.PI * 2;
+        const dist  = srand(b.r * 0.5, b.r * 1.6);
+        const sx = b.x + Math.cos(angle) * dist;
+        const sy = b.y + Math.sin(angle) * dist;
+        const sr2 = srand(2, b.r * 0.12);
+        ctx.globalAlpha = srand(0.05, 0.18);
+        ctx.fillStyle = b.c + (b.a * 4) + ')';
+        ctx.beginPath();
+        // Elongated splat drop
+        ctx.save();
+        ctx.translate(sx, sy);
+        ctx.rotate(angle + Math.PI/2);
+        ctx.ellipse(0, 0, sr2 * 0.5, sr2, 0, 0, Math.PI * 2);
+        ctx.restore();
+        ctx.fill();
+      }
     }
 
-    .network-selector {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 2rem;
-      flex-wrap: wrap;
-      justify-content: center;
+    // ── Spray strokes — wide brush marks ──
+    const strokes = [
+      { x1: W*0.0,  y1: H*0.3,  x2: W*0.4,  y2: H*0.15, c: NEON,            w: 80 },
+      { x1: W*0.6,  y1: H*0.85, x2: W*1.0,  y2: H*0.65, c: NEON2,           w: 60 },
+      { x1: W*0.2,  y1: H*0.9,  x2: W*0.7,  y2: H*0.95, c: '#4ade80',       w: 50 },
+      { x1: W*0.7,  y1: H*0.0,  x2: W*0.95, y2: H*0.35, c: '#f87171',       w: 55 },
+      { x1: W*0.0,  y1: H*0.65, x2: W*0.25, y2: H*0.5,  c: NEON,            w: 40 },
+    ];
+
+    for (const s of strokes) {
+      const sg = ctx.createLinearGradient(s.x1, s.y1, s.x2, s.y2);
+      sg.addColorStop(0,   s.c + '00');
+      sg.addColorStop(0.3, s.c + '22');
+      sg.addColorStop(0.5, s.c + '18');
+      sg.addColorStop(1,   s.c + '00');
+      ctx.globalAlpha = 1;
+      ctx.strokeStyle = sg;
+      ctx.lineWidth = s.w;
+      ctx.lineCap = 'round';
+      ctx.shadowColor = s.c;
+      ctx.shadowBlur = s.w * 0.8;
+      ctx.beginPath();
+      ctx.moveTo(s.x1, s.y1);
+      const mx = (s.x1 + s.x2) / 2 + srand(-W*0.1, W*0.1);
+      const my = (s.y1 + s.y2) / 2 + srand(-H*0.1, H*0.1);
+      ctx.quadraticCurveTo(mx, my, s.x2, s.y2);
+      ctx.stroke();
+      ctx.shadowBlur = 0;
     }
 
-    .network-btn {
-      padding: 0.75rem 1.5rem;
-      background: rgba(30, 41, 59, 0.8);
-      border: 1px solid rgba(59, 130, 246, 0.4);
-      border-radius: 12px;
-      color: #cbd5e1;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-weight: 500;
-      backdrop-filter: blur(10px);
+    // ── Concrete texture: noise ──
+    for (let i = 0; i < 4000; i++) {
+      ctx.globalAlpha = srand(0.01, 0.05);
+      ctx.fillStyle = srnd() > 0.6 ? '#ffffff' : (srnd() > 0.5 ? NEON : '#333');
+      const px = srnd() * W, py = srnd() * H;
+      ctx.fillRect(px, py, srand(0.5, 2), srand(0.5, 2));
     }
 
-    .network-btn:hover {
-      background: rgba(59, 130, 246, 0.15);
-      border-color: #3b82f6;
-      transform: translateY(-2px);
+    // Big background tags - words scattered
+    const words = ['BLOCKORACLE', 'UP', 'DOWN', 'BTC', 'PREDICT', 'WIN', 'CHAIN', '0x'];
+    const colors = [NEON, NEON2, 'rgba(255,255,255,0.6)', NEON];
+
+    // Large background word
+    drawTag(ctx, W * 0.02, H * 0.18, 'BLOCKORACLE', Math.min(W * 0.075, 90), NEON, -0.05);
+    drawTag(ctx, W * 0.55, H * 0.72, 'ROBINHOOD', Math.min(W * 0.065, 80), NEON2, 0.04);
+    drawTag(ctx, W * 0.05, H * 0.82, 'BTC', Math.min(W * 0.1, 120), NEON, -0.08);
+    drawTag(ctx, W * 0.6, H * 0.12, 'PREDICT', Math.min(W * 0.055, 70), 'rgba(255,255,255,0.5)', 0.06);
+    drawTag(ctx, W * 0.3, H * 0.45, 'WIN', Math.min(W * 0.12, 140), NEON2, -0.03);
+    drawTag(ctx, W * 0.7, H * 0.38, '0xCHAIN', Math.min(W * 0.045, 55), NEON, 0.03);
+    drawTag(ctx, W * 0.15, H * 0.6, 'UP', Math.min(W * 0.09, 110), NEON, 0.05);
+    drawTag(ctx, W * 0.75, H * 0.6, 'DOWN', Math.min(W * 0.07, 85), '#f87171', -0.04);
+
+    // Hexagons (blockchain motif)
+    for (let i = 0; i < 18; i++) {
+      drawHexagon(ctx, srnd() * W, srnd() * H, srand(20, 90), i % 3 === 0 ? NEON : NEON2);
     }
 
-    .network-btn.active {
-      background: rgba(59, 130, 246, 0.25);
-      border-color: #3b82f6;
-      color: #60a5fa;
-      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+    // Arrows (UP / DOWN arrows)
+    for (let i = 0; i < 12; i++) {
+      drawArrow(ctx, srnd() * W, srnd() * H, srand(30, 80), srnd() > 0.5 ? NEON : '#f87171');
     }
 
-    input {
-      width: 100%;
-      padding: 1.25rem;
-      font-size: 1.1rem;
-      background: rgba(15, 23, 42, 0.8);
-      border: 2px solid rgba(59, 130, 246, 0.3);
-      border-radius: 12px;
-      color: #f8fafc;
-      margin-bottom: 2rem;
-      transition: all 0.3s ease;
-      font-family: 'Monaco', 'Consolas', monospace;
-      letter-spacing: 0.5px;
+    // Scratchy tag lines
+    for (let i = 0; i < 25; i++) {
+      const x1 = srnd() * W, y1 = srnd() * H;
+      const x2 = x1 + srand(-200, 200), y2 = y1 + srand(-80, 80);
+      drawLine(ctx, x1, y1, x2, y2, srnd() > 0.7 ? NEON : 'rgba(255,255,255,0.3)', srand(0.5, 3), srand(0.02, 0.07));
     }
 
-    input:focus {
-      outline: none;
-      border-color: #60a5fa;
-      box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
-      background: rgba(15, 23, 42, 0.95);
+    // Spray circles (random spots)
+    for (let i = 0; i < 20; i++) {
+      drawSprayPaint(ctx, srnd() * W, srnd() * H, srand(30, 120), srnd() > 0.5 ? NEON : NEON2, 40);
     }
 
-    input::placeholder {
-      color: #64748b;
-    }
+    // Semi-transparent dark overlay so UI stays readable
+    ctx.globalAlpha = 0.55;
+    ctx.fillStyle = '#080808';
+    ctx.fillRect(0, 0, W, H);
 
-    .button-group {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 2rem;
-      flex-wrap: wrap;
-    }
+    // Vignette edges
+    const vignette = ctx.createRadialGradient(W/2, H/2, H*0.2, W/2, H/2, H);
+    vignette.addColorStop(0,   'rgba(0,0,0,0)');
+    vignette.addColorStop(0.7, 'rgba(0,0,0,0.2)');
+    vignette.addColorStop(1,   'rgba(0,0,0,0.75)');
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = vignette;
+    ctx.fillRect(0, 0, W, H);
+  }
 
-    .check-btn {
-      flex: 1;
-      min-width: 200px;
-      padding: 1.25rem;
-      font-size: 1.2rem;
-      font-weight: 600;
-      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-      border: none;
-      border-radius: 12px;
-      color: white;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .check-btn:hover {
-      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
-    }
-
-    .check-btn:active {
-      transform: translateY(0);
-    }
-
-    .demo-btn {
-      padding: 1.25rem 2rem;
-      background: rgba(139, 92, 246, 0.2);
-      border: 1px solid rgba(139, 92, 246, 0.5);
-      border-radius: 
+  window.addEventListener('resize', resize);
+  // Wait for Syne font to load for text rendering
+  document.fonts.ready.then(resize);
+  resize();
+-e 
+</script>
+</body>
+</html>
