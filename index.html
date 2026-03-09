@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta property="og:title" content="BlockOracle - Crypto Prediction Game"/>
+<meta property="og:description" content="Predict crypto price direction in real time. 1m rounds, instant results. Play on Robinhood Chain."/>
+<meta property="og:image" content="https://blockoracle-evm.vercel.app/preview.png"/>
+<meta property="og:url" content="https://blockoracle-evm.vercel.app"/>
+<meta property="og:type" content="website"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="BlockOracle - Crypto Prediction Game"/>
+<meta name="twitter:description" content="Predict crypto price direction in real time. Play on Robinhood Chain."/>
+<meta name="twitter:image" content="https://blockoracle-evm.vercel.app/preview.png"/>
+<link rel="icon" type="image/png" href="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCABcAGYDASIAAhEBAxEB/8QAHAAAAQUBAQEAAAAAAAAAAAAAAAECBQYHCAQD/8QAORAAAQMDAwIEBAIHCQAAAAAAAQIDBAAFEQYSIQcxQVFhcRMUIoEjMhUWF2ORofAmMzRCQ1JysbL/xAAbAQABBQEBAAAAAAAAAAAAAAAEAAECAwYFB//EACQRAAICAgICAwEAAwAAAAAAAAABAgMEEQUhEjEGE0EiIzJh/9oADAMBAAIRAxEAPwDkGgUUUaSA0UGikIKKMUqUk9qSTY6QlFO+GvBOOBSEEdxVjqkltodITiiiiqxmFFFFIYKKKKQgoooAJIFJkgoq1WPQeoLzBcmWy3vymmxlam0FW33xUFNt0qG6pqQyptSTggiq4XVzl4p9kFZBv2eRCCpQHPNXrR/T65XSKm5XBSLZaR+aXJO0H0SO6j6CqbDSQ+nI8a6B1fqOyrdg6Y1PbC7Cat0UszIx2PsFTKFH0WnPODWj4vHqcXOf4HUQi+2VRn9m8VBtC4U+U2rhU/4m1aT5pR2x71C6p6dPNQVXfTUpu92vG5TjH940P3iO6fftVpPTKK+1+loGpre5YgRvluHaton/ACKR33eg9amdDX/Tmn9XWqy6YjLmSJspqPKuMruUKWAQhHYA+ZyfaupZXRNaCXGEujntxtSFFKhgimYNTWrk/wBoZwA/119v+RqNjQn5C9jaFKJOBWVzK402OK/Dm3aizz4NJg1b5fT3UsK1Jucq1yWYihkOrQQk/eqo+jYopHgaChbCf+r2URsjL0MwaKAcd6KsJiYp6OFA+VNqQsERMy5MR1EgOOJR/E4q+iv7LFEnFeT0ab0b6nao0ZvjWT8VuQQFsqRvCvLj71fb/ardqdgzdTWGVYJz31KlNtlTJJ/3IHKff+VEiwJsUB6L04TBkXOMnZOCsKmpV4lIPh6p5qjaWn63OpFMW8XCVcHFYdaKSonwIWk8Y96Oyfi9E19kXqX/AAV/Gx0u+xt06U3mK6iRAbROjLV+G9FVvSrPYcdvvirw3YdPyXX5vUIvMzhAbZiw7eRkKQ2EJLmc44SD3qw3FUnTtiNzgXGNFvzKkfOQ4Tu9oJVx9QHAPHYVZOmVismu0uXC52/5R9laQstZCVk98g9vtWL5PkszjP8AE5Jo5Ntt9EvqTMytlm29H7uyEKSlV1YWARyQG3Mf1x3r7sWHSAYsc/Sq3mNSQ1odfjz1D4b7iSDhKhx4diRXVbOiLe1ZzAZiRxDUn6m9vCvU+tZJ1K0lpvR0ZV6agqlu79iWlH8NBwSD61xKvkWVGzva29oaVt8F5M5/a6W6gu93kPzogt6C6VvOvjY2jJzkmrjYdJ6f0+kv2qA9qae3+VbaSmMlQ8ieXD/Cp6y3U6ptMqdf7lGbdQ8GIESS6W4xVjOCR248+KzLqO9rWLeW2LmzIhFHEZplO1sD93t4I9R3rb8dx9/KLzyZdP8AEE4+PPJ/ub6Pv1h6qavv0FNhurXyTDBx8sGvh7SOBnjvisSdJUsk+ddH2eFcLvaWEdS2obcF0BEV2Wds1RI42AfURnH5qwzXdrj2fVNwt0cqLcd9TaSrvgHxrtZHDV4VW6vR0p4aphtEDj1opaK5WinoE81MaQwL/CHj8dH/AGKhq+0V5bLyHm1FK0EKSR4EURi2Kq1SZOD1JM1DqbKlwOo92fivPR3ESipK0EpV6H+VXHWOrr/+yywSm7gpqTcVPolvNpCXHkoIAClAZPB5qsWTXNt1JDbt2urZ86oJCGrlGw3Kb7ck9lj0I+9XK727RMjRNltruopUpi3uPuIRHj/iuBagdpB4TjHJrU25lVsHqSD7LYOLakj2dIHNT2RqY5A03H1IiW0AFjD6EHuCQOQfcVp3Su4T4KJca8uR48x5xC2om5KVADOQEjt7Vz/atXuaVuSnNLvSLS3tLfD+91fqojAz6Yr233U6nbslFzPwp5Q27841xv3pChvTjvyOR/PvXlXN8TPMk/q9GYyIuU/JdnYadTFFvUj6gofTtwc5rN+qsyROs6YceVHFzMgOIjrcG4pwfA8fY1C2CXraT0vlXRMwPIbcSlEvjIbwd31dwPy1kjWpI7N/ZaCv0ncnnktpee5aaUo4yB3Wffj0NZnC+P5Vlv8AXfj6ISdk+tdFt6kNapv2nINpnaYiWRuJ9bk1SBHQvj8yu2aqXS/Ut5ag3+0u3ES49thLei7wHA04kgBSCRwK8eote3XUUpMbUctd0jsZb+A66W8DOPpKeAfep/Rdm0dGi3WXEvMqCmZBUw7HmthRRnHKVJ4UPsK9a+PRhjQUJPUv07PHzjDozKBc7leNXQpM+W9KfXJRlTiyonkf1iorq2D+vl5zj/Fqq5z9V2LSLTkfSFrD07GFXWajcsH92jsn371lN3nybjOely3VOvuqK3FqPKj511+UzKp1+EHsOyLIuHimeOijNFZgA0Np7WCoAmmUqfSmHfo3bohN6VWa1y5utG5MyaAPgMNpG3jvk5B8u3rVN13rRifcZAs7AhwSs/DabGOPDJ8az/evbt3HHvTck+JoJYa+zznJsG+hb22e9E1xx3cVZJPjWkdVIUli/RJ6I6xEft8QoeAyhZDCAQCOOCMVlKFbTkd6uujeoN0skZVukhFxtbh+uHJG9v3Gfyn1Fafj7qXF1zXsPpUHFxaNasOuLlG6D3O2tO7WfnmmiM9wpKyf/IrPOm8WVcOolmcZjOvNtz2lukJylKQsEknsBirIxqbpqvRsqME3KP8AHlNyFwEYVhSUqG0L8Ence/NU3UXUKS9EVbbGw3aLaAQWo/CnB5rV3UaPhj4ePucS1U01/wBFf1RLLGpJxZI2iQvbg5GNxqX0jrNy3SmxIAdYB+tpYylQqlLWpaipRyTTRkHyrN8goZMnr0A3VxsZ0H1VvPSXUOi47+noki23sD8RG0Fs8c85759K5/ex8QgU3ertuOPek7mgcbHdK05bK64eHQGikPaiidl4lFFFMLYUeNFA70kxB4UoJA44opcZFTUmvQkAcV50hNN8cUuKf7G/Y44CjxpAadUGRY09qSnK7U2mGCiiikI//9k="/>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>BlockOracle — Robinhood Chain</title>
@@ -9,25 +19,27 @@
 <script src="https://s3.tradingview.com/tv.js"></script>
 <style>
 :root {
-  --neon:#d5fd51; --neon-dim:rgba(213,253,81,0.12); --neon-dim2:rgba(213,253,81,0.06);
-  --black:#0a0a0a; --surface:#111111; --surface2:#181818; --border:#2a2a2a; --border-light:#333;
-  --text:#ffffff; --text-muted:#666; --text-dim:#444;
-  --up:#4ade80; --down:#f87171; --up-dim:rgba(74,222,128,0.10); --down-dim:rgba(248,113,113,0.10);
+--neon:#d5fd51; --neon-dim:rgba(213,253,81,0.12); --neon-dim2:rgba(213,253,81,0.06);
+--black:#0a0a0a; --surface:#111111; --surface2:#181818; --border:#2a2a2a; --border-light:#333;
+--text:#ffffff; --text-muted:#666; --text-dim:#444;
+--up:#4ade80; --down:#f87171; --up-dim:rgba(74,222,128,0.10); --down-dim:rgba(248,113,113,0.10);
+--xp:#a78bfa; --xp-dim:rgba(167,139,250,0.12);
+--font:'DM Mono',monospace;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:#0d1a0a;color:var(--text);font-family:'DM Mono',monospace;min-height:100vh;overflow-x:hidden;}
 #graffiti-bg{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;}
 .page{position:relative;z-index:1;display:flex;flex-direction:column;height:100vh;}
-
-/* Header */
 .header{display:flex;align-items:center;justify-content:space-between;padding:12px 24px;border-bottom:1px solid var(--border);background:rgba(10,10,10,0.96);backdrop-filter:blur(12px);z-index:100;flex-shrink:0;}
-.logo{display:flex;align-items:center;gap:10px;}
+.logo{display:flex;align-items:center;gap:10px;flex-shrink:0;}
 .logo-icon{width:26px;height:26px;background:var(--neon);clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);animation:pulse-logo 3s ease-in-out infinite;}
 @keyframes pulse-logo{0%,100%{filter:brightness(1);}50%{filter:brightness(1.3) drop-shadow(0 0 8px #d5fd51);}}
 .logo-text{font-family:'Syne',sans-serif;font-weight:800;font-size:15px;letter-spacing:-0.5px;}
 .logo-text span{color:var(--neon);}
-.header-right{display:flex;align-items:center;gap:8px;}
-.chain-badge{font-size:10px;color:var(--text-muted);border:1px solid var(--border);padding:4px 10px;border-radius:4px;letter-spacing:1px;text-transform:uppercase;}
+.header-right{display:flex;align-items:center;gap:8px;flex-shrink:0;margin-left:auto;}
+.chain-badge{display:none;}
+.xp-badge-header{display:none;align-items:center;gap:5px;background:var(--xp-dim);border:1px solid rgba(167,139,250,0.3);padding:5px 10px;border-radius:6px;font-size:11px;color:var(--xp);}
+.xp-badge-header .xp-icon{font-size:13px;}
 .btn-faucet{background:transparent;color:var(--neon);border:1px solid rgba(213,253,81,0.35);padding:7px 14px;border-radius:6px;font-family:'DM Mono',monospace;font-size:11px;cursor:pointer;letter-spacing:0.5px;text-decoration:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:5px;}
 .btn-faucet:hover{background:var(--neon-dim);border-color:var(--neon);}
 .btn-connect{background:var(--neon);color:var(--black);border:none;padding:7px 16px;border-radius:6px;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;cursor:pointer;transition:all 0.2s;}
@@ -35,8 +47,6 @@ body{background:#0d1a0a;color:var(--text);font-family:'DM Mono',monospace;min-he
 .btn-connect.connected{background:var(--surface2);color:var(--neon);border:1px solid var(--border);cursor:default;}
 .btn-disconnect{background:transparent;color:var(--text-muted);border:1px solid var(--border);padding:7px 10px;border-radius:6px;font-family:'DM Mono',monospace;font-size:11px;cursor:pointer;transition:all 0.2s;display:none;}
 .btn-disconnect:hover{border-color:var(--down);color:var(--down);}
-
-/* Coin tabs */
 .coin-tabs{display:flex;gap:6px;padding:10px 24px;background:rgba(10,10,10,0.85);border-bottom:1px solid var(--border);flex-shrink:0;overflow-x:auto;}
 .coin-tab{display:flex;align-items:center;gap:7px;padding:7px 16px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);cursor:pointer;transition:all 0.18s;white-space:nowrap;}
 .coin-tab:hover{border-color:var(--neon);}
@@ -45,22 +55,24 @@ body{background:#0d1a0a;color:var(--text);font-family:'DM Mono',monospace;min-he
 .coin-name{font-size:13px;font-weight:500;color:var(--text);}
 .coin-sym{font-size:10px;color:var(--text-muted);}
 .coin-price-small{font-size:11px;color:var(--neon);margin-left:4px;}
-
-/* Layout */
 .body-layout{display:grid;grid-template-columns:1fr 420px;flex:1;overflow:hidden;min-height:0;}
-.chart-col{display:flex;flex-direction:column;border-right:1px solid var(--border);overflow:hidden;}
-.chart-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:rgba(10,10,10,0.7);border-bottom:1px solid var(--border);flex-shrink:0;}
+.chart-col{display:flex;flex-direction:column;border-right:1px solid var(--border);overflow:hidden;position:relative;}
+.chart-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:rgba(10,10,10,0.85);border-bottom:1px solid rgba(213,253,81,0.15);flex-shrink:0;backdrop-filter:blur(8px);z-index:2;}
 .chart-coin-name{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;display:flex;align-items:center;gap:8px;}
 .chart-price{font-size:22px;font-family:'Syne',sans-serif;font-weight:800;color:var(--neon);}
 .chart-change{font-size:12px;padding:2px 8px;border-radius:4px;}
 .chart-change.pos{background:var(--up-dim);color:var(--up);}
 .chart-change.neg{background:var(--down-dim);color:var(--down);}
-#tv_chart{flex:1;min-height:0;}
-
-/* Right column */
+.chart-wrap{flex:1;min-height:0;position:relative;}
+#tv_chart{width:100%;height:100%;}
+.chart-wrap::before,.chart-wrap::after{content:'';position:absolute;width:60px;height:60px;z-index:3;pointer-events:none;}
+.chart-wrap::before{top:0;left:0;border-top:2px solid var(--neon);border-left:2px solid var(--neon);opacity:0.6;}
+.chart-wrap::after{bottom:0;right:0;border-bottom:2px solid var(--neon);border-right:2px solid var(--neon);opacity:0.6;}
+.chart-corner-tr{position:absolute;top:0;right:0;width:60px;height:60px;border-top:2px solid var(--neon);border-right:2px solid var(--neon);opacity:0.6;z-index:3;pointer-events:none;}
+.chart-corner-bl{position:absolute;bottom:0;left:0;width:60px;height:60px;border-bottom:2px solid var(--neon);border-left:2px solid var(--neon);opacity:0.6;z-index:3;pointer-events:none;}
+.chart-wrap-inner{position:absolute;inset:0;box-shadow:inset 0 0 40px rgba(213,253,81,0.04),inset 0 0 1px rgba(213,253,81,0.2);pointer-events:none;z-index:2;}
+.chart-scanlines{position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);pointer-events:none;z-index:2;}
 .bet-col{display:flex;flex-direction:column;overflow-y:auto;background:rgba(10,10,10,0.6);backdrop-filter:blur(8px);}
-
-/* Stats panel */
 .stats-panel{background:rgba(17,17,17,0.9);border-bottom:1px solid var(--border);padding:14px 16px;flex-shrink:0;}
 .round-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
 .round-label{font-size:9px;color:var(--text-muted);letter-spacing:1.5px;text-transform:uppercase;}
@@ -78,8 +90,22 @@ body{background:#0d1a0a;color:var(--text);font-family:'DM Mono',monospace;min-he
 .result-banner.up-won{background:var(--up-dim);border:1px solid rgba(74,222,128,0.3);color:var(--up);}
 .result-banner.down-won{background:var(--down-dim);border:1px solid rgba(248,113,113,0.3);color:var(--down);}
 .result-banner.show{display:block;}
-
-/* Bet form */
+.xp-panel{background:rgba(17,17,17,0.9);border-bottom:1px solid rgba(167,139,250,0.2);padding:12px 16px;flex-shrink:0;display:none;}
+.xp-panel-inner{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.xp-left{display:flex;align-items:center;gap:10px;}
+.xp-orb{width:36px;height:36px;border-radius:50%;background:var(--xp-dim);border:1px solid rgba(167,139,250,0.4);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;animation:xp-pulse 3s ease-in-out infinite;}
+@keyframes xp-pulse{0%,100%{box-shadow:0 0 0 0 rgba(167,139,250,0);}50%{box-shadow:0 0 12px 3px rgba(167,139,250,0.25);}}
+.xp-label{font-size:9px;color:var(--text-muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:2px;}
+.xp-amount{font-size:18px;font-family:'Syne',sans-serif;font-weight:800;color:var(--xp);}
+.xp-rank-badge{font-size:9px;padding:2px 8px;border-radius:20px;background:var(--xp-dim);border:1px solid rgba(167,139,250,0.3);color:var(--xp);letter-spacing:1px;}
+.xp-right{text-align:right;}
+.xp-next-label{font-size:9px;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:3px;}
+.xp-countdown{font-size:12px;color:var(--xp);font-family:'Syne',sans-serif;font-weight:700;}
+.xp-weeks-left{font-size:9px;color:var(--text-muted);margin-top:2px;}
+.xp-progress-wrap{margin-top:8px;}
+.xp-progress-label{display:flex;justify-content:space-between;font-size:9px;color:var(--text-muted);margin-bottom:4px;}
+.xp-progress-bar{height:3px;background:var(--border);border-radius:2px;overflow:hidden;}
+.xp-progress-fill{height:100%;background:linear-gradient(90deg,rgba(167,139,250,0.5),var(--xp));border-radius:2px;transition:width 1s ease;}
 .bet-form{padding:14px 16px;border-bottom:1px solid var(--border);flex-shrink:0;}
 .section-title{font-size:9px;color:var(--text-muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;}
 .amount-input-wrap{position:relative;margin-bottom:12px;}
@@ -104,8 +130,13 @@ body{background:#0d1a0a;color:var(--text);font-family:'DM Mono',monospace;min-he
 .btn-settle{width:100%;padding:11px;background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.3);border-radius:8px;color:#fbbf24;font-family:'DM Mono',monospace;font-size:12px;cursor:pointer;transition:all 0.2s;margin-bottom:8px;display:none;}
 .btn-settle:hover:not(:disabled){background:#fbbf24;color:var(--black);}
 .btn-settle:disabled{opacity:0.4;cursor:not-allowed;}
-
-/* Active bets history */
+.btn-new-round{width:100%;padding:11px;background:var(--neon-dim);border:1px solid rgba(213,253,81,0.3);border-radius:8px;color:var(--neon);font-family:'DM Mono',monospace;font-size:12px;cursor:pointer;transition:all 0.2s;margin-bottom:8px;display:none;}
+.btn-new-round:hover{background:var(--neon);color:var(--black);}
+.payout-banner{display:none;padding:12px 14px;border-radius:8px;margin-top:10px;text-align:center;font-family:'Syne',sans-serif;font-weight:700;font-size:15px;letter-spacing:0.5px;animation:fadeUp 0.4s ease;}
+.payout-banner.win{background:rgba(74,222,128,0.12);border:1px solid rgba(74,222,128,0.4);color:var(--up);}
+.payout-banner.lose{background:rgba(248,113,113,0.10);border:1px solid rgba(248,113,113,0.3);color:var(--down);}
+.payout-banner.show{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
 .bets-section{padding:14px 16px;border-bottom:1px solid var(--border);}
 .bets-title{font-size:9px;color:var(--text-muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;}
 .bet-item{display:flex;align-items:center;gap:10px;padding:9px 11px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;margin-bottom:5px;}
@@ -117,8 +148,6 @@ body{background:#0d1a0a;color:var(--text);font-family:'DM Mono',monospace;min-he
 .bet-meta{font-size:9px;color:var(--text-muted);margin-top:1px;}
 .bet-timer{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--neon);min-width:46px;text-align:right;}
 .bet-timer.expired{font-family:'DM Mono',monospace;font-size:9px;font-weight:400;color:var(--down);letter-spacing:1px;}
-
-/* Owner panel */
 .owner-panel{padding:14px 16px;border-bottom:1px solid rgba(213,253,81,0.15);background:rgba(213,253,81,0.03);}
 .owner-panel-title{font-size:9px;color:var(--neon);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;}
 .owner-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px;}
@@ -135,950 +164,545 @@ body{background:#0d1a0a;color:var(--text);font-family:'DM Mono',monospace;min-he
 .btn-withdraw:hover{background:var(--up);color:var(--black);}
 .btn-withdraw-all{background:var(--down-dim);color:var(--down);border:1px solid rgba(248,113,113,0.3);}
 .btn-withdraw-all:hover{background:var(--down);color:var(--black);}
-
+.admin-xp-panel{display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.85);backdrop-filter:blur(12px);overflow-y:auto;}
+.admin-xp-inner{max-width:900px;margin:0 auto;padding:32px 24px;}
+.admin-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;}
+.admin-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--xp);}
+.admin-title span{color:var(--text-muted);font-size:12px;font-family:'DM Mono',monospace;font-weight:400;margin-left:10px;}
+.btn-close-admin{background:var(--surface2);border:1px solid var(--border);color:var(--text-muted);padding:8px 16px;border-radius:6px;font-family:'DM Mono',monospace;font-size:12px;cursor:pointer;transition:all 0.2s;}
+.btn-close-admin:hover{border-color:var(--down);color:var(--down);}
+.admin-stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:24px;}
+.admin-stat-card{background:rgba(17,17,17,0.9);border:1px solid var(--border);border-radius:8px;padding:14px 16px;}
+.admin-stat-card.xp{border-color:rgba(167,139,250,0.3);}
+.asc-label{font-size:9px;color:var(--text-muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;}
+.asc-val{font-size:20px;font-family:'Syne',sans-serif;font-weight:800;color:var(--text);}
+.asc-val.xp{color:var(--xp);}
+.asc-val.neon{color:var(--neon);}
+.asc-sub{font-size:9px;color:var(--text-muted);margin-top:3px;}
+.btn-distribute-xp{width:100%;padding:12px;background:var(--xp-dim);border:1px solid rgba(167,139,250,0.4);border-radius:8px;color:var(--xp);font-family:'DM Mono',monospace;font-size:12px;cursor:pointer;transition:all 0.2s;margin-bottom:20px;letter-spacing:0.5px;}
+.btn-distribute-xp:hover:not(:disabled){background:var(--xp);color:var(--black);}
+.btn-distribute-xp:disabled{opacity:0.4;cursor:not-allowed;}
+.players-table-wrap{background:rgba(17,17,17,0.9);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.players-table-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border);}
+.players-table-title{font-size:11px;color:var(--text-muted);letter-spacing:2px;text-transform:uppercase;}
+.players-search{background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:6px 10px;font-family:'DM Mono',monospace;font-size:11px;color:var(--text);outline:none;width:220px;}
+.players-search:focus{border-color:var(--xp);}
+.players-search::placeholder{color:var(--text-dim);}
+.players-table{width:100%;border-collapse:collapse;}
+.players-table th{font-size:9px;color:var(--text-muted);letter-spacing:1.5px;text-transform:uppercase;padding:10px 16px;text-align:left;border-bottom:1px solid var(--border);background:rgba(0,0,0,0.2);}
+.players-table th.right{text-align:right;}
+.players-table td{padding:10px 16px;font-size:12px;border-bottom:1px solid rgba(42,42,42,0.5);}
+.players-table tr:last-child td{border-bottom:none;}
+.players-table tr:hover td{background:rgba(167,139,250,0.04);}
+.td-addr{font-family:'DM Mono',monospace;color:var(--text);font-size:11px;}
+.td-addr-full{font-size:10px;color:var(--text-muted);margin-top:2px;}
+.td-xp{text-align:right;font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:var(--xp);}
+.td-vol{text-align:right;font-size:11px;color:var(--text-muted);}
+.td-rank{text-align:center;font-size:10px;}
+.rank-badge{display:inline-block;padding:2px 7px;border-radius:4px;font-size:9px;letter-spacing:1px;}
+.rank-1{background:rgba(251,191,36,0.15);color:#fbbf24;border:1px solid rgba(251,191,36,0.3);}
+.rank-2{background:rgba(156,163,175,0.15);color:#9ca3af;border:1px solid rgba(156,163,175,0.3);}
+.rank-3{background:rgba(180,83,9,0.15);color:#cd7c3a;border:1px solid rgba(180,83,9,0.3);}
+.rank-n{background:var(--surface2);color:var(--text-muted);border:1px solid var(--border);}
+.table-loading{text-align:center;padding:32px;color:var(--text-muted);font-size:12px;}
+.table-pagination{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-top:1px solid var(--border);}
+.page-info{font-size:11px;color:var(--text-muted);}
+.page-btns{display:flex;gap:6px;}
+.btn-page{background:var(--surface2);border:1px solid var(--border);color:var(--text-muted);padding:5px 12px;border-radius:5px;font-family:'DM Mono',monospace;font-size:11px;cursor:pointer;transition:all 0.15s;}
+.btn-page:hover{border-color:var(--xp);color:var(--xp);}
+.btn-page:disabled{opacity:0.3;cursor:not-allowed;}
+.xp-schedule-card{background:rgba(167,139,250,0.06);border:1px solid rgba(167,139,250,0.2);border-radius:8px;padding:14px 16px;margin-bottom:16px;}
+.xp-schedule-row{display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.xp-schedule-item{text-align:center;flex:1;}
+.xsi-label{font-size:9px;color:var(--text-muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;}
+.xsi-val{font-size:16px;font-family:'Syne',sans-serif;font-weight:800;color:var(--xp);}
+.xsi-sub{font-size:9px;color:var(--text-muted);margin-top:2px;}
+.xp-schedule-divider{width:1px;height:40px;background:var(--border);}
+.btn-export{background:var(--surface2);border:1px solid var(--border);color:var(--text-muted);padding:8px 14px;border-radius:6px;font-family:'DM Mono',monospace;font-size:11px;cursor:pointer;transition:all 0.2s;}
+.btn-export:hover{border-color:var(--neon);color:var(--neon);}
+.btn-admin-xp{width:100%;padding:10px;background:var(--xp-dim);border:1px solid rgba(167,139,250,0.3);border-radius:7px;color:var(--xp);font-family:'DM Mono',monospace;font-size:11px;cursor:pointer;transition:all 0.2s;margin-top:8px;letter-spacing:0.5px;}
+.btn-admin-xp:hover{background:var(--xp);color:var(--black);}
 @media(max-width:900px){
-  .body-layout{grid-template-columns:1fr;grid-template-rows:300px 1fr;}
-  .chart-col{border-right:none;border-bottom:1px solid var(--border);}
+.body-layout{grid-template-columns:1fr;grid-template-rows:300px 1fr;}
+.chart-col{border-right:none;border-bottom:1px solid var(--border);}
+.admin-stats-row{grid-template-columns:1fr 1fr;}
 }
+.wallet-balance{margin-top:4px;font-size:13px;font-family:var(--font);color:var(--neon);letter-spacing:0.05em;}
+.wallet-balance span:last-child{color:var(--text-muted);font-size:10px;margin-left:3px;}
+.net-switcher{display:flex;gap:0;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:4px;backdrop-filter:blur(12px);box-shadow:0 2px 16px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.05);}
+.net-btn{display:flex;align-items:center;gap:6px;background:transparent;border:none;color:rgba(255,255,255,0.35);font-family:var(--font);font-size:10px;font-weight:700;letter-spacing:0.12em;padding:6px 14px;border-radius:7px;cursor:pointer;transition:all 0.2s ease;text-transform:uppercase;white-space:nowrap;position:relative;}
+.net-btn:hover{color:rgba(255,255,255,0.7);background:rgba(255,255,255,0.06);}
+.net-btn.active{background:linear-gradient(135deg,rgba(213,253,81,0.18) 0%,rgba(184,229,48,0.10) 100%);color:#d5fd51;box-shadow:0 0 12px rgba(213,253,81,0.15),inset 0 1px 0 rgba(213,253,81,0.2);}
+.net-btn.active .net-dot{background:#d5fd51!important;box-shadow:0 0 8px #d5fd51,0 0 16px rgba(213,253,81,0.5);animation:pulse-dot 2s ease-in-out infinite;}
+@keyframes pulse-dot{0%,100%{opacity:1;box-shadow:0 0 8px #d5fd51,0 0 16px rgba(213,253,81,0.5);}50%{opacity:0.6;box-shadow:0 0 4px #d5fd51;}}
+.net-dot{width:7px;height:7px;border-radius:50%;display:inline-block;flex-shrink:0;transition:all 0.3s ease;opacity:0.5;}
+.net-btn.active .net-name{text-shadow:0 0 12px rgba(213,253,81,0.6);}
+.net-name{position:relative;}
+.header-ai{display:flex;align-items:center;gap:0;background:rgba(8,12,8,0.9);border:1px solid rgba(213,253,81,0.18);border-radius:10px;overflow:hidden;flex:1;margin:0 16px;max-width:720px;height:44px;position:relative;}
+.header-ai::before{content:'◈ AI';position:absolute;left:8px;top:50%;transform:translateY(-50%);font-family:var(--font);font-size:9px;letter-spacing:2px;color:var(--neon);opacity:0.6;pointer-events:none;}
+.hai-coin{font-family:var(--font);font-size:11px;color:var(--neon);letter-spacing:1px;padding:0 10px 0 36px;white-space:nowrap;}
+.hai-divider{width:1px;height:24px;background:rgba(255,255,255,0.08);flex-shrink:0;}
+.hai-block{display:flex;flex-direction:column;justify-content:center;padding:0 12px;gap:2px;height:100%;}
+.hai-label{font-family:var(--font);font-size:8px;letter-spacing:1.5px;color:rgba(255,255,255,0.3);line-height:1;}
+.hai-bar-wrap{display:flex;width:90px;height:4px;border-radius:2px;overflow:hidden;background:rgba(255,255,255,0.05);}
+.hai-bar-up{background:linear-gradient(90deg,#00cc44,#d5fd51);transition:width 0.6s ease;}
+.hai-bar-down{background:linear-gradient(90deg,#ff4466,#ff2244);transition:width 0.6s ease;}
+.hai-pcts{display:flex;gap:8px;}
+.hai-up{font-family:var(--font);font-size:10px;color:#00cc44;}
+.hai-down{font-family:var(--font);font-size:10px;color:#ff4466;}
+.hai-sentiment{font-family:var(--font);font-size:10px;letter-spacing:1px;}
+.hai-sentiment.bullish{color:#00cc44;}
+.hai-sentiment.bearish{color:#ff4466;}
+.hai-sentiment.neutral{color:var(--text-muted);}
+.hai-levels{font-family:var(--font);font-size:10px;color:var(--text);white-space:nowrap;display:flex;gap:6px;}
+.hai-lvl-r{color:#ff4466;}
+.hai-lvl-s{color:#00cc44;}
+.hai-rsi-val{font-family:var(--font);font-size:13px;color:var(--text);}
+.hai-vol{display:flex;gap:6px;font-family:var(--font);font-size:10px;}
+.hai-buy{color:#00cc44;}
+.hai-sell{color:#ff4466;}
+.hai-signal-text{font-family:var(--font);font-size:10px;color:rgba(213,253,81,0.6);padding:0 12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px;line-height:1.3;}
+.ai-panel{background:linear-gradient(135deg,rgba(10,15,8,0.95),rgba(15,20,10,0.9));border:1px solid rgba(213,253,81,0.25);border-radius:12px;margin-bottom:14px;overflow:hidden;position:relative;}
+.ai-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--neon),transparent);opacity:0.6;}
+.ai-panel-header{display:flex;align-items:center;gap:8px;padding:10px 14px 8px;border-bottom:1px solid rgba(255,255,255,0.06);}
+.ai-icon{color:var(--neon);font-size:14px;}
+.ai-title{font-family:var(--font);font-size:10px;letter-spacing:2px;color:var(--neon);flex:1;}
+.ai-coin{font-family:var(--font);font-size:10px;color:var(--text-muted);letter-spacing:1px;}
+.ai-refresh-btn{background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:14px;padding:0 4px;transition:color 0.2s,transform 0.3s;}
+.ai-refresh-btn:hover{color:var(--neon);transform:rotate(180deg);}
+.ai-body{padding:12px 14px;}
+.ai-loading{display:flex;gap:6px;justify-content:center;padding:12px 0;}
+.ai-dot{width:6px;height:6px;border-radius:50%;background:var(--neon);opacity:0.3;animation:aiPulse 1.2s ease-in-out infinite;}
+.ai-dot:nth-child(2){animation-delay:0.2s;}
+.ai-dot:nth-child(3){animation-delay:0.4s;}
+@keyframes aiPulse{0%,100%{opacity:0.2;transform:scale(0.8)}50%{opacity:1;transform:scale(1.2)}}
+.ai-row{margin-bottom:10px;}
+.ai-prob-bar-wrap{height:8px;border-radius:4px;overflow:hidden;display:flex;background:rgba(255,255,255,0.05);margin-bottom:6px;}
+.ai-prob-up{background:linear-gradient(90deg,#00cc44,#d5fd51);transition:width 0.8s ease;}
+.ai-prob-down{background:linear-gradient(90deg,#ff4466,#ff2244);transition:width 0.8s ease;}
+.ai-prob-labels{display:flex;justify-content:space-between;}
+.ai-up-label{font-family:var(--font);font-size:11px;color:#00cc44;}
+.ai-down-label{font-family:var(--font);font-size:11px;color:#ff4466;}
+.ai-sentiment-row{display:flex;align-items:center;gap:10px;}
+.ai-label{font-family:var(--font);font-size:9px;letter-spacing:1px;color:var(--text-muted);min-width:72px;}
+.ai-sentiment-badge{font-family:var(--font);font-size:11px;padding:3px 10px;border-radius:4px;letter-spacing:1px;}
+.ai-sentiment-badge.bullish{background:rgba(0,204,68,0.15);color:#00cc44;border:1px solid rgba(0,204,68,0.3);}
+.ai-sentiment-badge.bearish{background:rgba(255,68,102,0.15);color:#ff4466;border:1px solid rgba(255,68,102,0.3);}
+.ai-sentiment-badge.neutral{background:rgba(255,255,255,0.05);color:var(--text-muted);border:1px solid var(--border);}
+.ai-levels-row{display:flex;align-items:flex-start;gap:10px;}
+.ai-levels{font-family:var(--font);font-size:11px;color:var(--text);display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.ai-level-r{color:#ff4466;}
+.ai-level-s{color:#00cc44;}
+.ai-level-divider{color:var(--border);}
+.ai-rsi{color:var(--text-muted);margin-left:4px;font-size:10px;}
+.ai-signal-line{font-family:var(--font);font-size:11px;color:rgba(213,253,81,0.7);line-height:1.5;padding-top:8px;border-top:1px solid rgba(255,255,255,0.06);letter-spacing:0.03em;}
 </style>
 </head>
 <body>
 <canvas id="graffiti-bg"></canvas>
 <div class="page">
-
-  <header class="header">
-    <div class="logo">
-      <div class="logo-icon"></div>
-      <div class="logo-text">BLOCK<span>ORACLE</span></div>
-    </div>
-    <div class="header-right">
-      <a href="https://faucet.testnet.chain.robinhood.com/?error=undefined&address=0x6d4D522f22681b76483BF327ff7Bb6748a68Da5c&step=auth" target="_blank" class="btn-faucet">💧 Faucet</a>
-      <div class="chain-badge">Robinhood Chain · 46630</div>
-      <button class="btn-connect" id="btnConnect" onclick="connect()">Connect Wallet</button>
-      <button class="btn-disconnect" id="btnDisconnect" onclick="disconnect()" title="Disconnect wallet">✕</button>
-    </div>
-  </header>
-
-  <div class="coin-tabs">
-    <div class="coin-tab active" onclick="selectCoin('BTC',this)">
-      <div class="coin-icon" style="background:#f7931a22;color:#f7931a;">₿</div>
-      <div><div class="coin-name">Bitcoin</div><div class="coin-sym">BTC</div></div>
-      <span class="coin-price-small" id="price-BTC">—</span>
-    </div>
-    <div class="coin-tab" onclick="selectCoin('ETH',this)">
-      <div class="coin-icon" style="background:#627eea22;color:#627eea;">Ξ</div>
-      <div><div class="coin-name">Ethereum</div><div class="coin-sym">ETH</div></div>
-      <span class="coin-price-small" id="price-ETH">—</span>
-    </div>
-    <div class="coin-tab" onclick="selectCoin('BNB',this)">
-      <div class="coin-icon" style="background:#f0b90b22;color:#f0b90b;">B</div>
-      <div><div class="coin-name">BNB</div><div class="coin-sym">BNB</div></div>
-      <span class="coin-price-small" id="price-BNB">—</span>
-    </div>
-    <div class="coin-tab" onclick="selectCoin('SOL',this)">
-      <div class="coin-icon" style="background:#9945ff22;color:#9945ff;">◎</div>
-      <div><div class="coin-name">Solana</div><div class="coin-sym">SOL</div></div>
-      <span class="coin-price-small" id="price-SOL">—</span>
-    </div>
-    <div class="coin-tab" onclick="selectCoin('XRP',this)">
-      <div class="coin-icon" style="background:#00aae422;color:#00aae4;">✕</div>
-      <div><div class="coin-name">Ripple</div><div class="coin-sym">XRP</div></div>
-      <span class="coin-price-small" id="price-XRP">—</span>
-    </div>
-  </div>
-
-  <div class="body-layout">
-    <div class="chart-col">
-      <div class="chart-header">
-        <div class="chart-coin-name" id="chartCoinName">
-          <span style="color:#f7931a">₿</span> BTC/USDT
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;">
-          <div class="chart-price" id="chartPrice">—</div>
-          <div class="chart-change pos" id="chartChange">—</div>
-        </div>
-      </div>
-      <div id="tv_chart"></div>
-    </div>
-
-    <div class="bet-col">
-      <div class="stats-panel">
-        <div class="round-row">
-          <div>
-            <div class="round-label">My Round</div>
-            <div class="round-num" id="round">—</div>
-          </div>
-          <div style="text-align:center;">
-            <div class="round-label">Lock Price</div>
-            <div class="round-num" id="lockPrice">—</div>
-          </div>
-          <span id="roundStatus" class="status-pill status-waiting">—</span>
-        </div>
-        <div class="stats-grid">
-          <div class="stat-item">
-            <div class="stat-label">Wallet</div>
-            <div class="stat-value" id="wallet" style="font-size:11px;">Not connected</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-label">Round ends in</div>
-            <div class="stat-value neon" id="timeLeftSmall">—</div>
-          </div>
-        </div>
-        <div class="result-banner" id="resultBanner"></div>
-      </div>
-
-      <div class="bet-form">
-        <div class="section-title">Place your bet · <span id="tradingAsset" style="color:var(--neon)">BTC</span></div>
-        <div class="amount-input-wrap">
-          <input class="amount-input" id="amount" type="number" placeholder="0.0001" step="0.0001" min="0.0001"/>
-          <span class="amount-suffix">ETH</span>
-        </div>
-        <div class="dur-label">Duration</div>
-        <div class="dur-group">
-          <button class="dur-btn active" onclick="selectDuration(1,this)">1m</button>
-          <button class="dur-btn" onclick="selectDuration(2,this)">2m</button>
-          <button class="dur-btn" onclick="selectDuration(3,this)">3m</button>
-          <button class="dur-btn" onclick="selectDuration(4,this)">4m</button>
-          <button class="dur-btn" onclick="selectDuration(5,this)">5m</button>
-        </div>
-        <div class="bet-buttons">
-          <button class="btn-up"   id="btnUp"   onclick="betUp()"   disabled>▲ &nbsp;UP</button>
-          <button class="btn-down" id="btnDown" onclick="betDown()" disabled>▼ &nbsp;DOWN</button>
-        </div>
-        <div id="betHint"></div>
-        <button class="btn-settle" id="btnSettle" onclick="settle()">⏱ Settle Round</button>
-      </div>
-
-      <div class="bets-section" id="betsSection" style="display:none;">
-        <div class="bets-title">My Active Bets</div>
-        <div id="betsList"></div>
-      </div>
-
-      <div class="owner-panel" id="ownerPanel" style="display:none;">
-        <div class="owner-panel-title">⬡ &nbsp;Owner Controls</div>
-        <div class="owner-stats">
-          <div class="owner-stat"><div class="owner-stat-label">Contract</div><div class="owner-stat-val" id="ownerBalContract">—</div></div>
-          <div class="owner-stat"><div class="owner-stat-label">My Profit</div><div class="owner-stat-val" id="ownerBalProfit">—</div></div>
-          <div class="owner-stat"><div class="owner-stat-label">Liquidity</div><div class="owner-stat-val" id="ownerBalLiquidity">—</div></div>
-        </div>
-        <div class="owner-row">
-          <input class="owner-input" id="depositAmount" type="number" placeholder="ETH amount" step="0.001"/>
-          <button class="btn-owner btn-deposit" onclick="ownerDeposit()">⬆ Deposit</button>
-        </div>
-        <div class="owner-row">
-          <input class="owner-input" id="withdrawAmount" type="number" placeholder="ETH (0=all)"/>
-          <button class="btn-owner btn-withdraw" onclick="ownerWithdraw()">⬇ Withdraw</button>
-          <button class="btn-owner btn-withdraw-all" onclick="ownerWithdrawAll()">All</button>
-        </div>
-      </div>
-    </div>
-  </div>
+<header class="header">
+<div class="logo">
+<div class="logo-icon"></div>
+<div class="logo-text">BLOCK<span>ORACLE</span></div>
+</div>
+<div class="header-ai" id="headerAi">
+<div class="hai-coin" id="haiCoin">BTC</div>
+<div class="hai-divider"></div>
+<div class="hai-block">
+<div class="hai-label">SIGNAL</div>
+<div class="hai-bar-wrap">
+<div class="hai-bar-up" id="haiBarUp" style="width:50%"></div>
+<div class="hai-bar-down" id="haiBarDown" style="width:50%"></div>
+</div>
+<div class="hai-pcts">
+<span class="hai-up">▲ <span id="haiPctUp">—</span>%</span>
+<span class="hai-down">▼ <span id="haiPctDown">—</span>%</span>
+</div>
+</div>
+<div class="hai-divider"></div>
+<div class="hai-block">
+<div class="hai-label">SENTIMENT</div>
+<div class="hai-sentiment" id="haiSentiment">—</div>
+</div>
+<div class="hai-divider"></div>
+<div class="hai-block">
+<div class="hai-label">KEY LEVELS</div>
+<div class="hai-levels" id="haiLevels">—</div>
+</div>
+<div class="hai-divider"></div>
+<div class="hai-block">
+<div class="hai-label">RSI</div>
+<div class="hai-rsi-val" id="haiRsi">—</div>
+</div>
+<div class="hai-divider"></div>
+<div class="hai-block">
+<div class="hai-label">BUY/SELL VOL</div>
+<div class="hai-vol" id="haiVol">
+<span class="hai-buy">B —%</span>
+<span class="hai-sell">S —%</span>
+</div>
+</div>
+<div class="hai-divider"></div>
+<div class="hai-signal-text" id="haiSignalText">Collecting data…</div>
+</div>
+<div class="header-right">
+<div class="xp-badge-header" id="xpBadgeHeader">
+<span class="xp-icon">✦</span>
+<span id="xpHeaderAmount">0 XP</span>
+</div>
+<a href="https://faucet.testnet.chain.robinhood.com/?error=undefined&address=0x6d4D522f22681b76483BF327ff7Bb6748a68Da5c&step=auth" target="_blank" class="btn-faucet">💧 Faucet</a>
+<div class="net-switcher">
+<button class="net-btn active" data-net="robinhood" onclick="switchNetwork('robinhood')">
+<span class="net-dot" style="background:#d5fd51"></span><span class="net-name">Robinhood</span>
+</button>
+<button class="net-btn" data-net="arc" onclick="switchNetwork('arc')">
+<span class="net-dot" style="background:#a855f7"></span><span class="net-name">Arc</span>
+</button>
+</div>
+<button class="btn-connect" id="btnConnect">Connect Wallet</button>
+<button class="btn-disconnect" id="btnDisconnect" title="Disconnect">✕</button>
+</div>
+</header>
+<div class="coin-tabs">
+<div class="coin-tab active" onclick="selectCoin('BTC',this)">
+<div class="coin-icon" style="background:#f7931a22;color:#f7931a;">₿</div>
+<div><div class="coin-name">Bitcoin</div><div class="coin-sym">BTC</div></div>
+<span class="coin-price-small" id="price-BTC">—</span>
+</div>
+<div class="coin-tab" onclick="selectCoin('ETH',this)">
+<div class="coin-icon" style="background:#627eea22;color:#627eea;">Ξ</div>
+<div><div class="coin-name">Ethereum</div><div class="coin-sym">ETH</div></div>
+<span class="coin-price-small" id="price-ETH">—</span>
+</div>
+<div class="coin-tab" onclick="selectCoin('BNB',this)">
+<div class="coin-icon" style="background:#f0b90b22;color:#f0b90b;">B</div>
+<div><div class="coin-name">BNB</div><div class="coin-sym">BNB</div></div>
+<span class="coin-price-small" id="price-BNB">—</span>
+</div>
+<div class="coin-tab" onclick="selectCoin('SOL',this)">
+<div class="coin-icon" style="background:#9945ff22;color:#9945ff;">◎</div>
+<div><div class="coin-name">Solana</div><div class="coin-sym">SOL</div></div>
+<span class="coin-price-small" id="price-SOL">—</span>
+</div>
+<div class="coin-tab" onclick="selectCoin('XRP',this)">
+<div class="coin-icon" style="background:#00aae422;color:#00aae4;">✕</div>
+<div><div class="coin-name">Ripple</div><div class="coin-sym">XRP</div></div>
+<span class="coin-price-small" id="price-XRP">—</span>
+</div>
+</div>
+<div class="body-layout">
+<div class="chart-col">
+<div class="chart-header">
+<div class="chart-coin-name" id="chartCoinName">
+<span style="color:#f7931a">₿</span> BTC/USDT
+</div>
+<div style="display:flex;align-items:center;gap:10px;">
+<div class="chart-price" id="chartPrice">—</div>
+<div class="chart-change pos" id="chartChange">—</div>
+</div>
+</div>
+<div class="chart-wrap">
+<div id="tv_chart"></div>
+<div class="chart-corner-tr"></div>
+<div class="chart-corner-bl"></div>
+<div class="chart-wrap-inner"></div>
+<div class="chart-scanlines"></div>
+</div>
+</div>
+<div class="bet-col">
+<div class="stats-panel">
+<div class="round-row">
+<div>
+<div class="round-label">Round</div>
+<div class="round-num" id="round">—</div>
+</div>
+<div style="text-align:center;">
+<div class="round-label" id="lockPriceLabel">Live Price</div>
+<div class="round-num" id="lockPrice">—</div>
+</div>
+<span id="roundStatus" class="status-pill status-waiting">—</span>
+</div>
+<div class="stats-grid">
+<div class="stat-item">
+<div class="stat-label">Wallet</div>
+<div class="stat-value" id="wallet" style="font-size:11px;">Not connected</div>
+<div class="wallet-balance" id="walletBalance" style="display:none;">
+<span id="walletBalanceAmt">0</span>
+<span id="walletBalanceSym">ETH</span>
+</div>
+</div>
+<div class="stat-item">
+<div class="stat-label">Round ends in</div>
+<div class="stat-value neon" id="timeLeftSmall">—</div>
+</div>
+</div>
+<div class="result-banner" id="resultBanner"></div>
+</div>
+<div class="xp-panel" id="xpPanel">
+<div class="xp-panel-inner">
+<div class="xp-left">
+<div class="xp-orb">✦</div>
+<div>
+<div class="xp-label">Your XP</div>
+<div class="xp-amount" id="xpAmount">0</div>
+<div style="margin-top:3px;"><span class="xp-rank-badge" id="xpRank">Unranked</span></div>
+</div>
+</div>
+<div class="xp-right">
+<div class="xp-next-label">Next drop</div>
+<div class="xp-countdown" id="xpCountdown">—</div>
+<div class="xp-weeks-left" id="xpWeeksLeft">— weeks left</div>
+</div>
+</div>
+<div class="xp-progress-wrap">
+<div class="xp-progress-label">
+<span>Season progress</span>
+<span id="xpProgressPct">0%</span>
+</div>
+<div class="xp-progress-bar">
+<div class="xp-progress-fill" id="xpProgressFill" style="width:0%"></div>
+</div>
+</div>
+</div>
+<div class="bet-form">
+<div class="section-title">Place your bet · <span id="tradingAsset" style="color:var(--neon)">BTC</span></div>
+<div class="amount-input-wrap">
+<input class="amount-input" id="amount" type="number" placeholder="0.0001" step="0.0001" min="0.0001"/>
+<span class="amount-suffix" id="amountSuffix">ETH</span>
+</div>
+<div class="dur-label">Duration · <span id="durDisplay" style="color:var(--neon)">—</span> <span id="durOwnerNote" style="color:var(--text-muted);font-size:9px;display:none;">(owner only)</span></div>
+<div class="dur-group" id="durGroup" style="display:none;">
+<button class="dur-btn active" onclick="selectDuration(60,this)">1m</button>
+<button class="dur-btn" onclick="selectDuration(120,this)">2m</button>
+<button class="dur-btn" onclick="selectDuration(180,this)">3m</button>
+<button class="dur-btn" onclick="selectDuration(240,this)">4m</button>
+<button class="dur-btn" onclick="selectDuration(300,this)">5m</button>
+</div>
+<div class="bet-buttons">
+<button class="btn-up" id="btnUp" onclick="betUp()" disabled>▲ &nbsp;UP</button>
+<button class="btn-down" id="btnDown" onclick="betDown()" disabled>▼ &nbsp;DOWN</button>
+</div>
+<div id="betHint"></div>
+<button class="btn-settle" id="btnSettle" onclick="settle()">⏱ Settle Round</button>
+<div class="payout-banner" id="payoutBanner"></div>
+<button class="btn-new-round" id="btnNewRound" onclick="startNewRound()">▶ Start New Round</button>
+</div>
+<div class="bets-section" id="betsSection" style="display:none;">
+<div class="bets-title">My Active Bets</div>
+<div id="betsList"></div>
+</div>
+<div class="owner-panel" id="ownerPanel" style="display:none;">
+<div class="owner-panel-title">⬡ &nbsp;Owner Controls</div>
+<div class="owner-stats">
+<div class="owner-stat"><div class="owner-stat-label">Contract</div><div class="owner-stat-val" id="ownerBalContract">—</div></div>
+<div class="owner-stat"><div class="owner-stat-label">My Profit</div><div class="owner-stat-val" id="ownerBalProfit">—</div></div>
+<div class="owner-stat"><div class="owner-stat-label">Liquidity</div><div class="owner-stat-val" id="ownerBalLiquidity">—</div></div>
+</div>
+<div class="owner-row">
+<input class="owner-input" id="depositAmount" type="number" placeholder="ETH amount" step="0.001"/>
+<button class="btn-owner btn-deposit" onclick="ownerDeposit()">⬆ Deposit</button>
+</div>
+<div class="owner-row">
+<input class="owner-input" id="withdrawAmount" type="number" placeholder="ETH (0=all)"/>
+<button class="btn-owner btn-withdraw" onclick="ownerWithdraw()">⬇ Withdraw</button>
+<button class="btn-owner btn-withdraw-all" onclick="ownerWithdrawAll()">All</button>
+</div>
+<button class="btn-admin-xp" onclick="openAdminPanel()">✦ XP Admin Dashboard</button>
+</div>
+</div>
+</div>
+</div>
+<div class="admin-xp-panel" id="adminXpPanel">
+<div class="admin-xp-inner">
+<div class="admin-header">
+<div>
+<div class="admin-title">XP Admin Dashboard <span>PredictionMarketV5_XP</span></div>
+</div>
+<div style="display:flex;gap:8px;">
+<button class="btn-export" onclick="exportCSV()">⬇ Export CSV</button>
+<button class="btn-close-admin" onclick="closeAdminPanel()">✕ Close</button>
+</div>
+</div>
+<div class="xp-schedule-card">
+<div class="xp-schedule-row">
+<div class="xp-schedule-item">
+<div class="xsi-label">Total XP Supply</div>
+<div class="xsi-val">1,000,000</div>
+<div class="xsi-sub">XP tokens</div>
+</div>
+<div class="xp-schedule-divider"></div>
+<div class="xp-schedule-item">
+<div class="xsi-label">Distributed</div>
+<div class="xsi-val" id="adminXpGiven">—</div>
+<div class="xsi-sub" id="adminXpGivenPct">—</div>
+</div>
+<div class="xp-schedule-divider"></div>
+<div class="xp-schedule-item">
+<div class="xsi-label">Weeks Done</div>
+<div class="xsi-val" id="adminEpochsDone">—</div>
+<div class="xsi-sub">of 17 weeks</div>
+</div>
+<div class="xp-schedule-divider"></div>
+<div class="xp-schedule-item">
+<div class="xsi-label">Next Drop</div>
+<div class="xsi-val" id="adminNextDrop">—</div>
+<div class="xsi-sub" id="adminNextDropDate">—</div>
+</div>
+</div>
+</div>
+<button class="btn-distribute-xp" id="btnDistributeXp" onclick="distributeXp()">✦ Distribute XP for Current Epoch</button>
+<div class="admin-stats-row">
+<div class="admin-stat-card xp">
+<div class="asc-label">Total Players</div>
+<div class="asc-val xp" id="adminPlayerCount">—</div>
+<div class="asc-sub">unique wallets</div>
+</div>
+<div class="admin-stat-card xp">
+<div class="asc-label">XP Remaining</div>
+<div class="asc-val xp" id="adminXpLeft">—</div>
+<div class="asc-sub">XP tokens</div>
+</div>
+<div class="admin-stat-card">
+<div class="asc-label">Current Epoch</div>
+<div class="asc-val neon" id="adminEpochNow">—</div>
+<div class="asc-sub">week #</div>
+</div>
+<div class="admin-stat-card">
+<div class="asc-label">XP/Week</div>
+<div class="asc-val" style="font-size:14px;">58,823</div>
+<div class="asc-sub">approx.</div>
+</div>
+</div>
+<div class="players-table-wrap">
+<div class="players-table-header">
+<div class="players-table-title">All Players · XP Balances</div>
+<input class="players-search" id="playersSearch" type="text" placeholder="Search by address..." oninput="filterPlayers()"/>
+</div>
+<div id="playersTableBody">
+<div class="table-loading">Connect wallet as owner to load player data</div>
+</div>
+<div class="table-pagination" id="tablePagination" style="display:none;">
+<div class="page-info" id="pageInfo">—</div>
+<div class="page-btns">
+<button class="btn-page" id="btnPrev" onclick="changePage(-1)">← Prev</button>
+<button class="btn-page" id="btnNext" onclick="changePage(1)">Next →</button>
+</div>
+</div>
+</div>
+</div>
 </div>
 <script>
-const CONTRACT_ADDRESS = "0x43B6C8f66c4ABe9f57Cd4839CBab67Dd35d952Ca";
-const CHAIN_ID = 46630;
-const CHAIN_CONFIG = {
-  chainId: '0x' + CHAIN_ID.toString(16),
-  chainName: 'Robinhood Chain Testnet',
-  nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
-  rpcUrls: ['https://testnet.chain.robinhood.com'],
-  blockExplorerUrls: ['https://testnet-explorer.chain.robinhood.com']
+const NETWORKS = {
+robinhood: { name:'Robinhood Chain', chainId:46630, chainIdHex:'0xb626', rpc:'https://testnet.chain.robinhood.com', explorer:'https://testnet-explorer.chain.robinhood.com', currency:{name:'ETH',symbol:'ETH',decimals:18}, contract:'0xC50dd7383FF6a9cD0113F84Bf51D78b22ae155f4', faucet:'https://faucet.testnet.chain.robinhood.com' },
+arc: { name:'Arc Testnet', chainId:5042002, chainIdHex:'0x4cef52', rpc:'https://rpc.testnet.arc.network', explorer:'https://explorer.testnet.arc.network', currency:{name:'USDC',symbol:'USDC',decimals:18}, contract:'0xfccDC64ff1E9760DbA96FC5b7a7D468b78CBfBE4', faucet:'https://faucet.circle.com/' }
 };
-
-const abi = [
-  "function startRound(uint256,uint256,string)",
-  "function betUp() payable",
-  "function betDown() payable",
-  "function settleRound(uint256)",
-  "function voidRound()",
-  "function getPlayerRound(address) view returns(uint256,string,uint256,uint256,uint256,uint256,uint256,uint8,uint8,bool,bool)",
-  "function owner() view returns(address)",
-  "function balanceInfo() view returns(uint256,uint256,uint256)",
-  "function depositLiquidity() payable",
-  "function withdrawProfit(uint256)",
-  "function withdrawLiquidity(uint256)",
-  "function playerRoundCount(address) view returns(uint256)"
-];
-
-// Status enum: 0=EMPTY, 1=ACTIVE, 2=ENDED, 3=SETTLED
-// Direction enum: 0=NONE, 1=UP, 2=DOWN
-
-let provider, signer, contract, user, contractOwner;
-let roundTimerInterval = null;
-let selectedDuration = 1;
-let selectedCoin = 'BTC';
-let activeBets = [];
-let betsRenderInterval = null;
-let playerRoundStatus = 0; // current player round status
-let hasBetThisRound = false;
-let tvWidget = null;
-const priceCache = {};
-
-const COINS = {
-  BTC: { symbol:'BINANCE:BTCUSDT', binance:'BTCUSDT', name:'₿ BTC/USDT', color:'#f7931a', label:'₿' },
-  ETH: { symbol:'BINANCE:ETHUSDT', binance:'ETHUSDT', name:'Ξ ETH/USDT', color:'#627eea', label:'Ξ' },
-  BNB: { symbol:'BINANCE:BNBUSDT', binance:'BNBUSDT', name:'B BNB/USDT', color:'#f0b90b', label:'B' },
-  SOL: { symbol:'BINANCE:SOLUSDT', binance:'SOLUSDT', name:'◎ SOL/USDT', color:'#9945ff', label:'◎' },
-  XRP: { symbol:'BINANCE:XRPUSDT', binance:'XRPUSDT', name:'✕ XRP/USDT', color:'#00aae4', label:'✕' },
-};
-
-// ── Coin selection ──────────────────────────────────────────────────────────
-function selectCoin(coin, el) {
-  selectedCoin = coin;
-  document.querySelectorAll('.coin-tab').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-  const cfg = COINS[coin];
-  document.getElementById('chartCoinName').innerHTML =
-    `<span style="color:${cfg.color}">${cfg.label}</span> ${coin}/USDT`;
-  document.getElementById('tradingAsset').innerText = coin;
-  if (priceCache[coin]) {
-    document.getElementById('chartPrice').innerText = priceCache[coin].price;
-    const changeEl = document.getElementById('chartChange');
-    changeEl.innerText = priceCache[coin].change;
-    changeEl.className = 'chart-change ' + priceCache[coin].dir;
-  } else {
-    document.getElementById('chartPrice').innerText = '—';
-  }
-  document.getElementById('tv_chart').innerHTML = '';
-  tvWidget = new TradingView.widget({
-    container_id:'tv_chart', symbol:cfg.symbol, interval:'1',
-    theme:'dark', width:'100%', height:'100%', autosize:true,
-    hide_side_toolbar:true, allow_symbol_change:false,
-  });
-}
-
-// ── Connect wallet ──────────────────────────────────────────────────────────
-async function connect() {
-  if (!window.ethereum) { alert("MetaMask not found!"); return; }
-  try {
-    provider = new ethers.providers.Web3Provider(window.ethereum);
-    await provider.send("eth_requestAccounts", []);
-    const network = await provider.getNetwork();
-    if (network.chainId !== CHAIN_ID) {
-      try {
-        await window.ethereum.request({ method:'wallet_switchEthereumChain', params:[{chainId:CHAIN_CONFIG.chainId}] });
-      } catch(e) {
-        if (e.code === 4902) {
-          // Chain not in wallet — add it automatically
-          await window.ethereum.request({ method:'wallet_addEthereumChain', params:[CHAIN_CONFIG] });
-        } else { alert("Could not switch chain"); return; }
-      }
-      provider = new ethers.providers.Web3Provider(window.ethereum);
-    }
-    signer = provider.getSigner();
-    user = await signer.getAddress();
-    contract = new ethers.Contract(CONTRACT_ADDRESS, abi, signer);
-    contractOwner = await contract.owner();
-
-    // Update UI
-    document.getElementById('wallet').innerText = user.slice(0,6)+'...'+user.slice(-4);
-    const btn = document.getElementById('btnConnect');
-    btn.innerText = user.slice(0,6)+'...'+user.slice(-4);
-    btn.classList.add('connected');
-    btn.onclick = null;
-    document.getElementById('btnDisconnect').style.display = 'block';
-
-    if (user.toLowerCase() === contractOwner.toLowerCase()) {
-      document.getElementById('ownerPanel').style.display = 'block';
-      await loadOwnerStats();
-    }
-
-    await loadPlayerRound();
-    setInterval(loadPlayerRound, 8000);
-
-    // Listen for account changes
-    window.ethereum.on('accountsChanged', () => disconnect());
-    window.ethereum.on('chainChanged', () => location.reload());
-
-  } catch(e) { alert("Connection error: " + e.message); }
-}
-
-// ── Disconnect wallet ───────────────────────────────────────────────────────
-function disconnect() {
-  provider = null; signer = null; contract = null;
-  user = null; contractOwner = null;
-  playerRoundStatus = 0; hasBetThisRound = false;
-  if (roundTimerInterval) { clearInterval(roundTimerInterval); roundTimerInterval = null; }
-
-  document.getElementById('btnConnect').innerText = 'Connect Wallet';
-  document.getElementById('btnConnect').classList.remove('connected');
-  document.getElementById('btnConnect').onclick = connect;
-  document.getElementById('btnDisconnect').style.display = 'none';
-  document.getElementById('wallet').innerText = 'Not connected';
-  document.getElementById('round').innerText = '—';
-  document.getElementById('lockPrice').innerText = '—';
-  document.getElementById('timeLeftSmall').innerText = '—';
-  document.getElementById('resultBanner').className = 'result-banner';
-  document.getElementById('ownerPanel').style.display = 'none';
-  document.getElementById('betsSection').style.display = 'none';
-  setStatus('—', 'waiting');
-  updateBetButtons();
-}
-
-// ── Load current player's round ─────────────────────────────────────────────
-async function loadPlayerRound() {
-  if (!contract || !user) return;
-  try {
-    const r = await contract.getPlayerRound(user);
-    // r: [roundId, asset, startTime, endTime, lockPrice, closePrice, betAmount, direction, status, claimed, upWon]
-    const roundId    = r[0].toNumber();
-    const asset      = r[1];
-    const endTime    = r[3].toNumber();
-    const lockPrice  = r[4].toNumber();
-    const closePrice = r[5].toNumber();
-    const betAmount  = r[6];
-    const direction  = r[7]; // 0=NONE,1=UP,2=DOWN
-    const status     = r[8]; // 0=EMPTY,1=ACTIVE,2=ENDED,3=SETTLED
-    const upWon      = r[10];
-
-    playerRoundStatus = status;
-    hasBetThisRound   = direction !== 0;
-
-    document.getElementById('round').innerText    = roundId > 0 ? '#' + roundId : '—';
-    document.getElementById('lockPrice').innerText = lockPrice > 0 ? '$' + lockPrice.toLocaleString() : '—';
-
-    const banner = document.getElementById('resultBanner');
-    const now = Math.floor(Date.now() / 1000);
-
-    if (status === 0) {
-      // EMPTY — no round yet
-      setStatus('Ready', 'waiting');
-      document.getElementById('timeLeftSmall').innerText = '—';
-      banner.className = 'result-banner';
-
-    } else if (status === 1) {
-      // ACTIVE
-      setStatus('Active', 'active');
-      startRoundTimer(endTime);
-      banner.className = 'result-banner';
-
-    } else if (status === 3) {
-      // SETTLED
-      setStatus('Settled', 'waiting');
-      document.getElementById('timeLeftSmall').innerText = '—';
-      if (roundTimerInterval) { clearInterval(roundTimerInterval); roundTimerInterval = null; }
-      if (closePrice > 0) {
-        const won = (upWon && direction === 1) || (!upWon && direction === 2);
-        banner.className = 'result-banner show ' + (upWon ? 'up-won' : 'down-won');
-        banner.innerHTML = upWon
-          ? `▲ UP WON · Close $${closePrice.toLocaleString()}`
-          : `▼ DOWN WON · Close $${closePrice.toLocaleString()}`;
-      }
-    }
-
-    // Show settle button if round ended but not settled
-    const settleBtn = document.getElementById('btnSettle');
-    if (status === 1 && now >= endTime && direction !== 0) {
-      settleBtn.style.display = 'block';
-      settleBtn.disabled = false;
-    } else {
-      settleBtn.style.display = 'none';
-    }
-
-    updateBetButtons();
-    if (contractOwner && user.toLowerCase() === contractOwner.toLowerCase()) {
-      await loadOwnerStats();
-    }
-  } catch(e) { console.error('loadPlayerRound error:', e); }
-}
-
-// ── Timer ───────────────────────────────────────────────────────────────────
-function startRoundTimer(endTime) {
-  if (roundTimerInterval) clearInterval(roundTimerInterval);
-  roundTimerInterval = setInterval(async () => {
-    const left = endTime - Math.floor(Date.now() / 1000);
-    if (left > 0) {
-      document.getElementById('timeLeftSmall').innerText = formatTime(left);
-    } else {
-      document.getElementById('timeLeftSmall').innerText = '—';
-      clearInterval(roundTimerInterval); roundTimerInterval = null;
-      setStatus('Ended', 'ended');
-      // Show settle button
-      if (hasBetThisRound) {
-        const settleBtn = document.getElementById('btnSettle');
-        settleBtn.style.display = 'block';
-        settleBtn.disabled = false;
-      }
-      updateBetButtons();
-      // Auto-settle if owner
-      if (user && contractOwner && user.toLowerCase() === contractOwner.toLowerCase()) {
-        await autoSettle();
-      }
-    }
-  }, 1000);
-}
-
-// ── Bet buttons state ───────────────────────────────────────────────────────
-function updateBetButtons() {
-  const connected = !!user && !!contract;
-  // Can bet: connected + round is ACTIVE + no bet placed yet
-  const canBet = connected && playerRoundStatus === 1 && !hasBetThisRound;
-  // Can also bet when EMPTY or SETTLED (will auto-start round)
-  const canStart = connected && (playerRoundStatus === 0 || playerRoundStatus === 3);
-  document.getElementById('btnUp').disabled   = !(canBet || canStart);
-  document.getElementById('btnDown').disabled = !(canBet || canStart);
-  const hint = document.getElementById('betHint');
-  if (connected && hasBetThisRound && playerRoundStatus === 1) {
-    hint.innerText = '✓ Bet placed — waiting for round to end';
-    hint.style.color = 'var(--up)';
-  } else if (connected && playerRoundStatus === 0) {
-    hint.innerText = 'Bet to start your round automatically';
-    hint.style.color = 'var(--text-muted)';
-  } else {
-    hint.innerText = '';
-  }
-}
-
-// ── Betting ─────────────────────────────────────────────────────────────────
-async function betUp()   { await _bet('UP'); }
-async function betDown() { await _bet('DOWN'); }
-
-async function _bet(direction) {
-  if (!checkConnected()) return;
-  const amount = document.getElementById('amount').value;
-  if (!amount || parseFloat(amount) <= 0) { alert('Enter a valid ETH amount'); return; }
-
-  document.getElementById('btnUp').disabled   = true;
-  document.getElementById('btnDown').disabled = true;
-
-  try {
-    // Start round if needed
-    if (playerRoundStatus === 0 || playerRoundStatus === 3) {
-      const lockPrice = await fetchCoinPrice(selectedCoin);
-      const tx = await contract.startRound(selectedDuration, lockPrice, selectedCoin);
-      await tx.wait();
-      playerRoundStatus = 1;
-    }
-
-    // Place bet
-    const tx = direction === 'UP'
-      ? await contract.betUp({ value: ethers.utils.parseEther(amount) })
-      : await contract.betDown({ value: ethers.utils.parseEther(amount) });
-    await tx.wait();
-
-    hasBetThisRound = true;
-    addActiveBet(direction, amount);
-    await loadPlayerRound();
-
-  } catch(e) {
-    alert('Bet failed: ' + (e.reason || e.message));
-  } finally {
-    updateBetButtons();
-  }
-}
-
-// ── Settle ───────────────────────────────────────────────────────────────────
-async function settle() {
-  if (!checkConnected()) return;
-  document.getElementById('btnSettle').disabled = true;
-  try {
-    const closePrice = await fetchCoinPrice(selectedCoin);
-    const tx = await contract.settleRound(closePrice);
-    await tx.wait();
-    document.getElementById('btnSettle').style.display = 'none';
-    await loadPlayerRound();
-  } catch(e) {
-    alert('Settle failed: ' + (e.reason || e.message));
-    document.getElementById('btnSettle').disabled = false;
-  }
-}
-
-async function autoSettle() {
-  try {
-    const closePrice = await fetchCoinPrice(selectedCoin);
-    const tx = await contract.settleRound(closePrice);
-    await tx.wait();
-    document.getElementById('btnSettle').style.display = 'none';
-    await loadPlayerRound();
-  } catch(e) { console.error('Auto-settle failed:', e.reason || e.message); }
-}
-
-// ── Price fetching ───────────────────────────────────────────────────────────
-async function fetchCoinPrice(coin) {
-  const cfg = COINS[coin];
-  // Try cache first (from WS)
-  if (priceCache[coin] && priceCache[coin].raw > 0) return Math.round(priceCache[coin].raw);
-  // Fallback REST
-  const sources = [
-    async () => {
-      const r = await fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${cfg.binance}`);
-      const d = await r.json(); return Math.round(parseFloat(d.price));
-    },
-    async () => {
-      const r = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${cfg.binance.replace('USDT','').toLowerCase()}&vs_currencies=usd`);
-      const d = await r.json();
-      const key = Object.keys(d)[0];
-      return Math.round(d[key].usd);
-    }
-  ];
-  for (const src of sources) {
-    try { const p = await src(); if (p > 0) return p; } catch(e) {}
-  }
-  throw new Error('All price sources failed');
-}
-
-// ── WebSocket prices ─────────────────────────────────────────────────────────
-function startPriceWebSocket() {
-  const ws = new WebSocket('wss://stream.binance.com:9443/stream?streams=btcusdt@ticker/ethusdt@ticker/bnbusdt@ticker/solusdt@ticker/xrpusdt@ticker');
-  ws.onmessage = (event) => {
-    const msg = JSON.parse(event.data);
-    const t = msg.data;
-    if (!t) return;
-    const coinKey = Object.keys(COINS).find(k => COINS[k].binance === t.s);
-    if (!coinKey) return;
-    const price  = parseFloat(t.c);
-    const change = parseFloat(t.P);
-    const fmt = price < 10 ? price.toFixed(4) : price < 1000 ? price.toFixed(2) : Math.round(price).toLocaleString();
-    const changeStr = (change >= 0 ? '+' : '') + change.toFixed(2) + '%';
-    const dir = change >= 0 ? 'pos' : 'neg';
-    priceCache[coinKey] = { price: '$'+fmt, change: changeStr, dir, raw: price };
-    const el = document.getElementById('price-'+coinKey);
-    if (el) el.innerText = '$'+fmt;
-    if (coinKey === selectedCoin) {
-      document.getElementById('chartPrice').innerText = '$'+fmt;
-      const changeEl = document.getElementById('chartChange');
-      changeEl.innerText = changeStr;
-      changeEl.className = 'chart-change '+dir;
-    }
-  };
-  ws.onclose = () => setTimeout(startPriceWebSocket, 3000);
-  ws.onerror = () => ws.close();
-}
-
-// ── Active bets display ──────────────────────────────────────────────────────
-function addActiveBet(direction, amount) {
-  const endTime = Math.floor(Date.now() / 1000) + selectedDuration * 60;
-  activeBets.push({ direction, amount, endTime, coin: selectedCoin, durationMin: selectedDuration });
-  renderBets();
-  if (!betsRenderInterval) betsRenderInterval = setInterval(renderBets, 1000);
-}
-
-function renderBets() {
-  const list = document.getElementById('betsList');
-  const section = document.getElementById('betsSection');
-  if (!activeBets.length) { section.style.display='none'; return; }
-  section.style.display = 'block';
-  const now = Math.floor(Date.now() / 1000);
-  list.innerHTML = activeBets.map(bet => {
-    const left = bet.endTime - now;
-    const timer = left > 0
-      ? `<div class="bet-timer">${formatTime(left)}</div>`
-      : `<div class="bet-timer expired">SETTLE</div>`;
-    const dc = bet.direction === 'UP' ? 'up' : 'down';
-    return `<div class="bet-item">
-      <span class="bet-dir-badge ${dc}">${bet.direction}</span>
-      <div class="bet-info">
-        <div class="bet-amount">${parseFloat(bet.amount).toFixed(4)} ETH</div>
-        <div class="bet-meta">${bet.coin} · ${bet.durationMin}m</div>
-      </div>${timer}</div>`;
-  }).join('');
-}
-
-function formatTime(s) {
-  const m = Math.floor(s/60);
-  return m > 0 ? `${m}:${(s%60).toString().padStart(2,'0')}` : `${s}s`;
-}
-
-// ── Owner ────────────────────────────────────────────────────────────────────
-async function loadOwnerStats() {
-  if (!contract || !user) return;
-  try {
-    const info = await contract.balanceInfo();
-    const fmt = v => parseFloat(ethers.utils.formatEther(v)).toFixed(4) + ' ETH';
-    document.getElementById('ownerBalContract').innerText  = fmt(info[0]);
-    document.getElementById('ownerBalProfit').innerText    = fmt(info[1]);
-    document.getElementById('ownerBalLiquidity').innerText = fmt(info[2]);
-  } catch(e) {}
-}
-
-async function ownerDeposit() {
-  const amount = document.getElementById('depositAmount').value;
-  if (!amount) { alert('Enter amount'); return; }
-  try {
-    const tx = await contract.depositLiquidity({ value: ethers.utils.parseEther(amount) });
-    await tx.wait(); document.getElementById('depositAmount').value = '';
-    await loadOwnerStats(); alert('Deposited ✓');
-  } catch(e) { alert('Deposit failed: ' + (e.reason||e.message)); }
-}
-
-async function ownerWithdraw() {
-  const input = document.getElementById('withdrawAmount').value;
-  const amount = (!input || parseFloat(input) === 0) ? 0 : ethers.utils.parseEther(input);
-  try {
-    const tx = await contract.withdrawProfit(amount);
-    await tx.wait(); document.getElementById('withdrawAmount').value = '';
-    await loadOwnerStats(); alert('Withdrawn ✓');
-  } catch(e) { alert('Withdraw failed: ' + (e.reason||e.message)); }
-}
-
-async function ownerWithdrawAll() {
-  try {
-    await (await contract.withdrawProfit(0)).wait();
-    await loadOwnerStats(); alert('All withdrawn ✓');
-  } catch(e) { alert('Error: ' + (e.reason||e.message)); }
-}
-
-// ── Helpers ──────────────────────────────────────────────────────────────────
-function setStatus(text, type) {
-  const el = document.getElementById('roundStatus');
-  el.innerText = text; el.className = 'status-pill status-' + type;
-}
-
-function selectDuration(min, btn) {
-  selectedDuration = min;
-  document.querySelectorAll('.dur-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-}
-
-function checkConnected() {
-  if (!user || !contract) { alert('Please connect your wallet first'); return false; }
-  return true;
-}
-
-// ── Init ─────────────────────────────────────────────────────────────────────
-tvWidget = new TradingView.widget({
-  container_id:'tv_chart', symbol:'BINANCE:BTCUSDT', interval:'1',
-  theme:'dark', width:'100%', height:'100%', autosize:true,
-  hide_side_toolbar:true, allow_symbol_change:false,
-});
-
+let activeNetwork='robinhood';
+let CONTRACT_ADDRESS=NETWORKS[activeNetwork].contract;
+let CHAIN_ID=NETWORKS[activeNetwork].chainId;
+let CHAIN_CONFIG=buildChainConfig(activeNetwork);
+function getNativeSym(){return NETWORKS[activeNetwork].currency.symbol;}
+function updateNativeLabels(){const sym=getNativeSym();const balSym=document.getElementById('walletBalanceSym');if(balSym)balSym.innerText=sym;const suffix=document.getElementById('amountSuffix');if(suffix)suffix.innerText=sym;const dep=document.getElementById('depositAmount');if(dep)dep.placeholder=sym+' amount';const wd=document.getElementById('withdrawAmount');if(wd)wd.placeholder=sym+' (0=all)';}
+function buildChainConfig(netKey){const n=NETWORKS[netKey];return{chainId:n.chainIdHex,chainName:n.name,nativeCurrency:n.currency,rpcUrls:[n.rpc],blockExplorerUrls:[n.explorer]};}
+async function switchNetwork(netKey){if(!NETWORKS[netKey])return;activeNetwork=netKey;CONTRACT_ADDRESS=NETWORKS[netKey].contract;CHAIN_ID=NETWORKS[netKey].chainId;CHAIN_CONFIG=buildChainConfig(netKey);document.querySelectorAll('.net-btn').forEach(b=>{b.classList.toggle('active',b.dataset.net===netKey);});updateChainBadge();updateNativeLabels();const faucetBtn=document.querySelector('.btn-faucet');if(faucetBtn)faucetBtn.href=NETWORKS[netKey].faucet;if(ethProvider){try{await ethProvider.request({method:'wallet_switchEthereumChain',params:[{chainId:CHAIN_CONFIG.chainId}]});}catch(e){if(e.code===4902){try{await ethProvider.request({method:'wallet_addEthereumChain',params:[CHAIN_CONFIG]});}catch(e2){console.error('addChain failed:',e2);return;}}else{console.error('switchChain failed:',e);return;}}provider=new ethers.providers.Web3Provider(ethProvider);signer=provider.getSigner();contract=new ethers.Contract(CONTRACT_ADDRESS,abi,signer);contractOwner=await contract.owner();await loadPlayerRound();await loadUserXp();await loadWalletBalance();startAiRefresh();loadAiSignal();await loadWalletBalance();}}
+function updateChainBadge(){const el=document.querySelector('.chain-badge');if(el)el.innerText=NETWORKS[activeNetwork].name+' · '+NETWORKS[activeNetwork].chainId;}
+const abi=["function placeBet(uint256,uint256,string,bool) payable","function settle(address,uint256)","function claimRefund()","function getPlayerRound(address) view returns(uint256,uint256,uint256,uint256,uint256,uint256,string,uint8,uint8,bool)","function getAllowedDurations() view returns(uint256[])","function balanceInfo() view returns(uint256,uint256)","function liquidityPool() view returns(uint256)","function payoutMultiplier() view returns(uint256)","function minBet() view returns(uint256)","function maxBet() view returns(uint256)","function owner() view returns(address)","function platformFee() view returns(uint256)","function depositLiquidity() payable","function withdrawLiquidity(uint256)","function setPlatformFee(uint256)","function setPayoutMultiplier(uint256)","function setAllowedDurations(uint256[])","function setMinMaxBet(uint256,uint256)","function xpBalance(address) view returns(uint256)","function xpGiven() view returns(uint256)","function xpEpochsDone() view returns(uint256)","function xpEpochNow() view returns(uint256)","function xpStart() view returns(uint256)","function playerCount() view returns(uint256)","function getPlayersWithXp(uint256,uint256) view returns(address[],uint256[])","function xpInfo() view returns(uint256,uint256,uint256)","function distributeXp()","event RoundSettled(address indexed player, bool outcome, uint256 endPrice, uint256 payout)"];
+let provider,signer,contract,user,contractOwner,ethProvider;
+let roundTimerInterval=null;
+let selectedDuration=60;
+let selectedCoin='BTC';
+let activeBets=[];
+let betsRenderInterval=null;
+let playerRoundStatus=0;
+let hasBetThisRound=false;
+let playerBetRoundId=0;
+let tvWidget=null;
+const priceCache={};
+let allPlayers=[];
+let filteredPlayers=[];
+let currentPage=0;
+const PAGE_SIZE=20;
+let xpCountdownInterval=null;
+const COINS={BTC:{symbol:'BINANCE:BTCUSDT',binance:'BTCUSDT',name:'₿ BTC/USDT',color:'#f7931a',label:'₿'},ETH:{symbol:'BINANCE:ETHUSDT',binance:'ETHUSDT',name:'Ξ ETH/USDT',color:'#627eea',label:'Ξ'},BNB:{symbol:'BINANCE:BNBUSDT',binance:'BNBUSDT',name:'B BNB/USDT',color:'#f0b90b',label:'B'},SOL:{symbol:'BINANCE:SOLUSDT',binance:'SOLUSDT',name:'◎ SOL/USDT',color:'#9945ff',label:'◎'},XRP:{symbol:'BINANCE:XRPUSDT',binance:'XRPUSDT',name:'✕ XRP/USDT',color:'#00aae4',label:'✕'}};
+function selectCoin(coin,el){selectedCoin=coin;loadAiSignal(coin);document.querySelectorAll('.coin-tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');const cfg=COINS[coin];document.getElementById('chartCoinName').innerHTML=`<span style="color:${cfg.color}">${cfg.label}</span> ${coin}/USDT`;document.getElementById('tradingAsset').innerText=coin;if(priceCache[coin]){document.getElementById('chartPrice').innerText=priceCache[coin].price;const changeEl=document.getElementById('chartChange');changeEl.innerText=priceCache[coin].change;changeEl.className='chart-change '+priceCache[coin].dir;}else{document.getElementById('chartPrice').innerText='—';}if(priceCache[coin]&&priceCache[coin].raw>0){document.getElementById('lockPrice').innerText=priceCache[coin].price;}else{document.getElementById('lockPrice').innerText='—';}document.getElementById('tv_chart').innerHTML='';tvWidget=new TradingView.widget({container_id:'tv_chart',symbol:cfg.symbol,interval:'1',theme:'dark',width:'100%',height:'100%',autosize:true,hide_side_toolbar:true,allow_symbol_change:false,toolbar_bg:'#0a0a0a',overrides:{"paneProperties.background":"#0d0f0a","paneProperties.backgroundType":"solid","paneProperties.vertGridProperties.color":"rgba(213,253,81,0.04)","paneProperties.horzGridProperties.color":"rgba(213,253,81,0.04)","scalesProperties.textColor":"#666666","scalesProperties.backgroundColor":"#0a0a0a","scalesProperties.lineColor":"#2a2a2a"},loading_screen:{backgroundColor:"#0d0f0a",foregroundColor:"#d5fd51"}});}
+async function connect(){ethProvider=null;if(window.ethereum?.providers?.length){ethProvider=window.ethereum.providers.find(p=>p.isMetaMask&&!p.isBackpack)||window.ethereum.providers.find(p=>p.isMetaMask)||window.ethereum.providers[0];}else if(window.ethereum){ethProvider=window.ethereum;}if(!ethProvider){alert("No wallet found! Please install MetaMask.");return;}try{try{await ethProvider.request({method:'wallet_requestPermissions',params:[{eth_accounts:{}}]});}catch(e){}provider=new ethers.providers.Web3Provider(ethProvider);await provider.send("eth_requestAccounts",[]);const network=await provider.getNetwork();if(network.chainId!==CHAIN_ID){try{await ethProvider.request({method:'wallet_switchEthereumChain',params:[{chainId:CHAIN_CONFIG.chainId}]});}catch(e){if(e.code===4902){await ethProvider.request({method:'wallet_addEthereumChain',params:[CHAIN_CONFIG]});}else{alert("Could not switch chain");return;}}provider=new ethers.providers.Web3Provider(window.ethereum);}signer=provider.getSigner();user=await signer.getAddress();contract=new ethers.Contract(CONTRACT_ADDRESS,abi,signer);contractOwner=await contract.owner();document.getElementById('wallet').innerText=user.slice(0,6)+'...'+user.slice(-4);const btn=document.getElementById('btnConnect');btn.innerText=user.slice(0,6)+'...'+user.slice(-4);btn.classList.add('connected');btn.onclick=null;document.getElementById('btnDisconnect').style.display='block';document.getElementById('xpPanel').style.display='block';document.getElementById('xpBadgeHeader').style.display='flex';await loadUserXp();setInterval(loadUserXp,15000);if(user.toLowerCase()===contractOwner.toLowerCase()){document.getElementById('ownerPanel').style.display='block';await loadOwnerStats();}await loadPlayerRound();setInterval(loadPlayerRound,8000);ethProvider.on('accountsChanged',(accounts)=>{if(!accounts||accounts.length===0){disconnect();}else{user=accounts[0];document.getElementById('wallet').innerText=user.slice(0,6)+'...'+user.slice(-4);loadPlayerRound();loadUserXp();loadWalletBalance();}});ethProvider.on('chainChanged',async(chainIdHex)=>{const newChainId=parseInt(chainIdHex,16);const matched=Object.keys(NETWORKS).find(k=>NETWORKS[k].chainId===newChainId);if(matched){activeNetwork=matched;CONTRACT_ADDRESS=NETWORKS[matched].contract;CHAIN_ID=NETWORKS[matched].chainId;CHAIN_CONFIG=buildChainConfig(matched);document.querySelectorAll('.net-btn').forEach(b=>b.classList.toggle('active',b.dataset.net===matched));updateChainBadge();updateNativeLabels();const faucetBtn=document.querySelector('.btn-faucet');if(faucetBtn)faucetBtn.href=NETWORKS[matched].faucet;}provider=new ethers.providers.Web3Provider(ethProvider);signer=provider.getSigner();contract=new ethers.Contract(CONTRACT_ADDRESS,abi,signer);try{contractOwner=await contract.owner();}catch(e){}await loadPlayerRound();await loadUserXp();await loadWalletBalance();});}catch(e){alert("Connection error: "+e.message);}}
+function disconnect(){provider=null;signer=null;contract=null;user=null;contractOwner=null;playerRoundStatus=0;hasBetThisRound=false;if(roundTimerInterval){clearInterval(roundTimerInterval);roundTimerInterval=null;}if(xpCountdownInterval){clearInterval(xpCountdownInterval);xpCountdownInterval=null;}document.getElementById('btnConnect').innerText='Connect Wallet';document.getElementById('btnConnect').classList.remove('connected');document.getElementById('btnConnect').onclick=connect;document.getElementById('btnDisconnect').style.display='none';document.getElementById('wallet').innerText='Not connected';document.getElementById('walletBalance').style.display='none';document.getElementById('round').innerText='—';document.getElementById('lockPrice').innerText='—';document.getElementById('timeLeftSmall').innerText='—';document.getElementById('resultBanner').className='result-banner';document.getElementById('ownerPanel').style.display='none';document.getElementById('betsSection').style.display='none';document.getElementById('xpPanel').style.display='none';document.getElementById('xpBadgeHeader').style.display='none';setStatus('—','waiting');document.getElementById('payoutBanner').className='payout-banner';document.getElementById('btnNewRound').style.display='none';updateBetButtons();}
+async function loadWalletBalance(){if(!provider||!user)return;try{const raw=await provider.getBalance(user);const bal=parseFloat(ethers.utils.formatEther(raw));const sym=getNativeSym();const formatted=bal>=1?bal.toFixed(4):bal<0.0001?'<0.0001':bal.toFixed(4);document.getElementById('walletBalanceAmt').innerText=formatted;document.getElementById('walletBalanceSym').innerText=sym;document.getElementById('walletBalance').style.display='block';}catch(e){console.warn('loadWalletBalance:',e.message);}}
+async function loadUserXp(){if(!user)return;try{let totalXp=0;let scheduleInfo=null;for(const[netKey,net]of Object.entries(NETWORKS)){try{const netProvider=new ethers.providers.JsonRpcProvider(net.rpc);const netContract=new ethers.Contract(net.contract,abi,netProvider);const[rawXp,info]=await Promise.all([netContract.xpBalance(user),netContract.xpInfo()]);const xp=parseFloat(ethers.utils.formatEther(rawXp));totalXp+=xp;if(netKey===activeNetwork)scheduleInfo=info;}catch(e){}}const xpFormatted=totalXp>=1000?(totalXp/1000).toFixed(1)+'K':totalXp.toFixed(1);document.getElementById('xpAmount').innerText=xpFormatted;document.getElementById('xpHeaderAmount').innerText=xpFormatted+' XP';const rank=totalXp>=10000?'🥇 LEGEND':totalXp>=5000?'🥈 ELITE':totalXp>=1000?'🥉 PRO':totalXp>=100?'⚡ ACTIVE':totalXp>0?'✦ ROOKIE':'Unranked';document.getElementById('xpRank').innerText=rank;if(scheduleInfo){const nextDrop=scheduleInfo[0].toNumber();const weeksLeft=scheduleInfo[1].toNumber();document.getElementById('xpWeeksLeft').innerText=weeksLeft+' weeks left';const pct=Math.round(((17-weeksLeft)/17)*100);document.getElementById('xpProgressPct').innerText=pct+'%';document.getElementById('xpProgressFill').style.width=pct+'%';startXpCountdown(nextDrop);}}catch(e){console.warn('loadUserXp:',e.message);}}
+function startXpCountdown(nextDropTs){if(xpCountdownInterval)clearInterval(xpCountdownInterval);function tick(){const left=nextDropTs-Math.floor(Date.now()/1000);if(left<=0){document.getElementById('xpCountdown').innerText='Now!';clearInterval(xpCountdownInterval);return;}const d=Math.floor(left/86400);const h=Math.floor((left%86400)/3600);const m=Math.floor((left%3600)/60);const s=left%60;document.getElementById('xpCountdown').innerText=d>0?`${d}d ${h}h ${m}m`:`${h}h ${m}m ${s}s`;}tick();xpCountdownInterval=setInterval(tick,1000);}
+async function loadPlayerRound(){if(!contract||!user)return;try{const r=await contract.getPlayerRound(user);const startTime=r[0].toNumber();try{const durs=await contract.getAllowedDurations();const durArr=durs.map(d=>d.toNumber());updateDurationButtons(durArr);}catch(e){}const endTime=r[1].toNumber();const startPrice=r[2].toNumber();const endPrice=r[3].toNumber();const betAmount=r[4];const duration=r[5].toNumber();const asset=r[6];const direction=r[7];const status=r[8];const outcome=r[9];const now=Math.floor(Date.now()/1000);contractRoundEndTime=endTime;const settleBtn=document.getElementById('btnSettle');const roundEl=document.getElementById('round');updateLivePriceDisplay();if(status===0){playerRoundStatus=0;hasBetThisRound=false;roundEl.innerText='—';setStatus('Ready','waiting');settleBtn.style.display='none';document.getElementById('timeLeftSmall').innerText='—';document.getElementById('resultBanner').className='result-banner';document.getElementById('btnNewRound').style.display='none';}else if(status===1&&now<endTime){playerRoundStatus=1;hasBetThisRound=true;playerBetRoundId=startTime;roundEl.innerText='#'+startTime;setStatus('Active','active');settleBtn.style.display='none';document.getElementById('resultBanner').className='result-banner';document.getElementById('btnNewRound').style.display='none';if(activeBets.length===0&&betAmount.gt(0)){const dirLabel=direction===1?'UP':'DOWN';const ep=parseFloat(ethers.utils.formatEther(betAmount));activeBets=[{direction:dirLabel,amount:ep.toFixed(4),endTime,coin:asset||selectedCoin,durationMin:Math.round(duration/60),lockPrice:startPrice,sym:getNativeSym()}];renderBets();if(!betsRenderInterval)betsRenderInterval=setInterval(renderBets,1000);}else if(activeBets.length>0){activeBets[activeBets.length-1].endTime=endTime;}startRoundTimer(endTime);}else if(status===1&&now>=endTime){playerRoundStatus=2;hasBetThisRound=true;roundEl.innerText='#'+startTime;setStatus('Ended','ended');document.getElementById('timeLeftSmall').innerText='—';if(roundTimerInterval){clearInterval(roundTimerInterval);roundTimerInterval=null;}document.getElementById('resultBanner').className='result-banner';settleBtn.style.display='block';settleBtn.disabled=false;settleBtn.onclick=()=>settlePlayer(user);}else if(status===3){playerRoundStatus=3;hasBetThisRound=false;roundEl.innerText='#'+startTime;setStatus('Settled','waiting');settleBtn.style.display='none';if(roundTimerInterval){clearInterval(roundTimerInterval);roundTimerInterval=null;}document.getElementById('timeLeftSmall').innerText='—';const banner=document.getElementById('resultBanner');if(playerBetRoundId===startTime||true){banner.className='result-banner show '+(outcome?'up-won':'down-won');const dirLabel=direction===1?'▲ UP':'▼ DOWN';const ep=ethers.utils.formatEther(betAmount);banner.innerHTML=outcome?`▲ UP WON · Close $${endPrice.toLocaleString()} · +${(parseFloat(ep)*(await contract.payoutMultiplier()).toNumber()/100).toFixed(4)} ${getNativeSym()}`:`▼ DOWN WON · You lost · Close $${endPrice.toLocaleString()}`;}document.getElementById('btnNewRound').style.display='block';document.getElementById('btnNewRound').innerText='▶ Place New Bet';activeBets=[];renderBets();}updateBetButtons();if(contractOwner&&user.toLowerCase()===contractOwner.toLowerCase()){await loadOwnerStats();}}catch(e){console.error('loadPlayerRound:',e.message);}}
+function startRoundTimer(endTime){if(roundTimerInterval)clearInterval(roundTimerInterval);roundTimerInterval=setInterval(async()=>{const left=endTime-Math.floor(Date.now()/1000);if(left>0){document.getElementById('timeLeftSmall').innerText=formatTime(left);}else{document.getElementById('timeLeftSmall').innerText='—';clearInterval(roundTimerInterval);roundTimerInterval=null;playerRoundStatus=2;setStatus('Ended','ended');const sb=document.getElementById('btnSettle');sb.style.display='block';sb.disabled=false;sb.onclick=()=>settlePlayer(user);const hint=document.getElementById('betHint');hint.innerText='Round ended — click Settle to get result!';hint.style.color='var(--neon)';updateBetButtons();}},1000);}
+async function startNewRound(){document.getElementById('payoutBanner').className='payout-banner';document.getElementById('btnNewRound').style.display='none';document.getElementById('resultBanner').className='result-banner';hasBetThisRound=false;playerBetRoundId=0;playerRoundStatus=0;activeBets=[];renderBets();updateBetButtons();}
+function updateBetButtons(){const connected=!!user&&!!contract;const canBet=connected&&(playerRoundStatus===0||playerRoundStatus===3);document.getElementById('btnUp').disabled=!canBet;document.getElementById('btnDown').disabled=!canBet;const durGroup=document.getElementById('durGroup');if(durGroup){durGroup.style.opacity=canBet?'1':'0.4';durGroup.style.pointerEvents=canBet?'auto':'none';}const hint=document.getElementById('betHint');if(!connected){hint.innerText='';}else if(playerRoundStatus===1){hint.innerText='✓ Bet placed — waiting for round to end';hint.style.color='var(--up)';}else if(playerRoundStatus===2){hint.innerText='Round ended — waiting for settlement';hint.style.color='var(--text-muted)';}else if(canBet){hint.innerText='Choose duration and place your bet!';hint.style.color='var(--neon)';}else{hint.innerText='';}}
+async function betUp(){await _bet('UP');}
+async function betDown(){await _bet('DOWN');}
+async function _bet(direction){if(!checkConnected())return;const amount=document.getElementById('amount').value;if(!amount||parseFloat(amount)<=0){alert(`Enter a valid ${getNativeSym()} amount`);return;}document.getElementById('btnUp').disabled=true;document.getElementById('btnDown').disabled=true;try{const val=ethers.utils.parseEther(amount);let coinLockPrice=0;try{coinLockPrice=await fetchCoinPrice(selectedCoin);}catch(e){}if(!coinLockPrice||coinLockPrice<=0){alert('Could not fetch price. Try again.');updateBetButtons();return;}const goUp=direction==='UP';const tx=await contract.placeBet(selectedDuration,coinLockPrice,selectedCoin,goUp,{value:val});await tx.wait();hasBetThisRound=true;document.getElementById('timeLeftSmall').innerText='—';loadWalletBalance();addActiveBet(direction,amount,coinLockPrice);await loadPlayerRound();}catch(e){const msg=e.reason||e.message||'';if(msg.includes('Round already active'))alert('You already have an active round!');else if(msg.includes('Insufficient liquidity'))alert('Not enough liquidity in the pool. Contact owner.');else if(msg.includes('Below min bet'))alert('Bet is below minimum!');else if(msg.includes('Above max bet'))alert('Bet is above maximum!');else if(msg.includes('Invalid duration'))alert('Invalid duration selected!');else alert('Bet failed: '+msg);updateBetButtons();}}
+async function settle(){await settlePlayer(user);}
+async function settlePlayer(playerAddr){if(!checkConnected())return;document.getElementById('btnSettle').disabled=true;try{const rd=await contract.getPlayerRound(playerAddr);const asset=rd[6]||selectedCoin;const closePrice=await fetchCoinPrice(asset);const tx=await contract.settle(playerAddr,closePrice);await tx.wait();document.getElementById('btnSettle').style.display='none';await loadPlayerRound();}catch(e){const msg=e.reason||e.message||'';if(msg.includes('Not ended yet'))alert('Round has not ended yet!');else if(msg.includes('Not authorized'))alert('Not authorized to settle this round!');else alert('Settle failed: '+msg);document.getElementById('btnSettle').disabled=false;}}
+const CG_IDS={BTC:'bitcoin',ETH:'ethereum',BNB:'binancecoin',SOL:'solana',XRP:'ripple'};
+async function fetchCoinPrice(coin){if(priceCache[coin]&&priceCache[coin].raw>0)return Math.round(priceCache[coin].raw);try{const r1=await fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${COINS[coin].binance}`);if(r1.ok){const d=await r1.json();const p=Math.round(parseFloat(d.price));if(p>0)return p;}}catch(e){}try{const r2=await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${CG_IDS[coin]}&vs_currencies=usd`);if(r2.ok){const d=await r2.json();return Math.round(d[CG_IDS[coin]].usd);}}catch(e){}throw new Error('All price sources failed for '+coin);}
+function startPriceWebSocket(){const ws=new WebSocket('wss://stream.binance.com:9443/stream?streams=btcusdt@ticker/ethusdt@ticker/bnbusdt@ticker/solusdt@ticker/xrpusdt@ticker');ws.onmessage=(event)=>{const msg=JSON.parse(event.data);const t=msg.data;if(!t)return;const coinKey=Object.keys(COINS).find(k=>COINS[k].binance===t.s);if(!coinKey)return;const price=parseFloat(t.c);const change=parseFloat(t.P);const fmt=price<10?price.toFixed(4):price<1000?price.toFixed(2):Math.round(price).toLocaleString();const changeStr=(change>=0?'+':'')+change.toFixed(2)+'%';const dir=change>=0?'pos':'neg';priceCache[coinKey]={price:'$'+fmt,change:changeStr,dir,raw:price};trackPriceHistory(coinKey,price);if(coinKey===selectedCoin)updateAiPanel(coinKey,price);const el=document.getElementById('price-'+coinKey);if(el)el.innerText='$'+fmt;if(coinKey===selectedCoin){document.getElementById('chartPrice').innerText='$'+fmt;const changeEl=document.getElementById('chartChange');changeEl.innerText=changeStr;changeEl.className='chart-change '+dir;if(contract&&user){document.getElementById('lockPrice').innerText='$'+fmt;}}};ws.onclose=()=>setTimeout(startPriceWebSocket,3000);ws.onerror=()=>ws.close();}
+let contractRoundEndTime=0;
+function addActiveBet(direction,amount,lockPrice){const endTime=contractRoundEndTime>0?contractRoundEndTime:Math.floor(Date.now()/1000)+selectedDuration;const durMin=Math.round((endTime-Math.floor(Date.now()/1000))/60);activeBets.push({direction,amount,endTime,coin:selectedCoin,durationMin:durMin,lockPrice:lockPrice||0,sym:getNativeSym()});renderBets();if(!betsRenderInterval)betsRenderInterval=setInterval(renderBets,1000);}
+function renderBets(){const list=document.getElementById('betsList');const section=document.getElementById('betsSection');if(!activeBets.length){section.style.display='none';return;}section.style.display='block';const now=Math.floor(Date.now()/1000);list.innerHTML=activeBets.map(bet=>{const endTime=contractRoundEndTime>0?contractRoundEndTime:bet.endTime;const left=endTime-now;const timer=left>0?`<div class="bet-timer">${formatTime(left)}</div>`:`<div class="bet-timer expired">SETTLE</div>`;const dc=bet.direction==='UP'?'up':'down';return`<div class="bet-item"><span class="bet-dir-badge ${dc}">${bet.direction}</span><div class="bet-info"><div class="bet-amount">${parseFloat(bet.amount).toFixed(4)} ${bet.sym||getNativeSym()}</div><div class="bet-meta">${bet.coin} · ${bet.durationMin}m${bet.lockPrice?" · Lock $"+bet.lockPrice.toLocaleString():""}</div></div>${timer}</div>`;}).join('');}
+function formatTime(s){const m=Math.floor(s/60);return m>0?`${m}:${(s%60).toString().padStart(2,'0')}`:`${s}s`;}
+let ownerInitialWalletBal=null;
+let ownerTotalFees=0;
+async function loadOwnerStats(){try{const[liquidity,contractBal]=await contract.balanceInfo();const profitRaw=contractBal.sub(liquidity);const sym=getNativeSym();document.getElementById('ownerBalContract').innerText=parseFloat(ethers.utils.formatEther(contractBal)).toFixed(4)+' '+sym;document.getElementById('ownerBalProfit').innerText=parseFloat(ethers.utils.formatEther(profitRaw)).toFixed(4)+' '+sym;document.getElementById('ownerBalLiquidity').innerText=parseFloat(ethers.utils.formatEther(liquidity)).toFixed(4)+' '+sym;}catch(e){console.error('loadOwnerStats:',e);}}
+async function ownerDeposit(){const amt=document.getElementById('depositAmount').value;if(!amt||parseFloat(amt)<=0){alert('Enter amount');return;}try{const val=ethers.utils.parseEther(amt);const tx=await contract.depositLiquidity({value:val});await tx.wait();document.getElementById('depositAmount').value='';alert('Deposited '+amt+' '+getNativeSym()+' ✓');await loadOwnerStats();}catch(e){alert('Deposit failed: '+(e.reason||e.message));}}
+async function ownerWithdraw(){const amt=document.getElementById('withdrawAmount').value;try{const val=amt&&parseFloat(amt)>0?ethers.utils.parseEther(amt):0;const tx=await contract.withdrawLiquidity(val);await tx.wait();document.getElementById('withdrawAmount').value='';alert('Withdrawn ✓');await loadOwnerStats();}catch(e){alert('Withdraw failed: '+(e.reason||e.message));}}
+async function ownerWithdrawAll(){try{const tx=await contract.withdrawLiquidity(0);await tx.wait();alert('All withdrawn ✓');await loadOwnerStats();}catch(e){alert('Failed: '+(e.reason||e.message));}}
+async function openAdminPanel(){document.getElementById('adminXpPanel').style.display='block';document.body.style.overflow='hidden';await loadAdminData();}
+function closeAdminPanel(){document.getElementById('adminXpPanel').style.display='none';document.body.style.overflow='';}
+async function loadAdminData(){if(!contract)return;try{const[info,epochsDone,epochNow,totalPlayers]=await Promise.all([contract.xpInfo(),contract.xpEpochsDone(),contract.xpEpochNow(),contract.playerCount()]);const nextDrop=info[0].toNumber();const weeksLeft=info[1].toNumber();const xpRemaining=parseFloat(ethers.utils.formatEther(info[2]));const given=1000000-xpRemaining;const givenPct=((given/1000000)*100).toFixed(1);document.getElementById('adminXpGiven').innerText=given.toLocaleString('en',{maximumFractionDigits:0});document.getElementById('adminXpGivenPct').innerText=givenPct+'% distributed';document.getElementById('adminEpochsDone').innerText=epochsDone.toNumber();document.getElementById('adminEpochNow').innerText=epochNow.toNumber();document.getElementById('adminPlayerCount').innerText=totalPlayers.toNumber();document.getElementById('adminXpLeft').innerText=xpRemaining.toLocaleString('en',{maximumFractionDigits:0});const nextDropDate=new Date(nextDrop*1000);const leftSec=nextDrop-Math.floor(Date.now()/1000);const d=Math.floor(leftSec/86400);const h=Math.floor((leftSec%86400)/3600);const m=Math.floor((leftSec%3600)/60);document.getElementById('adminNextDrop').innerText=leftSec>0?(d>0?`${d}d ${h}h`:`${h}h ${m}m`):'Now!';document.getElementById('adminNextDropDate').innerText=nextDropDate.toLocaleDateString('en',{weekday:'short',month:'short',day:'numeric'});await loadAllPlayers(totalPlayers.toNumber());}catch(e){console.error('loadAdminData:',e.message);}}
+async function loadAllPlayers(total){if(!contract||total===0){document.getElementById('playersTableBody').innerHTML='<div class="table-loading">No players yet</div>';return;}document.getElementById('playersTableBody').innerHTML='<div class="table-loading">Loading '+total+' players...</div>';try{allPlayers=[];const batchSize=50;for(let i=0;i<total;i+=batchSize){const limit=Math.min(batchSize,total-i);const[addrs,xps]=await contract.getPlayersWithXp(i,limit);for(let j=0;j<addrs.length;j++){allPlayers.push({address:addrs[j],xp:parseFloat(ethers.utils.formatEther(xps[j]))});}}allPlayers.sort((a,b)=>b.xp-a.xp);allPlayers.forEach((p,i)=>{p.rank=i+1;});filteredPlayers=[...allPlayers];currentPage=0;renderPlayersTable();}catch(e){document.getElementById('playersTableBody').innerHTML='<div class="table-loading">Error loading players: '+e.message+'</div>';}}
+function renderPlayersTable(){const start=currentPage*PAGE_SIZE;const end=Math.min(start+PAGE_SIZE,filteredPlayers.length);const page=filteredPlayers.slice(start,end);if(page.length===0){document.getElementById('playersTableBody').innerHTML='<div class="table-loading">No players found</div>';document.getElementById('tablePagination').style.display='none';return;}const rows=page.map(p=>{const xpFmt=p.xp>=1000?(p.xp/1000).toFixed(2)+'K':p.xp.toFixed(2);const rankBadge=p.rank===1?`<span class="rank-badge rank-1">🥇 #1</span>`:p.rank===2?`<span class="rank-badge rank-2">🥈 #2</span>`:p.rank===3?`<span class="rank-badge rank-3">🥉 #3</span>`:`<span class="rank-badge rank-n">#${p.rank}</span>`;return`<tr><td class="td-rank">${rankBadge}</td><td><div class="td-addr">${p.address.slice(0,6)}...${p.address.slice(-4)}</div><div class="td-addr-full">${p.address}</div></td><td class="td-xp">${xpFmt} XP</td></tr>`;}).join('');document.getElementById('playersTableBody').innerHTML=`<table class="players-table"><thead><tr><th class="right" style="width:70px;">Rank</th><th>Wallet Address</th><th class="right">XP Balance</th></tr></thead><tbody>${rows}</tbody></table>`;const totalPages=Math.ceil(filteredPlayers.length/PAGE_SIZE);document.getElementById('tablePagination').style.display='flex';document.getElementById('pageInfo').innerText=`Showing ${start+1}–${end} of ${filteredPlayers.length} players`;document.getElementById('btnPrev').disabled=currentPage===0;document.getElementById('btnNext').disabled=currentPage>=totalPages-1;}
+function changePage(delta){currentPage+=delta;renderPlayersTable();}
+function filterPlayers(){const q=document.getElementById('playersSearch').value.toLowerCase();filteredPlayers=q?allPlayers.filter(p=>p.address.toLowerCase().includes(q)):[...allPlayers];currentPage=0;renderPlayersTable();}
+async function distributeXp(){if(!contract)return;const btn=document.getElementById('btnDistributeXp');btn.disabled=true;btn.innerText='⏳ Distributing...';try{const tx=await contract.distributeXp();await tx.wait();alert('✓ XP distributed successfully!');await loadAdminData();}catch(e){alert('Distribution failed: '+(e.reason||e.message));btn.disabled=false;btn.innerText='✦ Distribute XP for Current Epoch';}}
+function exportCSV(){if(!allPlayers.length){alert('No data to export');return;}const header='Rank,Address,XP Balance\n';const rows=allPlayers.map(p=>`${p.rank},${p.address},${p.xp.toFixed(18)}`).join('\n');const blob=new Blob([header+rows],{type:'text/csv'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`blockoracle_xp_${new Date().toISOString().split('T')[0]}.csv`;a.click();URL.revokeObjectURL(url);}
+function updateLivePriceDisplay(){const el=document.getElementById('lockPrice');if(priceCache[selectedCoin]&&priceCache[selectedCoin].raw>0){el.innerText=priceCache[selectedCoin].price;}else{fetchCoinPrice(selectedCoin).then(p=>{el.innerText='$'+p.toLocaleString();}).catch(()=>{});}}
+function setStatus(text,type){const el=document.getElementById('roundStatus');el.innerText=text;el.className='status-pill status-'+type;}
+function selectDuration(sec,btn){selectedDuration=sec;document.querySelectorAll('.dur-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
+function updateDurationButtons(durs){const group=document.getElementById('durGroup');if(!group)return;if(group.children.length===durs.length){group.style.display='flex';group.querySelectorAll('.dur-btn').forEach(b=>{const sec=durs.find(d=>Math.round(d/60)+'m'===b.innerText||d+'s'===b.innerText);b.classList.toggle('active',sec===selectedDuration);});return;}group.innerHTML='';group.style.display='flex';durs.forEach((sec)=>{const label=sec<60?sec+'s':Math.round(sec/60)+'m';const btn=document.createElement('button');btn.className='dur-btn'+(sec===selectedDuration?' active':'');btn.innerText=label;btn.onclick=()=>selectDuration(sec,btn);group.appendChild(btn);});if(durs.length>0&&!durs.includes(selectedDuration)){selectedDuration=durs[0];}}
+function checkConnected(){if(!user||!contract){alert('Please connect your wallet first');return false;}return true;}
+tvWidget=new TradingView.widget({container_id:'tv_chart',symbol:'BINANCE:BTCUSDT',interval:'1',theme:'dark',width:'100%',height:'100%',autosize:true,hide_side_toolbar:true,allow_symbol_change:false});
 startPriceWebSocket();
-
-// ─── Graffiti background ──────────────────────────────────────────────────────
-(function() {
-  const canvas = document.getElementById('graffiti-bg');
-  const ctx = canvas.getContext('2d');
-  const NEON = '#d5fd51';
-  const NEON2 = '#b8e530';
-  const WHITE = 'rgba(255,255,255,0.07)';
-  const DIM = 'rgba(213,253,81,0.08)';
-
-  function resize() {
-    canvas.width  = window.innerWidth;
-    canvas.height = window.innerHeight;
-    draw();
-  }
-
-  function randInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
-  function rand(min, max) { return Math.random() * (max - min) + min; }
-
-  // Seeded random so it's consistent per session
-  let seed = 42;
-  function srnd() {
-    seed = (seed * 16807 + 0) % 2147483647;
-    return (seed - 1) / 2147483646;
-  }
-  function srandInt(min, max) { return Math.floor(srnd() * (max - min + 1)) + min; }
-  function srand(min, max) { return srnd() * (max - min) + min; }
-
-  function drawSprayPaint(ctx, x, y, radius, color, density = 60) {
-    ctx.save();
-    for (let i = 0; i < density; i++) {
-      const angle = srnd() * Math.PI * 2;
-      const r = Math.pow(srnd(), 0.5) * radius;
-      const px = x + Math.cos(angle) * r;
-      const py = y + Math.sin(angle) * r;
-      const alpha = srand(0.02, 0.18);
-      ctx.globalAlpha = alpha;
-      ctx.fillStyle = color;
-      ctx.beginPath();
-      ctx.arc(px, py, srand(0.5, 2.5), 0, Math.PI * 2);
-      ctx.fill();
-    }
-    ctx.restore();
-  }
-
-  function drawGraffitiLetter(ctx, x, y, letter, size, color, angle = 0) {
-    ctx.save();
-    ctx.translate(x, y);
-    ctx.rotate(angle);
-
-    // Outline / drip effect
-    ctx.font = `900 ${size}px 'Syne', sans-serif`;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-
-    // Spray halo
-    drawSprayPaint(ctx, 0, 0, size * 0.7, color, 80);
-
-    // Shadow layers for depth
-    ctx.shadowColor = color;
-    ctx.shadowBlur = size * 0.3;
-    ctx.globalAlpha = 0.06;
-    ctx.fillStyle = color;
-    ctx.fillText(letter, 3, 6);
-
-    // Outline stroke
-    ctx.globalAlpha = 0.18;
-    ctx.strokeStyle = color;
-    ctx.lineWidth = size * 0.08;
-    ctx.lineJoin = 'round';
-    ctx.strokeText(letter, 0, 0);
-
-    // Fill
-    ctx.globalAlpha = 0.09;
-    ctx.fillStyle = color;
-    ctx.fillText(letter, 0, 0);
-
-    // Drip
-    const dripCount = srandInt(1, 3);
-    for (let d = 0; d < dripCount; d++) {
-      const dx = srand(-size * 0.3, size * 0.3);
-      const dripLen = srand(size * 0.2, size * 0.9);
-      const dripW = srand(2, 6);
-      ctx.globalAlpha = 0.12;
-      ctx.strokeStyle = color;
-      ctx.lineWidth = dripW;
-      ctx.lineCap = 'round';
-      ctx.beginPath();
-      ctx.moveTo(dx, size * 0.4);
-      ctx.bezierCurveTo(
-        dx + srand(-8, 8), size * 0.5 + dripLen * 0.3,
-        dx + srand(-8, 8), size * 0.5 + dripLen * 0.7,
-        dx + srand(-4, 4), size * 0.4 + dripLen
-      );
-      ctx.stroke();
-      // Drip end blob
-      ctx.globalAlpha = 0.1;
-      ctx.beginPath();
-      ctx.arc(dx + srand(-4,4), size * 0.4 + dripLen, dripW * 1.5, 0, Math.PI * 2);
-      ctx.fillStyle = color;
-      ctx.fill();
-    }
-
-    ctx.restore();
-  }
-
-  function drawTag(ctx, x, y, text, size, color, skew = 0) {
-    ctx.save();
-    ctx.translate(x, y);
-    ctx.transform(1, 0, skew, 1, 0, 0);
-
-    const letters = text.split('');
-    let ox = 0;
-    for (const l of letters) {
-      const angle = srand(-0.15, 0.15);
-      const vertJitter = srand(-size * 0.15, size * 0.15);
-      drawGraffitiLetter(ctx, ox, vertJitter, l, size, color, angle);
-      ox += size * srand(0.55, 0.72);
-    }
-    ctx.restore();
-  }
-
-  function drawLine(ctx, x1, y1, x2, y2, color, width, alpha) {
-    ctx.save();
-    ctx.globalAlpha = alpha;
-    ctx.strokeStyle = color;
-    ctx.lineWidth = width;
-    ctx.lineCap = 'round';
-    ctx.shadowColor = color;
-    ctx.shadowBlur = width * 3;
-    ctx.beginPath();
-    ctx.moveTo(x1, y1);
-    ctx.lineTo(x2, y2);
-    ctx.stroke();
-    ctx.restore();
-  }
-
-  function drawArrow(ctx, x, y, size, color) {
-    ctx.save();
-    ctx.translate(x, y);
-    ctx.rotate(srand(-0.3, 0.3));
-    ctx.globalAlpha = 0.12;
-    ctx.strokeStyle = color;
-    ctx.lineWidth = size * 0.08;
-    ctx.lineJoin = 'round';
-    ctx.lineCap = 'round';
-    ctx.shadowColor = color;
-    ctx.shadowBlur = 10;
-    ctx.beginPath();
-    // Arrow up
-    ctx.moveTo(0, size * 0.5);
-    ctx.lineTo(0, -size * 0.5);
-    ctx.moveTo(-size * 0.3, -size * 0.2);
-    ctx.lineTo(0, -size * 0.5);
-    ctx.lineTo(size * 0.3, -size * 0.2);
-    ctx.stroke();
-    ctx.restore();
-  }
-
-  function drawHexagon(ctx, x, y, r, color) {
-    ctx.save();
-    ctx.translate(x, y);
-    ctx.rotate(srand(0, Math.PI));
-    ctx.globalAlpha = srand(0.04, 0.1);
-    ctx.strokeStyle = color;
-    ctx.lineWidth = srand(1, 4);
-    ctx.shadowColor = color;
-    ctx.shadowBlur = 8;
-    ctx.beginPath();
-    for (let i = 0; i < 6; i++) {
-      const angle = (Math.PI / 3) * i;
-      const px = Math.cos(angle) * r;
-      const py = Math.sin(angle) * r;
-      i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
-    }
-    ctx.closePath();
-    ctx.stroke();
-    ctx.restore();
-  }
-
-  function draw() {
-    const W = canvas.width;
-    const H = canvas.height;
-    seed = 42; // reset seed for consistent render
-
-    ctx.clearRect(0, 0, W, H);
-
-    // ── Base: deep dark gradient (not pure black) ──
-    const bgGrad = ctx.createLinearGradient(0, 0, W, H);
-    bgGrad.addColorStop(0,   '#0d1a0a');
-    bgGrad.addColorStop(0.3, '#0a0f1a');
-    bgGrad.addColorStop(0.6, '#130d1f');
-    bgGrad.addColorStop(1,   '#0a1410');
-    ctx.fillStyle = bgGrad;
-    ctx.fillRect(0, 0, W, H);
-
-    // ── Ink splat blobs — big color explosions ──
-    const blobs = [
-      { x: W*0.08,  y: H*0.15, r: W*0.22, c: 'rgba(213,253,81,',  a: 0.13 },
-      { x: W*0.85,  y: H*0.75, r: W*0.28, c: 'rgba(213,253,81,',  a: 0.10 },
-      { x: W*0.5,   y: H*0.5,  r: W*0.35, c: 'rgba(74,222,128,',  a: 0.07 },
-      { x: W*0.9,   y: H*0.1,  r: W*0.18, c: 'rgba(248,113,113,', a: 0.10 },
-      { x: W*0.1,   y: H*0.85, r: W*0.20, c: 'rgba(248,113,113,', a: 0.08 },
-      { x: W*0.55,  y: H*0.2,  r: W*0.15, c: 'rgba(184,229,48,',  a: 0.09 },
-      { x: W*0.25,  y: H*0.55, r: W*0.12, c: 'rgba(213,253,81,',  a: 0.08 },
-      { x: W*0.75,  y: H*0.45, r: W*0.16, c: 'rgba(74,222,128,',  a: 0.08 },
-    ];
-
-    for (const b of blobs) {
-      // Radial splat
-      const g = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
-      g.addColorStop(0,   b.c + (b.a * 2.5) + ')');
-      g.addColorStop(0.4, b.c + b.a + ')');
-      g.addColorStop(0.75, b.c + (b.a * 0.3) + ')');
-      g.addColorStop(1,   b.c + '0)');
-      ctx.globalAlpha = 1;
-      ctx.fillStyle = g;
-      ctx.beginPath();
-      ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Splatter droplets around blob
-      const color = b.c + (b.a * 3) + ')';
-      for (let s = 0; s < 18; s++) {
-        const angle = srnd() * Math.PI * 2;
-        const dist  = srand(b.r * 0.5, b.r * 1.6);
-        const sx = b.x + Math.cos(angle) * dist;
-        const sy = b.y + Math.sin(angle) * dist;
-        const sr2 = srand(2, b.r * 0.12);
-        ctx.globalAlpha = srand(0.05, 0.18);
-        ctx.fillStyle = b.c + (b.a * 4) + ')';
-        ctx.beginPath();
-        // Elongated splat drop
-        ctx.save();
-        ctx.translate(sx, sy);
-        ctx.rotate(angle + Math.PI/2);
-        ctx.ellipse(0, 0, sr2 * 0.5, sr2, 0, 0, Math.PI * 2);
-        ctx.restore();
-        ctx.fill();
-      }
-    }
-
-    // ── Spray strokes — wide brush marks ──
-    const strokes = [
-      { x1: W*0.0,  y1: H*0.3,  x2: W*0.4,  y2: H*0.15, c: NEON,            w: 80 },
-      { x1: W*0.6,  y1: H*0.85, x2: W*1.0,  y2: H*0.65, c: NEON2,           w: 60 },
-      { x1: W*0.2,  y1: H*0.9,  x2: W*0.7,  y2: H*0.95, c: '#4ade80',       w: 50 },
-      { x1: W*0.7,  y1: H*0.0,  x2: W*0.95, y2: H*0.35, c: '#f87171',       w: 55 },
-      { x1: W*0.0,  y1: H*0.65, x2: W*0.25, y2: H*0.5,  c: NEON,            w: 40 },
-    ];
-
-    for (const s of strokes) {
-      const sg = ctx.createLinearGradient(s.x1, s.y1, s.x2, s.y2);
-      sg.addColorStop(0,   s.c + '00');
-      sg.addColorStop(0.3, s.c + '22');
-      sg.addColorStop(0.5, s.c + '18');
-      sg.addColorStop(1,   s.c + '00');
-      ctx.globalAlpha = 1;
-      ctx.strokeStyle = sg;
-      ctx.lineWidth = s.w;
-      ctx.lineCap = 'round';
-      ctx.shadowColor = s.c;
-      ctx.shadowBlur = s.w * 0.8;
-      ctx.beginPath();
-      ctx.moveTo(s.x1, s.y1);
-      const mx = (s.x1 + s.x2) / 2 + srand(-W*0.1, W*0.1);
-      const my = (s.y1 + s.y2) / 2 + srand(-H*0.1, H*0.1);
-      ctx.quadraticCurveTo(mx, my, s.x2, s.y2);
-      ctx.stroke();
-      ctx.shadowBlur = 0;
-    }
-
-    // ── Concrete texture: noise ──
-    for (let i = 0; i < 4000; i++) {
-      ctx.globalAlpha = srand(0.01, 0.05);
-      ctx.fillStyle = srnd() > 0.6 ? '#ffffff' : (srnd() > 0.5 ? NEON : '#333');
-      const px = srnd() * W, py = srnd() * H;
-      ctx.fillRect(px, py, srand(0.5, 2), srand(0.5, 2));
-    }
-
-    // Big background tags - words scattered
-    const words = ['BLOCKORACLE', 'UP', 'DOWN', 'BTC', 'PREDICT', 'WIN', 'CHAIN', '0x'];
-    const colors = [NEON, NEON2, 'rgba(255,255,255,0.6)', NEON];
-
-    // Large background word
-    drawTag(ctx, W * 0.02, H * 0.18, 'BLOCKORACLE', Math.min(W * 0.075, 90), NEON, -0.05);
-    drawTag(ctx, W * 0.55, H * 0.72, 'ROBINHOOD', Math.min(W * 0.065, 80), NEON2, 0.04);
-    drawTag(ctx, W * 0.05, H * 0.82, 'BTC', Math.min(W * 0.1, 120), NEON, -0.08);
-    drawTag(ctx, W * 0.6, H * 0.12, 'PREDICT', Math.min(W * 0.055, 70), 'rgba(255,255,255,0.5)', 0.06);
-    drawTag(ctx, W * 0.3, H * 0.45, 'WIN', Math.min(W * 0.12, 140), NEON2, -0.03);
-    drawTag(ctx, W * 0.7, H * 0.38, '0xCHAIN', Math.min(W * 0.045, 55), NEON, 0.03);
-    drawTag(ctx, W * 0.15, H * 0.6, 'UP', Math.min(W * 0.09, 110), NEON, 0.05);
-    drawTag(ctx, W * 0.75, H * 0.6, 'DOWN', Math.min(W * 0.07, 85), '#f87171', -0.04);
-
-    // Hexagons (blockchain motif)
-    for (let i = 0; i < 18; i++) {
-      drawHexagon(ctx, srnd() * W, srnd() * H, srand(20, 90), i % 3 === 0 ? NEON : NEON2);
-    }
-
-    // Arrows (UP / DOWN arrows)
-    for (let i = 0; i < 12; i++) {
-      drawArrow(ctx, srnd() * W, srnd() * H, srand(30, 80), srnd() > 0.5 ? NEON : '#f87171');
-    }
-
-    // Scratchy tag lines
-    for (let i = 0; i < 25; i++) {
-      const x1 = srnd() * W, y1 = srnd() * H;
-      const x2 = x1 + srand(-200, 200), y2 = y1 + srand(-80, 80);
-      drawLine(ctx, x1, y1, x2, y2, srnd() > 0.7 ? NEON : 'rgba(255,255,255,0.3)', srand(0.5, 3), srand(0.02, 0.07));
-    }
-
-    // Spray circles (random spots)
-    for (let i = 0; i < 20; i++) {
-      drawSprayPaint(ctx, srnd() * W, srnd() * H, srand(30, 120), srnd() > 0.5 ? NEON : NEON2, 40);
-    }
-
-    // Semi-transparent dark overlay so UI stays readable
-    ctx.globalAlpha = 0.55;
-    ctx.fillStyle = '#080808';
-    ctx.fillRect(0, 0, W, H);
-
-    // Vignette edges
-    const vignette = ctx.createRadialGradient(W/2, H/2, H*0.2, W/2, H/2, H);
-    vignette.addColorStop(0,   'rgba(0,0,0,0)');
-    vignette.addColorStop(0.7, 'rgba(0,0,0,0.2)');
-    vignette.addColorStop(1,   'rgba(0,0,0,0.75)');
-    ctx.globalAlpha = 1;
-    ctx.fillStyle = vignette;
-    ctx.fillRect(0, 0, W, H);
-  }
-
-  window.addEventListener('resize', resize);
-  // Wait for Syne font to load for text rendering
-  document.fonts.ready.then(resize);
-  resize();
--e 
+updateNativeLabels();
+(function(){const canvas=document.getElementById('graffiti-bg');const ctx=canvas.getContext('2d');const NEON='#d5fd51';const NEON2='#b8e530';let seed=42;function srnd(){seed=(seed*16807)%2147483647;return(seed-1)/2147483646;}function srand(a,b){return srnd()*(b-a)+a;}function srandInt(a,b){return Math.floor(srand(a,b+1));}function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;draw();}function drawSprayPaint(cx,x,y,radius,color,density){cx.save();for(let i=0;i<density;i++){const angle=srnd()*Math.PI*2;const r=Math.pow(srnd(),0.5)*radius;cx.globalAlpha=srand(0.02,0.18);cx.fillStyle=color;cx.beginPath();cx.arc(x+Math.cos(angle)*r,y+Math.sin(angle)*r,srand(0.5,2.5),0,Math.PI*2);cx.fill();}cx.restore();}function drawGraffitiLetter(cx,x,y,letter,size,color,angle){cx.save();cx.translate(x,y);cx.rotate(angle);cx.font=`900 ${size}px 'Syne',sans-serif`;cx.textAlign='center';cx.textBaseline='middle';drawSprayPaint(cx,0,0,size*0.7,color,80);cx.shadowColor=color;cx.shadowBlur=size*0.3;cx.globalAlpha=0.06;cx.fillStyle=color;cx.fillText(letter,3,6);cx.globalAlpha=0.18;cx.strokeStyle=color;cx.lineWidth=size*0.08;cx.lineJoin='round';cx.strokeText(letter,0,0);cx.globalAlpha=0.09;cx.fillStyle=color;cx.fillText(letter,0,0);const dc=srandInt(1,3);for(let d=0;d<dc;d++){const dx=srand(-size*0.3,size*0.3);const dl=srand(size*0.2,size*0.9);const dw=srand(2,6);cx.globalAlpha=0.12;cx.strokeStyle=color;cx.lineWidth=dw;cx.lineCap='round';cx.beginPath();cx.moveTo(dx,size*0.4);cx.bezierCurveTo(dx+srand(-8,8),size*0.5+dl*0.3,dx+srand(-8,8),size*0.5+dl*0.7,dx+srand(-4,4),size*0.4+dl);cx.stroke();}cx.restore();}function drawTag(cx,x,y,text,size,color,skew){cx.save();cx.translate(x,y);cx.transform(1,0,skew,1,0,0);let ox=0;for(const l of text.split('')){drawGraffitiLetter(cx,ox,srand(-size*0.15,size*0.15),l,size,color,srand(-0.15,0.15));ox+=size*srand(0.55,0.72);}cx.restore();}function drawHexagon(cx,x,y,r,color){cx.save();cx.translate(x,y);cx.rotate(srnd()*Math.PI);cx.globalAlpha=srand(0.04,0.1);cx.strokeStyle=color;cx.lineWidth=srand(1,4);cx.shadowColor=color;cx.shadowBlur=8;cx.beginPath();for(let i=0;i<6;i++){const a=(Math.PI/3)*i;i===0?cx.moveTo(Math.cos(a)*r,Math.sin(a)*r):cx.lineTo(Math.cos(a)*r,Math.sin(a)*r);}cx.closePath();cx.stroke();cx.restore();}function draw(){const W=canvas.width,H=canvas.height;seed=42;ctx.clearRect(0,0,W,H);const bg=ctx.createLinearGradient(0,0,W,H);bg.addColorStop(0,'#0d1a0a');bg.addColorStop(0.3,'#0a0f1a');bg.addColorStop(0.6,'#130d1f');bg.addColorStop(1,'#0a1410');ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);const blobs=[{x:W*0.08,y:H*0.15,r:W*0.22,c:'rgba(213,253,81,',a:0.13},{x:W*0.85,y:H*0.75,r:W*0.28,c:'rgba(213,253,81,',a:0.10},{x:W*0.5,y:H*0.5,r:W*0.35,c:'rgba(74,222,128,',a:0.07},{x:W*0.9,y:H*0.1,r:W*0.18,c:'rgba(248,113,113,',a:0.10},{x:W*0.1,y:H*0.85,r:W*0.20,c:'rgba(248,113,113,',a:0.08}];for(const b of blobs){const g=ctx.createRadialGradient(b.x,b.y,0,b.x,b.y,b.r);g.addColorStop(0,b.c+(b.a*2.5)+')');g.addColorStop(0.4,b.c+b.a+')');g.addColorStop(0.75,b.c+(b.a*0.3)+')');g.addColorStop(1,b.c+'0)');ctx.globalAlpha=1;ctx.fillStyle=g;ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,Math.PI*2);ctx.fill();}for(let i=0;i<3000;i++){ctx.globalAlpha=srand(0.01,0.05);ctx.fillStyle=srnd()>0.6?'#ffffff':(srnd()>0.5?NEON:'#333');ctx.fillRect(srnd()*W,srnd()*H,srand(0.5,2),srand(0.5,2));}drawTag(ctx,W*0.02,H*0.18,'BLOCKORACLE',Math.min(W*0.075,90),NEON,-0.05);drawTag(ctx,W*0.55,H*0.72,'ROBINHOOD',Math.min(W*0.065,80),NEON2,0.04);drawTag(ctx,W*0.05,H*0.82,'BTC',Math.min(W*0.1,120),NEON,-0.08);drawTag(ctx,W*0.6,H*0.12,'PREDICT',Math.min(W*0.055,70),'rgba(255,255,255,0.5)',0.06);drawTag(ctx,W*0.3,H*0.45,'WIN',Math.min(W*0.12,140),NEON2,-0.03);drawTag(ctx,W*0.7,H*0.38,'0xCHAIN',Math.min(W*0.045,55),NEON,0.03);for(let i=0;i<14;i++)drawHexagon(ctx,srnd()*W,srnd()*H,srand(20,90),i%3===0?NEON:NEON2);ctx.globalAlpha=0.55;ctx.fillStyle='#080808';ctx.fillRect(0,0,W,H);const vignette=ctx.createRadialGradient(W/2,H/2,H*0.2,W/2,H/2,H);vignette.addColorStop(0,'rgba(0,0,0,0)');vignette.addColorStop(0.7,'rgba(0,0,0,0.2)');vignette.addColorStop(1,'rgba(0,0,0,0.75)');ctx.globalAlpha=1;ctx.fillStyle=vignette;ctx.fillRect(0,0,W,H);}window.addEventListener('resize',resize);document.fonts.ready.then(resize);resize();})();
+let aiLastCoin=null;
+let aiRefreshInterval=null;
+let aiLoading=false;
+const priceHistory={};
+function trackPriceHistory(coin,price){if(!priceHistory[coin])priceHistory[coin]=[];priceHistory[coin].push({price,time:Date.now()});if(priceHistory[coin].length>30)priceHistory[coin].shift();}
+function calcLocalSignal(coin,currentPrice){const hist=priceHistory[coin]||[];if(hist.length<2)return null;const prices=hist.map(h=>h.price);const n=prices.length;const sma5=prices.slice(-5).reduce((a,b)=>a+b,0)/Math.min(5,n);const sma15=prices.slice(-15).reduce((a,b)=>a+b,0)/Math.min(15,n);const oldest=prices[Math.max(0,n-10)];const momentum=((currentPrice-oldest)/oldest)*100;const avg=prices.reduce((a,b)=>a+b,0)/n;const variance=prices.reduce((a,b)=>a+(b-avg)**2,0)/n;const stddev=Math.sqrt(variance);const volatility=(stddev/avg)*100;const trendUp=sma5>sma15;const strongTrend=Math.abs(momentum)>0.1;const support=Math.min(...prices.slice(-20))*0.9995;const resistance=Math.max(...prices.slice(-20))*1.0005;let upPct=50;if(trendUp)upPct+=12;else upPct-=12;if(momentum>0.05)upPct+=8;else if(momentum<-0.05)upPct-=8;if(currentPrice<avg)upPct+=5;else upPct-=5;let gains=0,losses=0;for(let i=1;i<prices.length;i++){const diff=prices[i]-prices[i-1];if(diff>0)gains+=diff;else losses-=diff;}const rsi=losses===0?100:100-(100/(1+gains/losses));if(rsi>65)upPct-=8;if(rsi<35)upPct+=8;upPct=Math.max(20,Math.min(80,Math.round(upPct)));const downPct=100-upPct;let sentiment='neutral';if(upPct>=58)sentiment='bullish';else if(upPct<=42)sentiment='bearish';const rsiStr=rsi.toFixed(0);let signal='';if(rsi>65)signal=`RSI ${rsiStr} — overbought, watch for reversal`;else if(rsi<35)signal=`RSI ${rsiStr} — oversold, potential bounce`;else if(trendUp&&strongTrend)signal=`Uptrend active · momentum ${momentum.toFixed(2)}%`;else if(!trendUp&&strongTrend)signal=`Downtrend active · momentum ${momentum.toFixed(2)}%`;else signal=`Consolidation · vol ${volatility.toFixed(3)}% · RSI ${rsiStr}`;return{upPct,downPct,sentiment,support,resistance,signal,rsi:rsi.toFixed(0)};}
+function updateAiPanel(coin,price){if(aiLoading)return;const sig=calcLocalSignal(coin,price);if(!sig)return;const coinLabel=document.getElementById('aiCoinLabel');if(coinLabel)coinLabel.innerText=coin;document.getElementById('aiLoading').style.display='none';document.getElementById('aiContent').style.display='block';document.getElementById('aiProbUp').style.width=sig.upPct+'%';document.getElementById('aiProbDown').style.width=sig.downPct+'%';document.getElementById('aiPctUp').innerText=sig.upPct;document.getElementById('aiPctDown').innerText=sig.downPct;const sentEl=document.getElementById('aiSentiment');sentEl.innerText=sig.sentiment.toUpperCase();sentEl.className='ai-sentiment-badge '+sig.sentiment;document.getElementById('aiLevels').innerHTML=`<span class="ai-level-r">R $${sig.resistance.toLocaleString(undefined,{maximumFractionDigits:2})}</span>`+`<span class="ai-level-divider">·</span>`+`<span class="ai-level-s">S $${sig.support.toLocaleString(undefined,{maximumFractionDigits:2})}</span>`+`<span class="ai-rsi">RSI ${sig.rsi}</span>`;if(document.getElementById('aiSignalLine'))document.getElementById('aiSignalLine').innerText=sig.signal;const hAi=document.getElementById('headerAi');if(hAi){document.getElementById('haiCoin').innerText=coin;document.getElementById('haiBarUp').style.width=sig.upPct+'%';document.getElementById('haiBarDown').style.width=sig.downPct+'%';document.getElementById('haiPctUp').innerText=sig.upPct;document.getElementById('haiPctDown').innerText=sig.downPct;const hSent=document.getElementById('haiSentiment');hSent.innerText=sig.sentiment.toUpperCase();hSent.className='hai-sentiment '+sig.sentiment;document.getElementById('haiLevels').innerHTML='<span class="hai-lvl-r">R $'+sig.resistance.toLocaleString(undefined,{maximumFractionDigits:2})+'</span>'+'<span style="color:var(--border)">·</span>'+'<span class="hai-lvl-s">S $'+sig.support.toLocaleString(undefined,{maximumFractionDigits:2})+'</span>';const rsiNum=parseFloat(sig.rsi);const rsiColor=rsiNum>65?'#ff4466':rsiNum<35?'#00cc44':'var(--text)';document.getElementById('haiRsi').innerHTML='<span style="color:'+rsiColor+'">'+sig.rsi+'</span>';const buyVol=sig.upPct;const sellVol=sig.downPct;document.getElementById('haiVol').innerHTML=`<span class="hai-buy">B ${buyVol}%</span><span class="hai-sell">S ${sellVol}%</span>`;document.getElementById('haiSignalText').innerText=sig.signal;}}
+async function loadAiSignal(coin,price){if(!coin)coin=selectedCoin;if(!price)price=priceCache[coin]?.raw||0;if(!price)return;updateAiPanel(coin,price);}
+function startAiRefresh(){if(aiRefreshInterval)clearInterval(aiRefreshInterval);loadAiSignal();aiRefreshInterval=setInterval(()=>{const p=priceCache[selectedCoin]?.raw||0;if(p){trackPriceHistory(selectedCoin,p);updateAiPanel(selectedCoin,p);}},5000);}
+window.connect=connect;
+window.loadAiSignal=loadAiSignal;
+window.startAiRefresh=startAiRefresh;
+window.switchNetwork=switchNetwork;
+window.settlePlayer=settlePlayer;
+window.disconnect=disconnect;
+(function(){var btnC=document.getElementById('btnConnect');var btnD=document.getElementById('btnDisconnect');if(btnC)btnC.onclick=connect;if(btnD)btnD.onclick=disconnect;})();
+window.selectCoin=selectCoin;
+window.selectDuration=selectDuration;
+window.betUp=betUp;
+window.betDown=betDown;
+window.settle=settle;
+window.startNewRound=startNewRound;
+window.playerStartRound=playerStartRound;
+window.ownerDeposit=ownerDeposit;
+window.ownerWithdraw=ownerWithdraw;
+window.ownerWithdrawAll=ownerWithdrawAll;
+window.ownerSetDuration=ownerSetDuration;
+window.openAdminPanel=openAdminPanel;
+window.closeAdminPanel=closeAdminPanel;
+window.distributeXp=distributeXp;
+window.exportCSV=exportCSV;
+window.filterPlayers=filterPlayers;
+window.changePage=changePage;
 </script>
 </body>
 </html>
